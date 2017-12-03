@@ -27,6 +27,21 @@ jQuery(document).ready(function($){
 		window.location.href = $(this).val();
 		return;
 	});
+
+	$( '#nav li:has(ul)' ).doubleTapToGo();
+
+	var identifier = window.location.hash;
+	if (identifier === "#request") {
+		$('html, body').animate({
+			scrollTop: $("#requestQuoteDiv").offset().top
+		}, 1000);
+	}
+
+	$("a.requestQuote").click(function () {
+		$('html, body').animate({
+			scrollTop: $("#requestQuoteDiv").offset().top
+		}, 1000);
+	});
 	
 	//slider
 	$(".slider").carouFredSel({
