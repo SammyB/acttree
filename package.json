@@ -1,17 +1,18 @@
 {
   "name": "ACTtree",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Sam Brunno CagedMonkey.com.au",
   "dependencies": {
     "gifsicle": "^3.0.4",
     "global": "^4.3.2",
-    "grunt-cli": "^1.2.0",
+    "grunt-cli": "^1.3.2",
     "pngquant": "^1.3.0",
-    "ruby": "^0.6.1"
+    "ruby": "^0.6.1",
+    "yarn": "^1.12.3"
   },
   "devDependencies": {
     "compass": "^0.1.1",
-    "grunt": "^1.0.2",
+    "grunt": "^1.0.3",
     "grunt-compass": "~0.3.9",
     "grunt-concat": "~0.1.6",
     "grunt-contrib-clean": "~1.1.0",
@@ -21,8 +22,8 @@
     "grunt-contrib-cssmin": "~2.2.1",
     "grunt-contrib-imagemin": "~2.0.1",
     "grunt-contrib-sass": "~1.0.0",
-    "grunt-contrib-uglify": "~3.3.0",
-    "grunt-contrib-watch": "~1.0.0",
+    "grunt-contrib-uglify": "~3.4.0",
+    "grunt-contrib-watch": "~1.1.0",
     "grunt-sass": "^2.1.0",
     "matchdep": "~2.0.0"
   },
