@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 						'scripts/jquery.ui.tabs.min.js',
 						'scripts/jquery.ba-bbq.min.js',
 						'scripts/jquery.easing.1.3.js',
-						'scripts/jquery.carouFredSel-5.6.1-packed.js',
+						'scripts/jquery.carouFredSel-6.2.1-packed.js',
 						'scripts/jquery.timeago.js',
 						'scripts/jquery.hint.js',
 						'scripts/jquery.isotope.min.js',
@@ -47,7 +47,6 @@ module.exports = function(grunt) {
 						'scripts/doubletaptogo.js',
 						'scripts/main.js',
 						'scripts/contact_form.js',
-						'scripts/content.js'
 					]
 				}
 			},
@@ -58,6 +57,7 @@ module.exports = function(grunt) {
 					'css/output.min.css': [
 						'css/reset.css',
 						'css/superfish.css',
+						'css/swiper.min.css',
 						'css/jquery.fancybox.css',
 						'css/jquery.fileupload.css',
 						'css/jquery.qtip.css',

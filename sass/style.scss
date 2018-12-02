@@ -675,6 +675,7 @@ body.content .footer {
 .caroufredsel_wrapper
 {
 	width: 100% !important;
+	height: 620px;
 	margin: 0 !important;
 	overflow: hidden;
 }
@@ -686,11 +687,15 @@ body.content .footer {
 {
 	/*position: absolute;*/
 	padding: 0;
+	height: 620px;
+	overflow: hidden;
 }
 .slider li
 {
 	float: left;
+	width: 100%;
 	height: 620px;
+	overflow: hidden;
 	background-position: top center;
 	background-repeat: no-repeat;
 	list-style: none;
@@ -708,9 +713,9 @@ body.content .footer {
 .slider_content_box
 {
 	margin-top: -440px;
-	
+
 	min-height: 98px;
-	
+
 }
 .slider_content
 {
