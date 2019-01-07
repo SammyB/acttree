@@ -1,11 +1,7 @@
-
-RewriteEngine on
-Options -Indexes
-RewriteCond ^/?$ "http\:\/\/acttree\.sammyb\.com\.au$ [OR]
-RewriteCond ^/?$ "http\:\/\/www\.acttree\.sammyb\.com\.au$ [OR]
-RewriteCond ^/?$ "http\:\/\/www\.acttree\.com\.au$ [OR]
-RewriteCond ^/?$ "http\:\/\/acttree\.com\.au$
-RewriteRule ^/?$ "https\:\/\/www\.acttree\.com\.au\/" [R=301,L]
+# Primary Domain - Force the use of "https" and www
+RewriteCond %{HTTP_HOST} !^www\. [OR]
+RewriteCond %{HTTPS} !^on$
+RewriteRule ^(.*)$ https://www.acttree.com.au/$1 [R=301,L]
 
 ## EXPIRES CACHING ##
 <IfModule mod_expires.c>
