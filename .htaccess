@@ -1,10 +1,11 @@
 
 RewriteEngine on
 Options -Indexes
-RewriteCond %{HTTP_HOST} ^acttree\.sammyb\.com\.au$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.acttree\.sammyb\.com\.au$
-RewriteRule ^/?$ "http\:\/\/www\.acttree\.com\.au\/" [R=301,L]
-
+RewriteCond ^/?$ "http\:\/\/acttree\.sammyb\.com\.au$ [OR]
+RewriteCond ^/?$ "http\:\/\/www\.acttree\.sammyb\.com\.au$ [OR]
+RewriteCond ^/?$ "http\:\/\/www\.acttree\.com\.au$ [OR]
+RewriteCond ^/?$ "http\:\/\/acttree\.com\.au$
+RewriteRule ^/?$ "https\:\/\/www\.acttree\.com\.au\/" [R=301,L]
 
 ## EXPIRES CACHING ##
 <IfModule mod_expires.c>
