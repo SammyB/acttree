@@ -77,7 +77,7 @@ New nav: Home · Services · Why ACT Tree Felling · Resources · Careers · Con
 
 New pages: `/thank-you/`, `/privacy-policy/`, `/404.html`.
 
-**Canonical host is undecided.** The live site serves `acttree.com.au`, but `robots.txt` references `www.`. Pick one and 301 the other.
+**Canonical host: `https://www.acttree.com.au`** (decided 26 Sep 2026: it's what Google has indexed and what the old site links to). `acttree.com.au` 301s to `www`. The host is set once, as `url` in `site.json`.
 
 ## 7. Contact form (JotForm) spec
 
@@ -176,6 +176,5 @@ Remove:
 - Who owns the JotForm account?
 - Who owns Google Ads and GTM? We need conversion labels and GTM access.
 - GA4: new property or existing?
-- Canonical host: www or non-www?
 - Figma edit access on the designer's original file
 - Final page list: Resources contents, consultation structure, mulch

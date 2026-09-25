@@ -7,7 +7,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/js/**/*.js");
   eleventyConfig.addPassthroughCopy("src/assets/img/**/*");
   eleventyConfig.addPassthroughCopy("src/favicon.ico");
-  eleventyConfig.addPassthroughCopy("src/.htaccess");
 
   // Tailwind writes straight into _site; reload the browser when it does.
   eleventyConfig.setServerOptions({

@@ -11,6 +11,14 @@ const canonical = new URL(site.url);
 const htaccess = readFileSync("_site/.htaccess", "utf8");
 const problems = [];
 
+if (/&#?\w+;/.test(htaccess)) problems.push("HTML entities found in .htaccess (template autoescape?)");
+
+const otherHost = canonical.host.startsWith("www.") ? canonical.host.slice(4) : `www.${canonical.host}`;
+const hostCond = htaccess.match(/^RewriteCond %\{HTTP_HOST\} \^(\S+)\$ \[NC\]/m)?.[1];
+if (hostCond?.replace(/\\\./g, ".") !== otherHost) {
+  problems.push(`Canonical host condition is "${hostCond}", expected to match ${otherHost}`);
+}
+
 const rules = [...htaccess.matchAll(/^RewriteRule\s+(\S+)\s+(https?:\/\/\S+)\s+\[([^\]]+)\]/gm)].map(
   ([, pattern, target, flags]) => ({ pattern, target, flags }),
 );

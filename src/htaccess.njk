@@ -1,7 +1,18 @@
-# acttree.com.au – Apache config for OzHosting (Plesk). Copied to _site/ as-is.
+---
+permalink: /.htaccess
+eleventyExcludeFromCollections: true
+---
+{#-
+  Generates _site/.htaccess. The canonical origin comes from "url" in src/_data/site.json,
+  so switching between www and non-www is a one-line change there.
+-#}
+{%- set origin = site.url -%}
+{%- set host = origin | replace("https://", "") -%}
+{%- set otherHost = host.slice(4) if host.startsWith("www.") else "www." + host -%}
+# Apache config for OzHosting (Plesk). GENERATED from src/htaccess.njk – edit that, not this.
 #
-# Canonical host: https://acttree.com.au (no www). MUST match "url" in src/_data/site.json.
-# `npm run check` verifies that, and that every redirect target below exists in the build.
+# Canonical origin: {{ origin }} (from site.json). {{ otherHost }} and http:// redirect here.
+# `npm run check` verifies every redirect target below exists in the build.
 
 Options -Indexes
 DirectoryIndex index.html
@@ -27,39 +38,39 @@ RewriteRule ^(mail|contact_form|archived|scripts)(/|$) - [G,L]
 # 3. Old site URLs -> new URLs. Absolute targets so http/www requests
 #    reach the final URL in a single redirect. NE keeps "#" unescaped.
 # ---------------------------------------------------------------------------
-RewriteRule ^(index|default)\.html$          https://acttree.com.au/ [R=301,L]
-RewriteRule ^about\.html$                    https://acttree.com.au/why-act-tree-felling/ [R=301,L]
-RewriteRule ^testimonials\.html$             https://acttree.com.au/why-act-tree-felling/#reviews [R=301,NE,L]
-RewriteRule ^services\.html$                 https://acttree.com.au/services/ [R=301,L]
-RewriteRule ^tree-removal\.html$             https://acttree.com.au/services/tree-removal/ [R=301,L]
-RewriteRule ^tree-pruning\.html$             https://acttree.com.au/services/tree-pruning/ [R=301,L]
-RewriteRule ^stump-grinding\.html$           https://acttree.com.au/services/stump-grinding/ [R=301,L]
-RewriteRule ^powerline-clearance\.html$      https://acttree.com.au/services/powerline-clearance/ [R=301,L]
-RewriteRule ^cable-and-bracing\.html$        https://acttree.com.au/services/cabling-and-bracing/ [R=301,L]
-RewriteRule ^commercial-works\.html$         https://acttree.com.au/services/commercial-tree-services/ [R=301,L]
-RewriteRule ^tree-consultation\.html$        https://acttree.com.au/services/arborist-consultation/ [R=301,L]
-RewriteRule ^tree-consul-health\.html$       https://acttree.com.au/services/arborist-consultation/#health-and-condition [R=301,NE,L]
-RewriteRule ^tree-consul-risk\.html$         https://acttree.com.au/services/arborist-consultation/#tree-risk-assessment [R=301,NE,L]
-RewriteRule ^tree-consul-management\.html$   https://acttree.com.au/services/arborist-consultation/#tree-management-plans [R=301,NE,L]
-RewriteRule ^tree-consul-root\.html$         https://acttree.com.au/services/arborist-consultation/#tree-root-damage [R=301,NE,L]
-RewriteRule ^tree-consul-disease\.html$      https://acttree.com.au/services/arborist-consultation/#disease-identification [R=301,NE,L]
-RewriteRule ^tree-consul-elm-leaf\.html$     https://acttree.com.au/services/arborist-consultation/#elm-leaf-beetle [R=301,NE,L]
-RewriteRule ^faq\.html$                      https://acttree.com.au/resources/faq/ [R=301,L]
-RewriteRule ^careers\.html$                  https://acttree.com.au/careers/ [R=301,L]
-RewriteRule ^contact\.html$                  https://acttree.com.au/contact/ [R=301,L]
-RewriteRule ^survey\.html$                   https://acttree.com.au/ [R=301,L]
-RewriteRule ^sitemap\.html$                  https://acttree.com.au/sitemap.xml [R=301,L]
+RewriteRule ^(index|default)\.html$          {{ origin }}/ [R=301,L]
+RewriteRule ^about\.html$                    {{ origin }}/why-act-tree-felling/ [R=301,L]
+RewriteRule ^testimonials\.html$             {{ origin }}/why-act-tree-felling/#reviews [R=301,NE,L]
+RewriteRule ^services\.html$                 {{ origin }}/services/ [R=301,L]
+RewriteRule ^tree-removal\.html$             {{ origin }}/services/tree-removal/ [R=301,L]
+RewriteRule ^tree-pruning\.html$             {{ origin }}/services/tree-pruning/ [R=301,L]
+RewriteRule ^stump-grinding\.html$           {{ origin }}/services/stump-grinding/ [R=301,L]
+RewriteRule ^powerline-clearance\.html$      {{ origin }}/services/powerline-clearance/ [R=301,L]
+RewriteRule ^cable-and-bracing\.html$        {{ origin }}/services/cabling-and-bracing/ [R=301,L]
+RewriteRule ^commercial-works\.html$         {{ origin }}/services/commercial-tree-services/ [R=301,L]
+RewriteRule ^tree-consultation\.html$        {{ origin }}/services/arborist-consultation/ [R=301,L]
+RewriteRule ^tree-consul-health\.html$       {{ origin }}/services/arborist-consultation/#health-and-condition [R=301,NE,L]
+RewriteRule ^tree-consul-risk\.html$         {{ origin }}/services/arborist-consultation/#tree-risk-assessment [R=301,NE,L]
+RewriteRule ^tree-consul-management\.html$   {{ origin }}/services/arborist-consultation/#tree-management-plans [R=301,NE,L]
+RewriteRule ^tree-consul-root\.html$         {{ origin }}/services/arborist-consultation/#tree-root-damage [R=301,NE,L]
+RewriteRule ^tree-consul-disease\.html$      {{ origin }}/services/arborist-consultation/#disease-identification [R=301,NE,L]
+RewriteRule ^tree-consul-elm-leaf\.html$     {{ origin }}/services/arborist-consultation/#elm-leaf-beetle [R=301,NE,L]
+RewriteRule ^faq\.html$                      {{ origin }}/resources/faq/ [R=301,L]
+RewriteRule ^careers\.html$                  {{ origin }}/careers/ [R=301,L]
+RewriteRule ^contact\.html$                  {{ origin }}/contact/ [R=301,L]
+RewriteRule ^survey\.html$                   {{ origin }}/ [R=301,L]
+RewriteRule ^sitemap\.html$                  {{ origin }}/sitemap.xml [R=301,L]
 
 # TBC with client: is mulch still offered? Temporary (302) until decided, so
 # browsers don't cache it. Change to 301 once the final target is agreed.
-RewriteRule ^mulch-orders\.html$             https://acttree.com.au/contact/ [R=302,L]
+RewriteRule ^mulch-orders\.html$             {{ origin }}/contact/ [R=302,L]
 
 # ---------------------------------------------------------------------------
-# 4. Force HTTPS and the canonical host (www -> non-www) in one hop.
+# 4. Force HTTPS and the canonical host ({{ otherHost }} -> {{ host }}) in one hop.
 # ---------------------------------------------------------------------------
 RewriteCond %{HTTPS} !=on [OR]
-RewriteCond %{HTTP_HOST} ^www\.acttree\.com\.au$ [NC]
-RewriteRule ^ https://acttree.com.au%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} ^{{ otherHost | replace(".", "\\.") | safe }}$ [NC]
+RewriteRule ^ {{ origin }}%{REQUEST_URI} [R=301,L]
 </IfModule>
 
 # ---------------------------------------------------------------------------
@@ -70,7 +81,7 @@ Header always set X-Content-Type-Options "nosniff"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set X-Frame-Options "SAMEORIGIN"
 Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-# Enable HSTS once HTTPS on both acttree.com.au and www is confirmed working after launch:
+# Enable HSTS once HTTPS on both {{ host }} and {{ otherHost }} is confirmed working after launch:
 # Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
 

@@ -11,11 +11,17 @@
 {%- set fullTitle = pageTitle if site.name in pageTitle else pageTitle + " | " + site.name -%}
 {%- set canonicalUrl = site.url + page.url -%}
 {%- set shareImage = ogImage or site.ogImage -%}
+{#- GTM only in production builds (ELEVENTY_ENV=production), so local dev never sends analytics. -#}
+{%- set gtmId = site.tracking.gtmId if env.production else null -%}
+{%- from "components/gtm.njk" import gtmHead, gtmBody -%}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- if gtmId %}
+  {{ gtmHead(gtmId) }}
+  {%- endif %}
   <title>{{ fullTitle }}</title>
   <meta name="description" content="{{ metaDescription }}">
   {%- if noindex %}
@@ -45,6 +51,9 @@
   </script>
 </head>
 <body class="flex min-h-screen flex-col">
+  {%- if gtmId %}
+  {{ gtmBody(gtmId) }}
+  {%- endif %}
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-button focus:bg-card focus:px-4 focus:py-2">Skip to content</a>
   {% include "components/header.njk" %}
   <main id="main" class="flex-1">

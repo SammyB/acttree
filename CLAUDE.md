@@ -12,7 +12,7 @@ Full context lives in `docs/project-brief.md`. Old site copy lives in `docs/old-
 ## Commands
 - `npm run dev` runs the local server with live reload.
 - `npm run build` does a production build to `_site/`.
-- `npm run check` builds, then runs an HTML validation and link check.
+- `npm run check` builds, then runs HTML validation, a link/anchor check, a redirect check against `.htaccess`, and lists content still awaiting client sign-off.
 
 ## Layout
 ```
@@ -24,7 +24,7 @@ src/
   assets/       css/main.css (Tailwind entry) · js/ (small vanilla modules) · img/
   services/     services.njk – ONE paginated template generates every page in services.json
   *.njk         index, why-act-tree-felling, resources/faq, careers, contact, thank-you, privacy-policy, 404
-  .htaccess     HTTPS + canonical host, 301 map from old *.html URLs, caching (passthrough copy)
+  htaccess.njk  → /.htaccess: HTTPS + canonical host (from site.json `url`), 301 map from old *.html URLs, caching
 ```
 
 ## Rules
