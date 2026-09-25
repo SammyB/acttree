@@ -11,6 +11,7 @@
     { "label": "Mobile", "display": "0417 492 760", "tel": "+61417492760" }
   ],
   "email": "service@acttree.com.au",
+  "careersEmail": "service@acttree.com.au",
   "address": {
     "street": "56 Port Arthur Street",
     "locality": "Lyons",
@@ -37,7 +38,66 @@
   ],
   "memberships": ["Arboriculture Australia"],
   "ogImage": "",
+  "cta": {
+    "quote": { "label": "Request a quote", "url": "/contact/#quote" },
+    "call": { "label": "Call us" },
+    "services": { "label": "See our services", "url": "/services/" }
+  },
+  "trustPoints": [
+    {
+      "icon": "calendar",
+      "title": "Since 1975",
+      "text": "Canberra's longest-running tree services business."
+    },
+    {
+      "icon": "bolt",
+      "title": "Evoenergy accredited",
+      "text": "Accredited to the highest level to work near live powerlines."
+    },
+    {
+      "icon": "certificate",
+      "title": "Qualified arborists",
+      "text": "Climbers hold at least a Certificate III; consulting arborists hold a Diploma of Arboriculture."
+    },
+    {
+      "icon": "shield-check",
+      "title": "Fully insured",
+      "text": "Public liability, professional indemnity and workers compensation cover. Certificates available on request."
+    }
+  ],
+  "insurance": [
+    { "type": "Public liability", "cover": "$20 million", "insurer": "QBE Insurance" },
+    { "type": "Professional indemnity", "cover": "$1 million", "insurer": "QBE Insurance" },
+    { "type": "Workers compensation", "insurer": "CGU Workers Compensation" },
+    { "type": "Comprehensive vehicle", "insurer": "Zurich Steadfast Business Insurance" }
+  ],
+  "insuranceNote": "Copies of all our insurance certificates and qualifications are available on request.",
   "tracking": {
     "gtmId": "GTM-5KX98C2"
+  },
+  "jotform": {
+    "formId": "201330756177049",
+    "action": "https://submit.jotform.com/submit/201330756177049/",
+    "fields": {
+      "firstName": "q3_name[first]",
+      "lastName": "q3_name[last]",
+      "phone": "q8_phoneNumber",
+      "email": "q4_email",
+      "addressLine1": "q5_address[addr_line1]",
+      "addressLine2": "q5_address[addr_line2]",
+      "suburb": "q5_address[city]",
+      "state": "q5_address[state]",
+      "postcode": "q5_address[postal]",
+      "country": "q5_address[country]",
+      "comments": "q6_typeA"
+    },
+    "defaults": {
+      "state": "ACT",
+      "country": "Australia"
+    },
+    "spam": {
+      "honeypot": "website",
+      "token": "simple_spc"
+    }
   }
 }

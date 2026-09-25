@@ -1,0 +1,137 @@
+[
+  {
+    "id": "cost",
+    "question": "How much will it cost to prune or remove my trees?",
+    "answer": [
+      "Every tree and site is different, and there are too many variables to give you a price without seeing your trees first. Our quotes are free and there's no obligation, so give us a call to arrange a time that suits you."
+    ]
+  },
+  {
+    "id": "quote-cost",
+    "question": "How much does it cost to get a quote?",
+    "answer": [
+      "If you know what work you'd like done, our quote is free.",
+      "If you think you need work but aren't sure what, we can provide an on-site consultation to work out what we recommend. Consultations are charged, but they can often save you money on tree work and help your trees live longer.",
+      {
+        "list": [
+          "Consultations are charged by appointment length (minimum 15 minutes).",
+          "Tree report fees depend on the number of trees, how complex the report is and the time needed to prepare it."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fallen-branch",
+    "question": "A branch fell off my tree. Do I need to have the tree removed?",
+    "answer": [
+      "Falling branches are a common worry for homeowners, especially during storms and high winds. Regular, proper maintenance reduces the risk.",
+      "If a branch or tree has fallen, or you're worried about the safety of trees around your home, one of our consulting arborists can meet you to advise on the best and safest course of action.",
+      "We offer full risk assessments or a simple verbal consultation to put your mind at ease and plan future care. See [arborist consultation and reports](/services/arborist-consultation/)."
+    ]
+  },
+  {
+    "id": "government-approval",
+    "question": "Do I need government approval to prune or remove my tree?",
+    "answer": [
+      "The ACT Government regulates the pruning and removal of certain trees in Canberra, known as regulated trees.",
+      "We can tell you whether your tree is regulated, and can apply for approval on your behalf if you'd like help."
+    ],
+    "review": [
+      "Old answer listed thresholds (over 12 m tall, over 12 m canopy spread, or over 1.5 m trunk circumference at 1 m above ground) and linked to tccs.act.gov.au. Law has likely changed (Urban Forest Act 2023) – arborist to confirm thresholds and the right ACT Government link before adding them back."
+    ]
+  },
+  {
+    "id": "powerline-letter",
+    "question": "I got a letter from Evoenergy asking me to clear my powerlines. What do I do now?",
+    "answer": [
+      "If you own property in Canberra, it's your responsibility to keep your trees away from powerlines. That means a clearance of 1 m from service lines and power poles, 1.5 m from low-voltage lines and 2 m from high-voltage lines.",
+      "If you've received a notice to clear your powerlines, you'll need an Evoenergy-accredited arborist to do the work. We're accredited to the highest level and very experienced in powerline clearance, so contact us for a free quote."
+    ],
+    "review": [
+      "Confirm the clearance distances are still Evoenergy's current requirements."
+    ]
+  },
+  {
+    "id": "evoenergy-accredited",
+    "question": "What is an Evoenergy-accredited tree surgeon?",
+    "answer": [
+      "It means we're authorised and trained to work close to powerlines of all voltages in the ACT. Legally, only accredited tree surgeons can work near Evoenergy powerlines.",
+      "Powerline clearance is dangerous work, so only use an experienced, accredited tree services company to make sure the job is done safely and properly.",
+      "For more about keeping vegetation clear of powerlines, visit [Evoenergy](https://www.evoenergy.com.au/)."
+    ]
+  },
+  {
+    "id": "power-off",
+    "question": "Will the power need to be turned off to clear trees from my powerlines?",
+    "answer": [
+      "Usually not. Our staff are trained to work around live powerlines, so most jobs don't need a power outage. If one is needed, we arrange the whole process for you with Evoenergy."
+    ]
+  },
+  {
+    "id": "lopping",
+    "question": "Can I heavily reduce my tree or 'lop' the top off?",
+    "answer": [
+      "Major pruning or lopping needs government approval, and in most cases we don't recommend it because of the damage it does to the tree.",
+      "Many people think lopping controls a tree's height and spread, but it can have the opposite effect. The new shoots are far more numerous than normal growth and grow so quickly that the tree soon returns to its original height, with a much denser crown. Lopping also leaves a tree looking disfigured, because its natural form is lost for good. And because this stress-related growth is poorly attached, it can lead to more branch failures over time.",
+      "There are better ways to reduce a tree. One of our arborists can inspect it and tell you what can be pruned safely and effectively."
+    ]
+  },
+  {
+    "id": "why-expensive",
+    "question": "Why can tree work be expensive?",
+    "answer": [
+      "Tree work can be costly for a few main reasons:",
+      {
+        "list": [
+          { "term": "Insurance", "text": "We're comprehensively insured, with public liability and professional indemnity cover. That's essential in this line of work, and premiums are high because the work is high risk." },
+          { "term": "Equipment", "text": "We use the latest high-quality equipment for the safest, best results. It lets us do all kinds of tree work safely and efficiently, so we're cleaned up and out of your way sooner." },
+          { "term": "Training", "text": "Our climbing arborists hold at least a Certificate III in Arboriculture (AQF 3), and our consulting arborists at least a Diploma of Arboriculture (AQF 5). We keep training our staff so your trees get the best care available." }
+        ]
+      },
+      "We always charge a fair, competitive price for high-quality work. It's a bit like eating out – you get what you pay for."
+    ]
+  },
+  {
+    "id": "qualified",
+    "question": "Do you use qualified tree surgeons?",
+    "answer": [
+      "Yes. All our tree climbers are qualified arborists (minimum Certificate III in Arboriculture, often a Diploma of Arboriculture), or are training with us alongside accredited arboriculture training at a nationally recognised institute."
+    ]
+  },
+  {
+    "id": "debris",
+    "question": "Do you take the tree waste away? Does it cost extra to keep the firewood or woodchips?",
+    "answer": [
+      "We take all material away unless you tell us otherwise when we quote. You're welcome to keep any firewood or woodchips, and we'll leave them in an agreed spot on your property. In most cases there's no extra charge."
+    ]
+  },
+  {
+    "id": "weekends",
+    "question": "Do you work on weekends?",
+    "answer": [
+      "We work on weekdays during business hours and generally don't work on weekends."
+    ]
+  },
+  {
+    "id": "be-home",
+    "question": "Do I need to be home when the work is done?",
+    "answer": [
+      "No. Most of the time we can work without anyone home, as long as we have good access to the trees and any pets have been taken care of.",
+      "If you have specific requests and want to be there to check everything goes smoothly, you're very welcome to stay home and talk with our arborists while they work. That way we can make sure you're happy before the job is finished."
+    ]
+  },
+  {
+    "id": "cherry-picker",
+    "question": "Will you use a travel tower or cherry picker?",
+    "answer": [
+      "No. We do almost all our work by climbing the tree, for a few reasons:",
+      {
+        "list": [
+          { "term": "Access", "text": "Access in Canberra is often limited. To climb a tree we only need to be able to walk to it – no need for space for large machinery." },
+          { "term": "Better cuts", "text": "From inside the canopy we get a better view of the tree, which helps us choose the best cutting points." },
+          { "term": "Safety", "text": "We can safely lower tree parts on ropes, without machinery underneath creating extra hazards." }
+        ]
+      }
+    ]
+  }
+]
