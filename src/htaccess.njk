@@ -9,6 +9,8 @@ eleventyExcludeFromCollections: true
 {%- set origin = site.url -%}
 {%- set host = origin | replace("https://", "") -%}
 {%- set otherHost = host.slice(4) if host.startsWith("www.") else "www." + host -%}
+{#- Where @11ty/eleventy-img writes content-hashed files. Must match its urlPath. -#}
+{%- set hashedImagePath = "/assets/img/generated/" -%}
 # Apache config for OzHosting (Plesk). GENERATED from src/htaccess.njk – edit that, not this.
 #
 # Canonical origin: {{ origin }} (from site.json). {{ otherHost }} and http:// redirect here.
@@ -38,7 +40,13 @@ RewriteRule ^(mail|contact_form|archived|scripts)(/|$) - [G,L]
 # 3. Old site URLs -> new URLs. Absolute targets so http/www requests
 #    reach the final URL in a single redirect. NE keeps "#" unescaped.
 # ---------------------------------------------------------------------------
-RewriteRule ^(index|default)\.html$          {{ origin }}/ [R=301,L]
+# /index.html, /default.html and /any/path/index.html -> /any/path/
+# Matches THE_REQUEST (what the browser actually asked for), not the rewritten path:
+# DirectoryIndex serves "/" as index.html via an internal redirect, and a plain
+# ^index\.html$ rule would 301 that internal request back to "/" in an endless loop.
+RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)(?:index|default)\.html[\s?] [NC]
+RewriteRule ^ {{ origin }}/%1 [R=301,L]
+
 RewriteRule ^about\.html$                    {{ origin }}/why-act-tree-felling/ [R=301,L]
 RewriteRule ^testimonials\.html$             {{ origin }}/why-act-tree-felling/#reviews [R=301,NE,L]
 RewriteRule ^services\.html$                 {{ origin }}/services/ [R=301,L]
@@ -104,9 +112,13 @@ AddOutputFilterByType DEFLATE text/html text/css text/javascript text/plain text
 
 # ---------------------------------------------------------------------------
 # Caching
-#   HTML, sitemap, robots: always revalidate, so deploys show immediately.
-#   CSS/JS: long cache; URLs carry ?v=<build id> so each deploy busts the cache.
-#   Images/fonts: long cache (the image pipeline writes content-hashed filenames).
+#   HTML, sitemap, robots   no-cache: always revalidate, so deploys show immediately.
+#   Other static files      1 week, NOT immutable: logo, icons, badges, favicon,
+#                           fonts, and any CSS/JS requested without ?v=.
+#   Versioned CSS/JS        1 year, immutable: URLs carry ?v=<build id>, which
+#                           changes on every build.
+#   Hashed images           1 year, immutable: only {{ hashedImagePath }}, where the
+#                           image pipeline names files by content hash.
 # ---------------------------------------------------------------------------
 <IfModule mod_expires.c>
 ExpiresActive On
@@ -115,24 +127,35 @@ ExpiresByType text/html "access plus 0 seconds"
 ExpiresByType application/xml "access plus 0 seconds"
 ExpiresByType text/xml "access plus 0 seconds"
 ExpiresByType text/plain "access plus 0 seconds"
-ExpiresByType text/css "access plus 1 year"
-ExpiresByType text/javascript "access plus 1 year"
-ExpiresByType application/javascript "access plus 1 year"
-ExpiresByType image/avif "access plus 1 year"
-ExpiresByType image/webp "access plus 1 year"
-ExpiresByType image/jpeg "access plus 1 year"
-ExpiresByType image/png "access plus 1 year"
-ExpiresByType image/svg+xml "access plus 1 year"
-ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType text/css "access plus 1 week"
+ExpiresByType text/javascript "access plus 1 week"
+ExpiresByType application/javascript "access plus 1 week"
+ExpiresByType image/avif "access plus 1 week"
+ExpiresByType image/webp "access plus 1 week"
+ExpiresByType image/jpeg "access plus 1 week"
+ExpiresByType image/png "access plus 1 week"
+ExpiresByType image/gif "access plus 1 week"
+ExpiresByType image/svg+xml "access plus 1 week"
 ExpiresByType image/x-icon "access plus 1 week"
 ExpiresByType image/vnd.microsoft.icon "access plus 1 week"
+ExpiresByType font/woff2 "access plus 1 week"
 </IfModule>
 
 <IfModule mod_headers.c>
 <FilesMatch "\.(html|xml|txt)$">
 Header set Cache-Control "no-cache"
 </FilesMatch>
-<FilesMatch "\.(css|js|avif|webp|jpe?g|png|svg|woff2)$">
-Header set Cache-Control "public, max-age=31536000, immutable"
+<FilesMatch "\.(css|m?js|avif|webp|jpe?g|png|gif|svg|ico|woff2)$">
+Header set Cache-Control "public, max-age=604800"
 </FilesMatch>
+
+# <If> sections merge after <FilesMatch>, so these override the 1-week default.
+<If "%{REQUEST_URI} =~ m#\.(css|m?js)$# && %{QUERY_STRING} =~ /(^|&)v=/">
+Header set Cache-Control "public, max-age=31536000, immutable"
+Header unset Expires
+</If>
+<If "%{REQUEST_URI} =~ m#^{{ hashedImagePath }}#">
+Header set Cache-Control "public, max-age=31536000, immutable"
+Header unset Expires
+</If>
 </IfModule>
