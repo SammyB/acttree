@@ -1,0 +1,82 @@
+{#-
+  Quote form. Plain HTML that POSTs straight to JotForm; JotForm then redirects to /thank-you/.
+  Field names come from site.jotform.fields and MUST match the JotForm form exactly.
+  Required flags mirror the JotForm form. /assets/js/quote-form.js sets JotForm's spam token.
+-#}
+{%- from "components/button.njk" import button -%}
+{%- set jf = site.jotform -%}
+{%- set f = jf.fields -%}
+{%- set labelClass = "block font-semibold" -%}
+{%- set inputClass = "mt-1 block w-full rounded-button border border-line bg-card px-3 py-2" -%}
+<form action="{{ jf.action }}" method="post" accept-charset="utf-8" class="grid gap-6" data-jotform="{{ jf.formId }}">
+  <input type="hidden" name="formID" value="{{ jf.formId }}">
+  <p class="text-sm text-ink-muted">Fields marked <span aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
+
+  <fieldset class="grid gap-4 sm:grid-cols-2">
+    <legend class="sr-only">Your name</legend>
+    <div>
+      <label for="quote-first-name" class="{{ labelClass }}">First name <span aria-hidden="true">*</span></label>
+      <input id="quote-first-name" name="{{ f.firstName }}" type="text" autocomplete="given-name" required class="{{ inputClass }}">
+    </div>
+    <div>
+      <label for="quote-last-name" class="{{ labelClass }}">Last name <span aria-hidden="true">*</span></label>
+      <input id="quote-last-name" name="{{ f.lastName }}" type="text" autocomplete="family-name" required class="{{ inputClass }}">
+    </div>
+  </fieldset>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="quote-phone" class="{{ labelClass }}">Phone</label>
+      <input id="quote-phone" name="{{ f.phone }}" type="tel" autocomplete="tel" class="{{ inputClass }}">
+    </div>
+    <div>
+      <label for="quote-email" class="{{ labelClass }}">Email <span aria-hidden="true">*</span></label>
+      <input id="quote-email" name="{{ f.email }}" type="email" autocomplete="email" required class="{{ inputClass }}">
+    </div>
+  </div>
+
+  <fieldset class="grid gap-4 sm:grid-cols-6">
+    <legend class="mb-1 font-semibold">Where are the trees?</legend>
+    <div class="sm:col-span-6">
+      <label for="quote-address-1" class="{{ labelClass }}">Street address <span aria-hidden="true">*</span></label>
+      <input id="quote-address-1" name="{{ f.addressLine1 }}" type="text" autocomplete="address-line1" required class="{{ inputClass }}">
+    </div>
+    <div class="sm:col-span-6">
+      <label for="quote-address-2" class="{{ labelClass }}">Address line 2</label>
+      <input id="quote-address-2" name="{{ f.addressLine2 }}" type="text" autocomplete="address-line2" class="{{ inputClass }}">
+    </div>
+    <div class="sm:col-span-3">
+      <label for="quote-suburb" class="{{ labelClass }}">Suburb <span aria-hidden="true">*</span></label>
+      <input id="quote-suburb" name="{{ f.suburb }}" type="text" autocomplete="address-level2" required class="{{ inputClass }}">
+    </div>
+    <div class="sm:col-span-1">
+      <label for="quote-state" class="{{ labelClass }}">State <span aria-hidden="true">*</span></label>
+      <select id="quote-state" name="{{ f.state }}" autocomplete="address-level1" required class="{{ inputClass }}">
+        {%- for state in ["ACT", "NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT"] %}
+        <option value="{{ state }}"{% if state == jf.defaults.state %} selected{% endif %}>{{ state }}</option>
+        {%- endfor %}
+      </select>
+    </div>
+    <div class="sm:col-span-2">
+      <label for="quote-postcode" class="{{ labelClass }}">Postcode <span aria-hidden="true">*</span></label>
+      <input id="quote-postcode" name="{{ f.postcode }}" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="postal-code" required class="{{ inputClass }}">
+    </div>
+    <input type="hidden" name="{{ f.country }}" value="{{ jf.defaults.country }}">
+  </fieldset>
+
+  <div>
+    <label for="quote-comments" class="{{ labelClass }}">How can we help?</label>
+    <textarea id="quote-comments" name="{{ f.comments }}" rows="6" class="{{ inputClass }}"></textarea>
+  </div>
+
+  {#- Spam protection copied from JotForm's own embed: a honeypot bots fill in, and a token set by JS. #}
+  <div hidden aria-hidden="true">
+    <label for="quote-website">Leave this field empty</label>
+    <input id="quote-website" name="{{ jf.spam.honeypot }}" type="text" tabindex="-1" autocomplete="off">
+  </div>
+  <input type="hidden" name="{{ jf.spam.token }}" value="{{ jf.formId }}" data-spam-token>
+
+  <p class="text-sm text-ink-muted">We'll only use your details to respond to your enquiry. See our <a href="/privacy-policy/" class="underline">privacy policy</a>.</p>
+  <div>{{ button(site.cta.quote.label, type="submit") }}</div>
+</form>
+<script type="module" src="/assets/js/quote-form.js"></script>

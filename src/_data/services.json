@@ -284,9 +284,9 @@
         "content": [
           {
             "list": [
-              { "term": "Prevention", "text": "reduces the chance of failure in a healthy tree with a structural weakness." },
-              { "term": "Restoration", "text": "extends the life of a damaged tree." },
-              { "term": "Mitigation", "text": "reduces the risk a tree poses." }
+              { "term": "Prevention", "text": "Reduces the chance of failure in a healthy tree with a structural weakness." },
+              { "term": "Restoration", "text": "Extends the life of a damaged tree." },
+              { "term": "Mitigation", "text": "Reduces the risk a tree poses." }
             ]
           }
         ]

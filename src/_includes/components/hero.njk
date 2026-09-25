@@ -1,0 +1,29 @@
+{#-
+  Page hero. Holds the page's only <h1>.
+  primary: { label, url } for the main button
+  phone:   an item from site.phones for the call button (optional)
+-#}
+{%- from "components/button.njk" import button -%}
+{%- from "components/phone-link.njk" import phoneLink -%}
+{%- macro hero(heading, text=null, eyebrow=null, primary=null, phone=null) -%}
+<section class="bg-dark text-on-dark" aria-labelledby="page-title">
+  <div class="page-container grid items-center gap-10 py-section-sm lg:grid-cols-2 lg:py-section">
+    <div>
+      {%- if eyebrow %}
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wide">{{ eyebrow }}</p>
+      {%- endif %}
+      <h1 id="page-title" class="font-display text-4xl font-bold text-balance md:text-5xl">{{ heading }}</h1>
+      {%- if text %}
+      <p class="mt-6 text-lg">{{ text }}</p>
+      {%- endif %}
+      {%- if primary or phone %}
+      <div class="mt-8 flex flex-wrap gap-3">
+        {%- if primary %}{{ button(primary.label, url=primary.url) }}{% endif %}
+        {%- if phone %}{{ phoneLink(phone, class="rounded-button border-2 border-on-dark px-5 py-3 font-semibold hover:bg-on-dark hover:text-dark") }}{% endif %}
+      </div>
+      {%- endif %}
+    </div>
+    <div class="aspect-photo rounded-card bg-placeholder-strong" aria-hidden="true"></div>
+  </div>
+</section>
+{%- endmacro -%}

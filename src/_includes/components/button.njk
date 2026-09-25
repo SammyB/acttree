@@ -1,0 +1,19 @@
+{#-
+  Button. Renders <a> when url is given, otherwise <button>.
+  variant: primary (filled) | secondary (outline) | inverse (for dark sections)
+  Usage: {% from "components/button.njk" import button %}
+         {{ button("Request a quote", url="/contact/") }}
+-#}
+{%- macro button(label, url=null, variant="primary", type="button", attrs="") -%}
+{%- set variants = {
+  "primary": "bg-primary text-on-primary hover:bg-primary-hover",
+  "secondary": "border-2 border-primary text-primary hover:bg-primary hover:text-on-primary",
+  "inverse": "border-2 border-on-dark text-on-dark hover:bg-on-dark hover:text-dark"
+} -%}
+{%- set classes = "inline-flex items-center justify-center gap-2 rounded-button px-5 py-3 font-semibold transition-colors " + variants[variant] -%}
+{%- if url -%}
+<a href="{{ url }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}</a>
+{%- else -%}
+<button type="{{ type }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}</button>
+{%- endif -%}
+{%- endmacro -%}

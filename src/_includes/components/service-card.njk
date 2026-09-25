@@ -1,0 +1,14 @@
+{#- Service card for grids. service: an item from services.json -#}
+{%- macro serviceCard(service, headingLevel=3) -%}
+<article class="flex h-full flex-col overflow-hidden rounded-card border border-line bg-card">
+  <div class="aspect-photo bg-placeholder" aria-hidden="true"></div>
+  <div class="flex flex-1 flex-col gap-3 p-6">
+    <h{{ headingLevel }} class="font-display text-xl font-bold">{{ service.title }}</h{{ headingLevel }}>
+    <p class="text-ink-muted">{{ service.summary }}</p>
+    <a href="/services/{{ service.slug }}/" class="mt-auto inline-flex items-center gap-1 pt-2 font-semibold text-primary hover:underline">
+      Learn more<span class="sr-only"> about {{ service.title }}</span>
+      {% icon "arrow-right", "size-4" %}
+    </a>
+  </div>
+</article>
+{%- endmacro -%}

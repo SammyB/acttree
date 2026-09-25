@@ -1,4 +1,6 @@
-import { localBusiness, toJsonLd } from "./lib/schema.js";
+import { localBusiness, primary, toJsonLd } from "./lib/schema.js";
+import { icon } from "./lib/icons.js";
+import { mdInline } from "./lib/markdown.js";
 
 export default function (eleventyConfig) {
   // Static assets copied as-is. CSS is built separately by the Tailwind CLI.
@@ -20,6 +22,11 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("localBusinessJsonLd", (site) => toJsonLd(localBusiness(site)));
+  eleventyConfig.addFilter("mdInline", mdInline);
+  eleventyConfig.addFilter("primary", primary);
+
+  eleventyConfig.addShortcode("icon", icon);
+  eleventyConfig.addShortcode("year", () => String(new Date().getFullYear()));
 
   return {
     dir: {

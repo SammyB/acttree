@@ -1,0 +1,30 @@
+{#-
+  Renders content blocks from _data (services.json sections, faq.json answers):
+    "string"                          -> paragraph (inline markdown allowed)
+    { "list": ["a", "b"] }            -> bullet list
+    { "list": [{ "term", "text" }] }  -> definition list
+-#}
+{%- macro contentBlocks(blocks) -%}
+<div class="space-y-4">
+  {%- for block in blocks %}
+  {%- if block.list and block.list[0].term %}
+  <dl class="space-y-4">
+    {%- for item in block.list %}
+    <div>
+      <dt class="font-semibold">{{ item.term }}</dt>
+      <dd class="mt-1 text-ink-muted">{{ item.text | mdInline | safe }}</dd>
+    </div>
+    {%- endfor %}
+  </dl>
+  {%- elif block.list %}
+  <ul class="list-disc space-y-2 pl-6">
+    {%- for item in block.list %}
+    <li>{{ item | mdInline | safe }}</li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p>{{ block | mdInline | safe }}</p>
+  {%- endif %}
+  {%- endfor %}
+</div>
+{%- endmacro -%}

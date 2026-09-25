@@ -41,7 +41,11 @@
   "cta": {
     "quote": { "label": "Request a quote", "url": "/contact/#quote" },
     "call": { "label": "Call us" },
-    "services": { "label": "See our services", "url": "/services/" }
+    "services": { "label": "See our services", "url": "/services/" },
+    "band": {
+      "heading": "Need help with your trees?",
+      "text": "Talk to Canberra's longest-running tree services team about a quote or advice."
+    }
   },
   "trustPoints": [
     {

@@ -1,0 +1,14 @@
+{#- Trust points from site.trustPoints. -#}
+<div class="page-container py-section-sm">
+  <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {%- for point in site.trustPoints %}
+    <li class="flex gap-4">
+      <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-placeholder">{% icon point.icon %}</span>
+      <div>
+        <p class="font-semibold">{{ point.title }}</p>
+        <p class="mt-1 text-sm text-ink-muted">{{ point.text }}</p>
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>

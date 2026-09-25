@@ -1,0 +1,71 @@
+---
+layout: layouts/base.njk
+title: Component styleguide
+description: Low-fidelity preview of every component. Development builds only.
+noindex: true
+eleventyExcludeFromCollections: true
+---
+{%- from "components/hero.njk" import hero -%}
+{%- from "components/button.njk" import button -%}
+{%- from "components/service-card.njk" import serviceCard -%}
+{%- from "components/content-blocks.njk" import contentBlocks -%}
+{%- from "components/phone-link.njk" import phoneLink -%}
+
+{{ hero("Component styleguide", text="Grey-box versions of every component, fed from _data. Not built in production.", eyebrow="Development only", primary=site.cta.quote, phone=site.phones | primary) }}
+
+<section class="page-container space-y-6 py-section-sm" aria-labelledby="sg-buttons">
+  <h2 id="sg-buttons" class="font-display text-3xl font-bold">Buttons and links</h2>
+  <div class="flex flex-wrap gap-3">
+    {{ button("Primary", url="#") }}
+    {{ button("Secondary", url="#", variant="secondary") }}
+    {{ button("Button element", type="button") }}
+  </div>
+  <div class="flex flex-wrap gap-3 rounded-card bg-dark p-6">
+    {{ button("Inverse", url="#", variant="inverse") }}
+  </div>
+  <ul class="space-y-2">
+    {%- for phone in site.phones %}
+    <li>{{ phoneLink(phone, showLabel=true, class="hover:underline") }}</li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section class="bg-card" aria-label="Trust icons">
+  {% include "components/trust-icons.njk" %}
+</section>
+
+<section class="page-container py-section-sm" aria-labelledby="sg-cards">
+  <h2 id="sg-cards" class="font-display text-3xl font-bold">Service cards</h2>
+  <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {%- for service in services %}
+    <li>{{ serviceCard(service) }}</li>
+    {%- endfor %}
+  </ul>
+</section>
+
+{% include "components/reviews.njk" %}
+
+{% include "components/logo-grid.njk" %}
+
+{% include "components/cta.njk" %}
+
+<section class="page-container py-section-sm" aria-labelledby="sg-content">
+  <h2 id="sg-content" class="font-display text-3xl font-bold">Content blocks ({{ services[1].title }})</h2>
+  <div class="mt-8 max-w-prose space-y-10">
+    {%- for section in services[1].sections %}
+    <div>
+      {%- if section.heading %}<h3 class="mb-4 font-display text-2xl font-bold">{{ section.heading }}</h3>{% endif %}
+      {{ contentBlocks(section.content) }}
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+
+<section id="quote" class="bg-card py-section-sm" aria-labelledby="sg-form">
+  <div class="page-container">
+    <div class="max-w-prose">
+      <h2 id="sg-form" class="font-display text-3xl font-bold">Quote form</h2>
+      <div class="mt-8">{% include "components/jotform-quote.njk" %}</div>
+    </div>
+  </div>
+</section>

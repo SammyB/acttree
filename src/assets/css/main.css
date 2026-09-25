@@ -5,8 +5,9 @@
  */
 @import "tailwindcss" source(none);
 
-/* Only scan our own templates, data and scripts (not docs/ or old-website/). */
+/* Only scan our own templates, data, scripts and build helpers (not docs/ or old-website/). */
 @source "../../";
+@source "../../../lib";
 
 @theme {
   /* Reset Tailwind's default palette so only project tokens exist. */
@@ -44,6 +45,21 @@
   --spacing-section-sm: 4rem;
 
   --container-content: 72rem;
+  --container-prose: 44rem;
+
+  --aspect-photo: 4 / 3;
+}
+
+/* Centred page column with side gutters. */
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-content);
+  padding-inline: --spacing(4);
+
+  @variant md {
+    padding-inline: --spacing(8);
+  }
 }
 
 @layer base {

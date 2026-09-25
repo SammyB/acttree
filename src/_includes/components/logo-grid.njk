@@ -1,0 +1,20 @@
+{#-
+  Client logo grid from logos.json. Grey box with the name until an image is supplied.
+  Optional: {% set logosHeading = "..." %} before including.
+-#}
+<section class="py-section-sm" aria-labelledby="logos-heading">
+  <div class="page-container">
+    <h2 id="logos-heading" class="font-display text-3xl font-bold">{{ logosHeading or "Trusted across Canberra" }}</h2>
+    <ul class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      {%- for logo in logos %}
+      <li class="flex aspect-video items-center justify-center rounded-card bg-placeholder p-4 text-center text-sm font-semibold text-ink-muted">
+        {%- if logo.image %}
+        <img src="{{ logo.image }}" alt="{{ logo.name }}" class="max-h-full w-auto" loading="lazy">
+        {%- else %}
+        {{ logo.name }}
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>

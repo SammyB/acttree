@@ -1,0 +1,18 @@
+{#-
+  Call-to-action band. Copy defaults to site.cta.band; override per page with
+  {% set ctaHeading = "..." %}{% set ctaText = "..." %} before including.
+-#}
+{%- from "components/button.njk" import button -%}
+{%- from "components/phone-link.njk" import phoneLink -%}
+<section class="bg-dark text-on-dark" aria-labelledby="cta-heading">
+  <div class="page-container flex flex-col gap-6 py-section-sm md:flex-row md:items-center md:justify-between">
+    <div>
+      <h2 id="cta-heading" class="font-display text-3xl font-bold">{{ ctaHeading or site.cta.band.heading }}</h2>
+      <p class="mt-2">{{ ctaText or site.cta.band.text }}</p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      {{ button(site.cta.quote.label, url=site.cta.quote.url) }}
+      {{ phoneLink(site.phones | primary, class="rounded-button border-2 border-on-dark px-5 py-3 font-semibold hover:bg-on-dark hover:text-dark") }}
+    </div>
+  </div>
+</section>
