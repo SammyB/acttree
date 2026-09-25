@@ -1,0 +1,24 @@
+{
+  "name": "acttree",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static marketing site for ACT Tree Felling (acttree.com.au)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('_site',{recursive:true,force:true})\"",
+    "dev": "npm run clean && run-p dev:*",
+    "dev:11ty": "eleventy --serve --quiet",
+    "dev:css": "tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --watch=always",
+    "build": "npm run clean && cross-env ELEVENTY_ENV=production eleventy && tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --minify"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@tailwindcss/cli": "^4.3.3",
+    "cross-env": "^10.1.0",
+    "npm-run-all2": "^8.0.4",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -1,0 +1,68 @@
+/*
+ * Tailwind entry. Design tokens live ONLY in the @theme block below.
+ * Values are low-fidelity placeholders until the Figma variables are approved;
+ * swap them here and every component follows.
+ */
+@import "tailwindcss" source(none);
+
+/* Only scan our own templates, data and scripts (not docs/ or old-website/). */
+@source "../../";
+
+@theme {
+  /* Reset Tailwind's default palette so only project tokens exist. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Placeholder brand tokens (from Figma notes: cream bg, near-black sections, green actions). */
+  --color-page: #f7f4ec;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #5c5c5c;
+  --color-dark: #141613;
+  --color-on-dark: #f7f4ec;
+  --color-primary: #2f7d32;
+  --color-primary-hover: #25632a;
+  --color-on-primary: #ffffff;
+  --color-card: #ffffff;
+  --color-line: #d9d6cc;
+  --color-focus: #1d4ed8;
+
+  /* Grey-box placeholders for low-fidelity images and blocks. */
+  --color-placeholder: #cfcbc0;
+  --color-placeholder-strong: #a8a397;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --radius-card: 1rem;
+  --radius-button: 0.5rem;
+
+  /* Vertical rhythm for page sections (Figma currently inconsistent: 76/88/96/108px). */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+
+  --container-content: 72rem;
+}
+
+@layer base {
+  html {
+    @apply bg-page text-ink font-sans antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-focus;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
