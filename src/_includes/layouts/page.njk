@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+---
+{#-
+  Standard page: hero, page content, CTA band.
+  Front matter:
+    heading      h1 text (defaults to title)
+    intro        hero paragraph
+    eyebrow      small label above the h1
+    heroActions  false to hide the quote/call buttons
+    cta          false to hide the CTA band
+-#}
+{%- from "components/hero.njk" import hero -%}
+{%- set showActions = heroActions !== false -%}
+{{ hero(heading or title, text=intro, eyebrow=eyebrow, primary=site.cta.quote if showActions else null, phone=(site.phones | primary) if showActions else null) }}
+
+{{ content | safe }}
+
+{%- if cta !== false %}
+{% include "components/cta.njk" %}
+{%- endif %}

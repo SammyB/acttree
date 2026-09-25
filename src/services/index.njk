@@ -1,0 +1,20 @@
+---
+layout: layouts/page.njk
+title: Tree Services Canberra
+description: Tree removal, pruning, stump grinding, powerline clearance, cabling and bracing, commercial tree work and arborist reports across Canberra.
+heading: Tree services in Canberra
+intro: Whatever your trees need, our qualified arborists can help – from pruning a single fruit tree to clearing a commercial site.
+permalink: /services/
+---
+{%- from "components/service-card.njk" import serviceCard -%}
+
+<section class="page-container py-section-sm" aria-labelledby="all-services-heading">
+  <h2 id="all-services-heading" class="sr-only">All services</h2>
+  <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {%- for service in services %}
+    <li>{{ serviceCard(service) }}</li>
+    {%- endfor %}
+  </ul>
+</section>
+
+{% include "components/trust-icons.njk" %}

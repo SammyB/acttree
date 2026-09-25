@@ -1,10 +1,42 @@
 ---
-layout: layouts/base.njk
+layout: layouts/page.njk
 title: Tree Removal, Pruning & Arborists in Canberra | ACT Tree Felling
 description: Canberra's longest-running tree services business, since 1975. Tree removal, pruning, stump grinding, powerline clearance and arborist reports.
+heading: Tree removal, pruning and arborist services in Canberra
+eyebrow: Since 1975
+intro: From a single overgrown tree to a full site clearance, our qualified arborists get the job done safely and leave your property clean.
 ---
-<div class="mx-auto max-w-content px-4 py-section">
-  <h1 class="font-display text-4xl font-bold">ACT Tree Felling</h1>
-  <p class="mt-4 text-ink-muted">Scaffold check: Eleventy and Tailwind are running.</p>
-  <a class="mt-6 inline-block rounded-button bg-primary px-5 py-3 text-on-primary hover:bg-primary-hover" href="/">Primary token test</a>
-</div>
+{%- from "components/service-card.njk" import serviceCard -%}
+{%- from "components/button.njk" import button -%}
+
+{% include "components/trust-icons.njk" %}
+
+<section class="bg-card py-section" aria-labelledby="services-heading">
+  <div class="page-container">
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <h2 id="services-heading" class="font-display text-3xl font-bold">Our services</h2>
+      {{ button(site.cta.services.label, url=site.cta.services.url, variant="secondary") }}
+    </div>
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {%- for service in services %}
+      <li>{{ serviceCard(service) }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="py-section" aria-labelledby="about-heading">
+  <div class="page-container grid items-center gap-10 lg:grid-cols-2">
+    <div class="aspect-photo rounded-card bg-placeholder" aria-hidden="true"></div>
+    <div>
+      <h2 id="about-heading" class="font-display text-3xl font-bold">A genuine commitment to caring for trees</h2>
+      <p class="mt-4">We're professional arborists with a passion for trees and a real interest in keeping them healthy and safe, for the benefit of Canberra's neighbourhoods and communities.</p>
+      <p class="mt-4">We look after every part of tree care: specialist pruning, deadwooding, removal, stump grinding, cabling and bracing, and powerline clearance.</p>
+      <div class="mt-6">{{ button("Why choose ACT Tree Felling", url="/why-act-tree-felling/", variant="secondary") }}</div>
+    </div>
+  </div>
+</section>
+
+{% include "components/reviews.njk" %}
+
+{% include "components/logo-grid.njk" %}

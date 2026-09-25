@@ -1,0 +1,29 @@
+---
+layout: layouts/page.njk
+title: Careers
+description: Work with Canberra's longest-running tree services business. We're always keen to hear from qualified, motivated arborists and tree workers.
+heading: Careers at ACT Tree Felling
+intro: Build a career with a team that takes professional arboriculture seriously.
+heroActions: false
+permalink: /careers/
+---
+{%- from "components/button.njk" import button -%}
+<section class="page-container py-section-sm" aria-labelledby="work-heading">
+  <div class="max-w-prose space-y-4">
+    <h2 id="work-heading" class="font-display text-3xl font-bold">Would you like to work with us?</h2>
+    <p>We take professional standards in arboriculture very seriously, and we value and reward people who bring a professional approach to their work.</p>
+    <p>Our team culture and ethics matter to us. We rely on our crew working together safely and cohesively.</p>
+    <p>If you're skilled in arboriculture or tree services, qualified, experienced and motivated, and you enjoy challenging projects with like-minded professionals, we'd like to hear from you.</p>
+    <p>We don't just offer the right people a job. We offer a career, with real opportunities to grow your skills, experience and pay.</p>
+  </div>
+</section>
+
+<section class="bg-card py-section-sm" aria-labelledby="apply-heading">
+  <div class="page-container">
+    <div class="max-w-prose space-y-4">
+      <h2 id="apply-heading" class="font-display text-3xl font-bold">How to apply</h2>
+      <p>Email your resume and cover letter to <a href="mailto:{{ site.careersEmail }}" class="font-semibold text-primary underline">{{ site.careersEmail }}</a>. We'll be in touch to talk about current opportunities.</p>
+      <div>{{ button("Email your application", url="mailto:" + site.careersEmail + "?subject=Job%20application") }}</div>
+    </div>
+  </div>
+</section>

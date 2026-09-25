@@ -1,0 +1,31 @@
+{#-
+  Phones, email, street (and optionally postal) address, hours. Inherits text colour,
+  so it works on light and dark backgrounds.
+-#}
+{%- from "components/phone-link.njk" import phoneLink -%}
+{%- macro contactDetails(site, showPostal=false) -%}
+<div class="space-y-4">
+  <ul class="space-y-2">
+    {%- for phone in site.phones %}
+    <li>{{ phoneLink(phone, class="hover:underline", showLabel=true) }}</li>
+    {%- endfor %}
+    <li>
+      <a href="mailto:{{ site.email }}" class="inline-flex items-center gap-2 hover:underline">{% icon "mail", "size-5 shrink-0" %}<span>{{ site.email }}</span></a>
+    </li>
+  </ul>
+  <address class="flex gap-2 not-italic">
+    {% icon "map-pin", "size-5 shrink-0" %}
+    <span>
+      {%- if showPostal %}<span class="block font-semibold">Street address</span>{% endif -%}
+      {{ site.address.street }}<br>{{ site.address.locality }} {{ site.address.region }} {{ site.address.postcode }}
+    </span>
+  </address>
+  {%- if showPostal %}
+  <address class="flex gap-2 not-italic">
+    {% icon "mailbox", "size-5 shrink-0" %}
+    <span><span class="block font-semibold">Postal address</span>{{ site.postalAddress.street }}<br>{{ site.postalAddress.locality }} {{ site.postalAddress.region }} {{ site.postalAddress.postcode }}</span>
+  </address>
+  {%- endif %}
+  <p class="flex gap-2">{% icon "clock", "size-5 shrink-0" %}<span>{{ site.hours.display }}</span></p>
+</div>
+{%- endmacro -%}

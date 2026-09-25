@@ -1,0 +1,23 @@
+---
+layout: layouts/page.njk
+title: Contact Us & Request a Quote
+description: Request a tree services quote or get advice from ACT Tree Felling. Call our Southside or Northside numbers, email us or send an enquiry online.
+heading: Contact us
+intro: Need a quote, want advice or have a question? We'd love to hear from you.
+heroActions: false
+cta: false
+permalink: /contact/
+---
+{%- from "components/contact-details.njk" import contactDetails -%}
+<div class="page-container grid gap-12 py-section-sm lg:grid-cols-3">
+  <section id="quote" class="scroll-mt-8 lg:col-span-2" aria-labelledby="quote-heading">
+    <h2 id="quote-heading" class="font-display text-3xl font-bold">{{ site.cta.quote.label }}</h2>
+    <p class="mt-2 text-ink-muted">Tell us about your trees and we'll get back to you during business hours.</p>
+    <div class="mt-8 max-w-prose">{% include "components/jotform-quote.njk" %}</div>
+  </section>
+
+  <section class="h-fit rounded-card border border-line bg-card p-6" aria-labelledby="details-heading">
+    <h2 id="details-heading" class="mb-4 font-display text-2xl font-bold">Get in touch</h2>
+    {{ contactDetails(site, showPostal=true) }}
+  </section>
+</div>

@@ -1,0 +1,66 @@
+---
+layout: layouts/page.njk
+title: Why Choose ACT Tree Felling
+description: Canberra's longest-running tree services business. Qualified arborists, Evoenergy accredited, fully insured, and trusted by Canberra homes and organisations since 1975.
+heading: Why choose ACT Tree Felling
+intro: A family business that has grown into one of Canberra's leading arboriculture providers, with qualified arborists, fair pricing and reliable, friendly service.
+permalink: /why-act-tree-felling/
+---
+<section class="page-container py-section-sm" aria-labelledby="story-heading">
+  <div class="grid gap-10 lg:grid-cols-2">
+    <div class="max-w-prose space-y-4">
+      <h2 id="story-heading" class="font-display text-3xl font-bold">Our story</h2>
+      <p>ACT Tree Felling is Canberra's longest-running tree services business, founded by Paddy Hanson in {{ site.founded }}. What began as a small family business, run by Paddy and his son Tim van der Linden, has grown into a leading arboriculture provider in Canberra.</p>
+      <p>Our arborists have a passion for trees and a real interest in keeping them healthy, for the benefit of our neighbourhoods and communities. We provide complete tree care: specialist pruning, deadwooding, removal, stump grinding, cabling and bracing, and powerline clearance.</p>
+      <p>We also have Diploma-qualified arborists for consulting and reports, whether you have safety concerns, trees on a development site, questions about tree regulations, or pest and disease problems.</p>
+    </div>
+    <div class="aspect-photo rounded-card bg-placeholder" aria-hidden="true"></div>
+  </div>
+</section>
+
+{% include "components/trust-icons.njk" %}
+
+<section class="bg-card py-section-sm" aria-labelledby="professional-heading">
+  <div class="page-container">
+    <div class="max-w-prose space-y-4">
+      <h2 id="professional-heading" class="font-display text-3xl font-bold">Why a professional arborist matters</h2>
+      <p>You might only need an arborist once or twice, or regularly – for example, if you have trees near powerlines or a specimen tree that needs routine pruning. Either way, choosing a professional is important.</p>
+      <p>Poor tree work can't be undone. It can lead to poor growth, weak structure, and pest and disease problems. Tree removal is high-risk work, and unqualified or uninsured operators can create serious problems.</p>
+      <p>We offer professional consultations, high-quality work, fair pricing, and the reliability and friendliness you'd expect from a long-established local business.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page-container py-section-sm" aria-labelledby="qualifications-heading">
+  <div class="grid gap-10 lg:grid-cols-2">
+    <div class="space-y-4">
+      <h2 id="qualifications-heading" class="font-display text-3xl font-bold">Qualifications and training</h2>
+      <p>All our tree climbers are qualified arborists (minimum Certificate III in Arboriculture) or are training with us alongside accredited arboriculture training.</p>
+      <p>All our staff hold current certificates and training in:</p>
+      <ul class="list-disc space-y-2 pl-6">
+        <li>first aid</li>
+        <li>chainsaw operation</li>
+        <li>tree climbing techniques</li>
+        <li>asbestos awareness</li>
+        <li>construction induction (White Card)</li>
+      </ul>
+      <p>We're an Evoenergy-accredited tree-trimming provider, qualified to the highest level (high voltage), and members of {{ site.memberships | join(", ") }}.</p>
+    </div>
+    <div class="space-y-4">
+      <h2 id="insurance-heading" class="font-display text-3xl font-bold">Fully insured</h2>
+      <ul class="divide-y divide-line rounded-card border border-line bg-card">
+        {%- for policy in site.insurance %}
+        <li class="flex flex-wrap justify-between gap-2 p-4">
+          <span class="font-semibold">{{ policy.type }}{% if policy.cover %} – {{ policy.cover }}{% endif %}</span>
+          <span class="text-ink-muted">{{ policy.insurer }}</span>
+        </li>
+        {%- endfor %}
+      </ul>
+      <p class="text-sm text-ink-muted">{{ site.insuranceNote }}</p>
+    </div>
+  </div>
+</section>
+
+{% include "components/reviews.njk" %}
+
+{% include "components/logo-grid.njk" %}

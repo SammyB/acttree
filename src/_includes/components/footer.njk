@@ -1,22 +1,10 @@
 {#- Site footer: contact details, service links, footer nav groups, social, membership, legal. -#}
-{%- from "components/phone-link.njk" import phoneLink -%}
+{%- from "components/contact-details.njk" import contactDetails -%}
 <footer class="bg-dark text-on-dark">
   <div class="page-container grid gap-10 py-section-sm md:grid-cols-2 lg:grid-cols-4">
     <div class="space-y-4">
       <p class="font-display text-xl font-bold">{{ site.name }}</p>
-      <ul class="space-y-2">
-        {%- for phone in site.phones %}
-        <li>{{ phoneLink(phone, class="hover:underline", showLabel=true) }}</li>
-        {%- endfor %}
-        <li>
-          <a href="mailto:{{ site.email }}" class="inline-flex items-center gap-2 hover:underline">{% icon "mail", "size-5 shrink-0" %}<span>{{ site.email }}</span></a>
-        </li>
-      </ul>
-      <address class="flex gap-2 not-italic">
-        {% icon "map-pin", "size-5 shrink-0" %}
-        <span>{{ site.address.street }}<br>{{ site.address.locality }} {{ site.address.region }} {{ site.address.postcode }}</span>
-      </address>
-      <p class="flex gap-2">{% icon "clock", "size-5 shrink-0" %}<span>{{ site.hours.display }}</span></p>
+      {{ contactDetails(site) }}
     </div>
 
     <nav aria-label="Services footer">

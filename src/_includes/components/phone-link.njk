@@ -6,6 +6,7 @@
 {%- macro phoneLink(phone, class="", showLabel=false, showIcon=true, textClass="") -%}
 <a href="tel:{{ phone.tel }}" data-track="phone" class="inline-flex items-center gap-2 {{ class }}">
   {%- if showIcon %}{% icon "phone", "size-5 shrink-0" %}{% endif -%}
-  <span class="{{ textClass }}">{% if showLabel %}{{ phone.label }}: {% endif %}{{ phone.display }}</span>
+  {%- set text = (phone.label + ": " + phone.display) if showLabel else phone.display %}
+  <span class="{{ textClass }}">{{ text | nbsp }}</span>
 </a>
 {%- endmacro -%}

@@ -12,13 +12,19 @@
     "dev": "npm run clean && run-p dev:*",
     "dev:11ty": "eleventy --serve --quiet",
     "dev:css": "tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --watch=always",
-    "build": "npm run clean && cross-env ELEVENTY_ENV=production eleventy && tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --minify"
+    "build": "npm run clean && cross-env ELEVENTY_ENV=production eleventy && tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --minify",
+    "check": "npm run build && npm run check:html && npm run check:links && npm run check:content",
+    "check:html": "html-validate \"_site/**/*.html\"",
+    "check:links": "linkinator _site --recurse --check-fragments --skip \"^https://\"",
+    "check:content": "node scripts/content-review.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "@tabler/icons": "^3.48.0",
     "@tailwindcss/cli": "^4.3.3",
     "cross-env": "^10.1.0",
+    "html-validate": "^10.9.0",
+    "linkinator": "^8.1.0",
     "markdown-it": "^15.0.2",
     "npm-run-all2": "^8.0.4",
     "tailwindcss": "^4.3.3"

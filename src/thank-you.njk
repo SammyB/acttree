@@ -1,0 +1,19 @@
+---
+layout: layouts/page.njk
+title: Thank You
+description: Thanks for your enquiry. The ACT Tree Felling team will be in touch soon.
+heading: Thanks, we've received your enquiry
+intro: We'll get back to you during business hours. If it's urgent, please give us a call.
+noindex: true
+cta: false
+permalink: /thank-you/
+---
+{#- JotForm redirects here after a successful submit. The Google Ads conversion fires on this URL through GTM. -#}
+{%- from "components/button.njk" import button -%}
+<section class="page-container py-section-sm" aria-labelledby="next-heading">
+  <h2 id="next-heading" class="font-display text-2xl font-bold">While you wait</h2>
+  <div class="mt-6 flex flex-wrap gap-3">
+    {{ button(site.cta.services.label, url=site.cta.services.url, variant="secondary") }}
+    {{ button("Read our FAQ", url="/resources/faq/", variant="secondary") }}
+  </div>
+</section>

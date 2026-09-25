@@ -1,0 +1,13 @@
+---
+layout: layouts/page.njk
+title: Tree Care FAQ
+description: Answers to common questions about tree removal and pruning costs, quotes, government approval, powerline clearance, lopping and more in Canberra.
+heading: Frequently asked questions
+intro: Answers to common questions about tree care and our services. Can't find what you need? Give us a call.
+permalink: /resources/faq/
+---
+{%- from "components/faq-list.njk" import faqList -%}
+<section class="page-container py-section-sm" aria-labelledby="faq-heading">
+  <h2 id="faq-heading" class="sr-only">Questions and answers</h2>
+  <div class="max-w-prose">{{ faqList(faq) }}</div>
+</section>

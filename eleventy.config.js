@@ -24,6 +24,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("localBusinessJsonLd", (site) => toJsonLd(localBusiness(site)));
   eleventyConfig.addFilter("mdInline", mdInline);
   eleventyConfig.addFilter("primary", primary);
+  // Keeps phone numbers on one line.
+  eleventyConfig.addFilter("nbsp", (text) => String(text).replace(/ /g, "\u00a0"));
 
   eleventyConfig.addShortcode("icon", icon);
   eleventyConfig.addShortcode("year", () => String(new Date().getFullYear()));
