@@ -1,0 +1,43 @@
+{
+  "name": "ACT Tree Felling",
+  "url": "https://acttree.com.au",
+  "locale": "en_AU",
+  "description": "Canberra's longest-running tree services business, since 1975. Tree removal, pruning, stump grinding, powerline clearance and arborist reports.",
+  "founded": 1975,
+  "areaServed": "Canberra",
+  "phones": [
+    { "label": "Southside", "display": "02 6281 2687", "tel": "+61262812687", "primary": true },
+    { "label": "Northside", "display": "02 6162 2678", "tel": "+61261622678" },
+    { "label": "Mobile", "display": "0417 492 760", "tel": "+61417492760" }
+  ],
+  "email": "service@acttree.com.au",
+  "address": {
+    "street": "56 Port Arthur Street",
+    "locality": "Lyons",
+    "region": "ACT",
+    "postcode": "2606",
+    "country": "AU"
+  },
+  "postalAddress": {
+    "street": "PO Box 301",
+    "locality": "Curtin",
+    "region": "ACT",
+    "postcode": "2605",
+    "country": "AU"
+  },
+  "hours": {
+    "display": "7.30 am – 4.00 pm, Monday–Friday",
+    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "07:30",
+    "closes": "16:00"
+  },
+  "social": [
+    { "name": "Facebook", "url": "https://www.facebook.com/acttreefelling" },
+    { "name": "Instagram", "url": "https://www.instagram.com/acttreefelling" }
+  ],
+  "memberships": ["Arboriculture Australia"],
+  "ogImage": "",
+  "tracking": {
+    "gtmId": "GTM-5KX98C2"
+  }
+}

@@ -1,13 +1,51 @@
+{#-
+  Base layout: every page ends up here.
+  Front matter:
+    title        (required) page title; " | ACT Tree Felling" is appended unless already present
+    description  (required) meta + Open Graph description
+    ogImage      optional, root-relative path; falls back to site.ogImage
+    noindex      optional, true = robots noindex, no canonical, left out of sitemap.xml
+-#}
+{%- set pageTitle = title | required("title") -%}
+{%- set metaDescription = description | required("description") -%}
+{%- set fullTitle = pageTitle if site.name in pageTitle else pageTitle + " | " + site.name -%}
+{%- set canonicalUrl = site.url + page.url -%}
+{%- set shareImage = ogImage or site.ogImage -%}
 <!doctype html>
 <html lang="en-AU">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
-  <meta name="description" content="{{ description }}">
+  <title>{{ fullTitle }}</title>
+  <meta name="description" content="{{ metaDescription }}">
+  {%- if noindex %}
+  <meta name="robots" content="noindex, follow">
+  {%- else %}
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  {%- endif %}
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:locale" content="{{ site.locale }}">
+  <meta property="og:title" content="{{ fullTitle }}">
+  <meta property="og:description" content="{{ metaDescription }}">
+  <meta property="og:url" content="{{ canonicalUrl }}">
+  {%- if shareImage %}
+  <meta property="og:image" content="{{ site.url + shareImage }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {%- else %}
+  <meta name="twitter:card" content="summary">
+  {%- endif %}
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="stylesheet" href="/assets/css/main.css">
+
+  <script type="application/ld+json">
+{{ site | localBusinessJsonLd | safe }}
+  </script>
 </head>
 <body class="min-h-screen">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-button focus:bg-card focus:px-4 focus:py-2">Skip to content</a>
   <main id="main">
     {{ content | safe }}
   </main>
