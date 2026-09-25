@@ -1,0 +1,127 @@
+# acttree.com.au – Apache config for OzHosting (Plesk). Copied to _site/ as-is.
+#
+# Canonical host: https://acttree.com.au (no www). MUST match "url" in src/_data/site.json.
+# `npm run check` verifies that, and that every redirect target below exists in the build.
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset utf-8
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# ---------------------------------------------------------------------------
+# 1. Block dotfiles and folders (.git, .env, …) but allow /.well-known/ (SSL checks).
+# ---------------------------------------------------------------------------
+RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+# ---------------------------------------------------------------------------
+# 2. Old server files that must never be served again (see project brief §10).
+#    Answer "410 Gone" even if a copy is left behind on the server.
+# ---------------------------------------------------------------------------
+RewriteRule ^(php_mail_test\.php|500\.php|functions\.php|acttreecom\.zip|readme\.txt)$ - [G,L]
+RewriteRule ^(mail|contact_form|archived|scripts)(/|$) - [G,L]
+
+# ---------------------------------------------------------------------------
+# 3. Old site URLs -> new URLs. Absolute targets so http/www requests
+#    reach the final URL in a single redirect. NE keeps "#" unescaped.
+# ---------------------------------------------------------------------------
+RewriteRule ^(index|default)\.html$          https://acttree.com.au/ [R=301,L]
+RewriteRule ^about\.html$                    https://acttree.com.au/why-act-tree-felling/ [R=301,L]
+RewriteRule ^testimonials\.html$             https://acttree.com.au/why-act-tree-felling/#reviews [R=301,NE,L]
+RewriteRule ^services\.html$                 https://acttree.com.au/services/ [R=301,L]
+RewriteRule ^tree-removal\.html$             https://acttree.com.au/services/tree-removal/ [R=301,L]
+RewriteRule ^tree-pruning\.html$             https://acttree.com.au/services/tree-pruning/ [R=301,L]
+RewriteRule ^stump-grinding\.html$           https://acttree.com.au/services/stump-grinding/ [R=301,L]
+RewriteRule ^powerline-clearance\.html$      https://acttree.com.au/services/powerline-clearance/ [R=301,L]
+RewriteRule ^cable-and-bracing\.html$        https://acttree.com.au/services/cabling-and-bracing/ [R=301,L]
+RewriteRule ^commercial-works\.html$         https://acttree.com.au/services/commercial-tree-services/ [R=301,L]
+RewriteRule ^tree-consultation\.html$        https://acttree.com.au/services/arborist-consultation/ [R=301,L]
+RewriteRule ^tree-consul-health\.html$       https://acttree.com.au/services/arborist-consultation/#health-and-condition [R=301,NE,L]
+RewriteRule ^tree-consul-risk\.html$         https://acttree.com.au/services/arborist-consultation/#tree-risk-assessment [R=301,NE,L]
+RewriteRule ^tree-consul-management\.html$   https://acttree.com.au/services/arborist-consultation/#tree-management-plans [R=301,NE,L]
+RewriteRule ^tree-consul-root\.html$         https://acttree.com.au/services/arborist-consultation/#tree-root-damage [R=301,NE,L]
+RewriteRule ^tree-consul-disease\.html$      https://acttree.com.au/services/arborist-consultation/#disease-identification [R=301,NE,L]
+RewriteRule ^tree-consul-elm-leaf\.html$     https://acttree.com.au/services/arborist-consultation/#elm-leaf-beetle [R=301,NE,L]
+RewriteRule ^faq\.html$                      https://acttree.com.au/resources/faq/ [R=301,L]
+RewriteRule ^careers\.html$                  https://acttree.com.au/careers/ [R=301,L]
+RewriteRule ^contact\.html$                  https://acttree.com.au/contact/ [R=301,L]
+RewriteRule ^survey\.html$                   https://acttree.com.au/ [R=301,L]
+RewriteRule ^sitemap\.html$                  https://acttree.com.au/sitemap.xml [R=301,L]
+
+# TBC with client: is mulch still offered? Temporary (302) until decided, so
+# browsers don't cache it. Change to 301 once the final target is agreed.
+RewriteRule ^mulch-orders\.html$             https://acttree.com.au/contact/ [R=302,L]
+
+# ---------------------------------------------------------------------------
+# 4. Force HTTPS and the canonical host (www -> non-www) in one hop.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\.acttree\.com\.au$ [NC]
+RewriteRule ^ https://acttree.com.au%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Security headers
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+# Enable HSTS once HTTPS on both acttree.com.au and www is confirmed working after launch:
+# Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Types and compression
+# ---------------------------------------------------------------------------
+<IfModule mod_mime.c>
+AddType image/avif .avif
+AddType image/webp .webp
+AddType text/javascript .js .mjs
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+</IfModule>
+
+<IfModule mod_deflate.c>
+<IfModule mod_filter.c>
+AddOutputFilterByType DEFLATE text/html text/css text/javascript text/plain text/xml application/xml image/svg+xml
+</IfModule>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+#   HTML, sitemap, robots: always revalidate, so deploys show immediately.
+#   CSS/JS: long cache; URLs carry ?v=<build id> so each deploy busts the cache.
+#   Images/fonts: long cache (the image pipeline writes content-hashed filenames).
+# ---------------------------------------------------------------------------
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 1 hour"
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType application/xml "access plus 0 seconds"
+ExpiresByType text/xml "access plus 0 seconds"
+ExpiresByType text/plain "access plus 0 seconds"
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType text/javascript "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType image/avif "access plus 1 year"
+ExpiresByType image/webp "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType image/svg+xml "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType image/x-icon "access plus 1 week"
+ExpiresByType image/vnd.microsoft.icon "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(html|xml|txt)$">
+Header set Cache-Control "no-cache"
+</FilesMatch>
+<FilesMatch "\.(css|js|avif|webp|jpe?g|png|svg|woff2)$">
+Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+</IfModule>

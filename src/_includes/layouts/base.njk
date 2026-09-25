@@ -38,7 +38,7 @@
   {%- endif %}
 
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/main.css?v={{ env.buildId }}">
 
   <script type="application/ld+json">
 {{ site | localBusinessJsonLd | safe }}

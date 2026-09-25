@@ -13,7 +13,8 @@
     "dev:11ty": "eleventy --serve --quiet",
     "dev:css": "tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --watch=always",
     "build": "npm run clean && cross-env ELEVENTY_ENV=production eleventy && tailwindcss -i src/assets/css/main.css -o _site/assets/css/main.css --minify",
-    "check": "npm run build && npm run check:html && npm run check:links && npm run check:content",
+    "check": "npm run build && npm run check:html && npm run check:links && npm run check:redirects && npm run check:content",
+    "check:redirects": "node scripts/check-redirects.js",
     "check:html": "html-validate \"_site/**/*.html\"",
     "check:links": "linkinator _site --recurse --check-fragments --skip \"^https://\"",
     "check:content": "node scripts/content-review.js"
