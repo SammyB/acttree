@@ -16,6 +16,7 @@ Read these docs before large changes:
 ## Commands
 - `npm run dev` runs the local server with live reload.
 - `npm run build` does a production build to `_site/`.
+- `npm run build:uat` does a UAT preview build (Cloudflare build command): UAT banner, `noindex` on every page, blocking `robots.txt`, a `_headers` file with `X-Robots-Tag`, and no GTM.
 - `npm run check` builds, then runs an HTML validation and link check.
 - `npm run test:apache` builds, then serves `_site/` in Apache 2.4 (Docker must be running) and checks the `.htaccess` redirects, blocked files, 404 page and caching. Run it before every launch or `.htaccess` change.
 
@@ -66,7 +67,7 @@ src/
 ## Hosting, redirects and previews
 - The canonical origin is `site.url` in `site.json`: `https://www.acttree.com.au`. Everything that needs the host reads it from there, including `.htaccess`, canonical tags, the sitemap and JSON-LD.
 - Edit `src/htaccess.njk`, never `_site/.htaccess`. Redirects to service pages and their sections come from `redirectFrom` in `services.json` (section `id`s there are the single source of truth for anchors); `npm run check` fails if a redirect `#anchor` is missing from the build. Keep the `index.html` redirect guarded with `THE_REQUEST` to avoid a redirect loop. Only hashed or versioned assets get the `immutable` cache.
-- UAT previews run on Cloudflare Pages. Non-production builds must output `noindex` and a blocking `robots.txt`, and must not load GTM. `.htaccess` doesn't run on previews.
+- UAT previews run on Cloudflare (build command `npm run build:uat`). The environment comes only from `ELEVENTY_ENV`, set by the npm scripts (`src/_data/env.js`); anything other than `production` is non-production. Non-production builds must output `noindex` and a blocking `robots.txt`, and must not load GTM. Don't set `ELEVENTY_ENV` in Cloudflare's dashboard: `npm run build` hard-codes `production`. `.htaccess` doesn't run on previews.
 
 ## Deploy
 - **Nothing is uploaded to the live site until go-live.** Don't suggest or run deploys to OzHosting before Sam asks.

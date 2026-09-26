@@ -1,0 +1,5 @@
+{#- Shown on UAT preview builds only (npm run build:uat). Not part of the design. -#}
+<div class="bg-star px-4 py-2 text-center text-sm text-ink" role="note" aria-label="Preview notice">
+  <strong>UAT preview</strong> – this is not the live website. Search engines and analytics are switched off.
+  Built {{ env.builtAt }}{% if env.branch %} from <code>{{ env.branch }}</code>{% endif %}{% if env.commit %} ({{ env.commit }}){% endif %}.
+</div>

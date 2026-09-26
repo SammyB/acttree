@@ -2,7 +2,13 @@
 permalink: /robots.txt
 eleventyExcludeFromCollections: true
 ---
+{%- if env.indexable -%}
 User-agent: *
 Allow: /
 
 Sitemap: {{ site.url }}/sitemap.xml
+{%- else -%}
+# {{ env.name }} build: not the live website. Keep search engines out.
+User-agent: *
+Disallow: /
+{%- endif %}

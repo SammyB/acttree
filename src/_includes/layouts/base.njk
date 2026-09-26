@@ -5,13 +5,15 @@
     description  (required) meta + Open Graph description
     ogImage      optional, root-relative path; falls back to site.ogImage
     noindex      optional, true = robots noindex, no canonical, left out of sitemap.xml
+  Non-production builds (env.indexable false: uat, development) are noindex, nofollow on every page,
+  have no canonical link and never load GTM. UAT builds also show the UAT banner.
 -#}
 {%- set pageTitle = title | required("title") -%}
 {%- set metaDescription = description | required("description") -%}
 {%- set fullTitle = pageTitle if site.name in pageTitle else pageTitle + " | " + site.name -%}
 {%- set canonicalUrl = site.url + page.url -%}
 {%- set shareImage = ogImage or site.ogImage -%}
-{#- GTM only in production builds (ELEVENTY_ENV=production), so local dev never sends analytics. -#}
+{#- GTM only in production builds (ELEVENTY_ENV=production): UAT previews and local dev never send analytics. -#}
 {%- set gtmId = site.tracking.gtmId if env.production else null -%}
 {%- from "components/gtm.njk" import gtmHead, gtmBody -%}
 <!DOCTYPE html>
@@ -24,7 +26,9 @@
   {%- endif %}
   <title>{{ fullTitle }}</title>
   <meta name="description" content="{{ metaDescription }}">
-  {%- if noindex %}
+  {%- if not env.indexable %}
+  <meta name="robots" content="noindex, nofollow">
+  {%- elif noindex %}
   <meta name="robots" content="noindex, follow">
   {%- else %}
   <link rel="canonical" href="{{ canonicalUrl }}">
@@ -56,6 +60,9 @@
 <body class="flex min-h-screen flex-col">
   {%- if gtmId %}
   {{ gtmBody(gtmId) }}
+  {%- endif %}
+  {%- if env.uat %}
+  {% include "components/uat-banner.njk" %}
   {%- endif %}
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-button focus:bg-card focus:px-4 focus:py-2">Skip to content</a>
   {% include "components/header.njk" %}
