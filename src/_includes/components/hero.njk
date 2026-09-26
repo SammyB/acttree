@@ -9,14 +9,16 @@
 {%- from "components/button.njk" import button -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
 
-{%- macro hero(heading, text=null, eyebrow=null, primary=null, phone=null) -%}
-<section class="bg-dark text-on-dark" aria-labelledby="page-title">
+{#- level: heading level; only the styleguide uses 2, to show this hero below the feature hero. #}
+{%- macro hero(heading, text=null, eyebrow=null, primary=null, phone=null, level=1) -%}
+{%- set titleId = "page-title" if level == 1 else "hero-title-" + level -%}
+<section class="bg-dark text-on-dark" aria-labelledby="{{ titleId }}">
   <div class="page-container grid items-center gap-10 py-section-sm lg:grid-cols-2 lg:py-section">
     <div>
       {%- if eyebrow %}
       <p class="mb-3 text-sm font-semibold uppercase tracking-wide">{{ eyebrow }}</p>
       {%- endif %}
-      <h1 id="page-title" class="font-display text-4xl font-bold text-balance md:text-5xl">{{ heading }}</h1>
+      <h{{ level }} id="{{ titleId }}" class="font-display text-4xl font-bold text-balance md:text-5xl">{{ heading }}</h{{ level }}>
       {%- if text %}
       <p class="mt-6 text-lg">{{ text }}</p>
       {%- endif %}

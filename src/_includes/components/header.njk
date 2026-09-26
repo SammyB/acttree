@@ -50,8 +50,9 @@
     </nav>
 
     <div class="flex shrink-0 items-center gap-2 whitespace-nowrap xl:gap-3">
-      {#- Phone slot (Figma TODO): mobile number from site.json. Icon-only below 2xl. #}
-      {{ phoneLink(headerPhone, class="rounded-button p-2 font-semibold hover:text-primary", textClass="sr-only 2xl:not-sr-only") }}
+      {#- Phone slot (Figma TODO): mobile number from site.json. The number fits as text from sm up
+          (checked at 640, 1280 and 1440 with the 1248px container); below that it's icon-only. #}
+      {{ phoneLink(headerPhone, class="rounded-button p-2 font-semibold hover:text-primary", textClass="sr-only sm:not-sr-only", ariaLabel="Call " + headerPhone.display) }}
       <span class="hidden xl:inline-flex">{{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary") }}</span>
       <span class="hidden xl:inline-flex">{{ button(site.cta.quote.label, url=site.cta.quote.url) }}</span>
       <button type="button" class="rounded-button p-2 xl:hidden" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>

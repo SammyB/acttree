@@ -46,7 +46,7 @@
     "freeQuote": { "label": "Request a Free Quote", "url": "/contact/#quote" },
     "contact": { "label": "Contact Us", "url": "/contact/" },
     "call": { "label": "Call ACT Tree Felling", "phone": "mobile" },
-    "services": { "label": "See our services", "url": "/services/" },
+    "services": { "label": "See Our Services", "url": "/services/" },
     "band": {
       "eyebrow": "Need tree work?",
       "heading": "Request a free quotation",
@@ -65,7 +65,9 @@
     {
       "icon": "leaf",
       "label": "Sustainment Services",
-      "review": ["Label is unclear in Figma; designer is confirming it."]
+      "review": [
+        { "who": "designer", "text": "The trust icon label \"Sustainment Services\" is unclear. What should it say?" }
+      ]
     }
   ],
   "googleReviews": {
@@ -74,7 +76,7 @@
     "profileUrl": "",
     "writeReviewUrl": "",
     "review": [
-      "Rating and count copied from Figma (26 Sep 2026) – update before launch. Add the Google Business Profile URL and the 'write a review' link (needs the Place ID) so those buttons appear."
+      { "who": "client", "text": "The homepage shows a Google rating of 4.9 from 204 reviews (copied from the design). Please confirm the current figures, and send us the link to your Google Business Profile so we can add the \"Read our reviews\" and \"Write a Review\" buttons." }
     ]
   },
   "insurance": [
@@ -82,6 +84,11 @@
     { "type": "Professional indemnity", "cover": "$1 million", "insurer": "QBE Insurance" },
     { "type": "Workers compensation", "insurer": "CGU Workers Compensation" },
     { "type": "Comprehensive vehicle", "insurer": "Zurich Steadfast Business Insurance" }
+  ],
+  "review": [
+    { "who": "client", "text": "The insurance cover amounts ($20 million public liability, $1 million professional indemnity) and insurers come from the old website (about 2020). Are they still current?" },
+    { "who": "client", "text": "The footer shows the business name as \"ACT Tree Felling Pty Ltd\". Is that the correct registered name?" },
+    { "who": "client", "text": "Search engines are given the Southside number (02 6281 2687) as the main phone number, while the website's call buttons use the mobile (0417 492 760). Is that the right way round?" }
   ],
   "insuranceNote": "Copies of all our insurance certificates and qualifications are available on request.",
   "tracking": {

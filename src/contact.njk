@@ -6,12 +6,14 @@ heading: Contact us
 intro: Need a quote, want advice or have a question? We'd love to hear from you.
 heroActions: false
 cta: false
+# Headings are sentence case; button labels (site.cta) are Title Case.
+quoteHeading: Request a quote
 permalink: /contact/
 ---
 {%- from "components/contact-details.njk" import contactDetails -%}
 <div class="page-container grid gap-12 py-section-sm lg:grid-cols-3">
   <section id="quote" class="scroll-mt-8 lg:col-span-2" aria-labelledby="quote-heading">
-    <h2 id="quote-heading" class="font-display text-3xl font-bold">{{ site.cta.quote.label }}</h2>
+    <h2 id="quote-heading" class="font-display text-3xl font-bold">{{ quoteHeading }}</h2>
     <p class="mt-2 text-ink-muted">Tell us about your trees and we'll get back to you during business hours.</p>
     <div class="mt-8 max-w-prose">{% include "components/jotform-quote.njk" %}</div>
   </section>

@@ -46,7 +46,8 @@
   --spacing-section: 6rem;
   --spacing-section-sm: 4rem;
 
-  --container-content: 72rem;
+  /* Max content width: 1248px (docs/design-tokens.md; 1440 frame minus 96px side padding). */
+  --container-content: 78rem;
   --container-prose: 44rem;
   --container-measure: 70ch;
 
@@ -54,16 +55,13 @@
   --aspect-card: 395 / 219;
 }
 
-/* Centred page column with side gutters. */
+/* Centred page column: content up to --container-content wide, with a 24px gutter on small
+   screens (docs/design-tokens.md). The gutter sits outside the content width. */
 @utility page-container {
   margin-inline: auto;
   width: 100%;
-  max-width: var(--container-content);
-  padding-inline: --spacing(4);
-
-  @variant md {
-    padding-inline: --spacing(8);
-  }
+  max-width: calc(var(--container-content) + 2 * --spacing(6));
+  padding-inline: --spacing(6);
 }
 
 @layer base {

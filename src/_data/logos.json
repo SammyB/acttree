@@ -1,7 +1,13 @@
 [
-  { "name": "ACT Government", "image": null, "permissionConfirmed": false },
-  { "name": "Evoenergy", "image": null, "permissionConfirmed": false },
-  { "name": "Antarctica New Zealand", "image": null, "permissionConfirmed": false },
-  { "name": "ASX", "image": null, "permissionConfirmed": false },
-  { "name": "Australian Bureau of Statistics", "image": null, "permissionConfirmed": false }
+  { "name": "ACT Government", "image": null, "show": true, "permissionConfirmed": false },
+  { "name": "Evoenergy", "image": null, "show": true, "permissionConfirmed": false },
+  { "name": "Antarctica New Zealand", "image": null, "show": true, "permissionConfirmed": false },
+  { "name": "ASX", "image": null, "show": true, "permissionConfirmed": false },
+  { "name": "Australian Bureau of Statistics", "image": null, "show": true, "permissionConfirmed": false },
+  { "name": "The Prime Minister's Lodge", "image": null, "show": false, "permissionConfirmed": false },
+  { "name": "Australian National Botanic Gardens", "image": null, "show": false, "permissionConfirmed": false },
+  { "name": "Transgrid", "image": null, "show": false, "permissionConfirmed": false },
+  { "name": "Ray White", "image": null, "show": false, "permissionConfirmed": false },
+  { "name": "LJ Hooker", "image": null, "show": false, "permissionConfirmed": false },
+  { "name": "Elders Real Estate", "image": null, "show": false, "permissionConfirmed": false }
 ]

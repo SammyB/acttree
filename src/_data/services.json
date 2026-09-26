@@ -88,8 +88,8 @@
       }
     ],
     "review": [
-      "Old copy cited the 'ACT Tree Protection Act 2005' (likely replaced by the Urban Forest Act 2023). Reworded to 'relevant ACT regulations' – arborist to confirm.",
-      "Names the Australian National Botanic Gardens and The Prime Minister's Lodge – confirm permission."
+      { "who": "client", "text": "The old pruning page mentioned the ACT Tree Protection Act 2005, which may have been replaced by the Urban Forest Act 2023. We've changed it to say we follow \"all relevant ACT regulations\". Is that accurate, or should we name the current law?" },
+      { "who": "client", "text": "This page (and the homepage) says you've worked for the Australian National Botanic Gardens and The Prime Minister's Lodge. Are we allowed to name them?" }
     ]
   },
   {
@@ -154,13 +154,13 @@
       }
     ],
     "review": [
-      "Confirm current Evoenergy accreditation level and the owner's legal responsibility wording."
+      { "who": "client", "text": "Are you still accredited by Evoenergy at the highest (high-voltage) level? And is it still correct that ACT property owners are legally responsible for keeping their trees clear of power lines?" }
     ]
   },
   {
     "slug": "arborist-consultation",
     "title": "Arborist Consultation & Reports",
-    "metaTitle": "Arborist Reports & Tree Consultation Canberra",
+    "metaTitle": "Arborist Consultation & Reports Canberra",
     "description": "Diploma-qualified consulting arborists in Canberra: tree health checks, risk assessments (QTRA, TRAQ), tree management plans, root damage and disease advice.",
     "summary": "Our consulting arborists can assess tree health, structural condition, risk, development impacts and long-term management options.",
     "showOnHome": true,
@@ -252,10 +252,11 @@
       }
     ],
     "review": [
-      "Old site had six separate consultation pages; merged here as sections with anchors (#tree-risk-assessment etc.). Confirm sections vs subpages.",
-      "Old copy cited the 'ACT Tree Protection Act 2005' and regulated-tree thresholds (over 12 m tall, over 12 m canopy spread, or over 1.5 m trunk circumference at 1 m above ground). Thresholds removed and wording made general – arborist to confirm current law (likely Urban Forest Act 2023).",
-      "Agency names (ACAT, Tree Protection Unit, ACTPLA) may be out of date – confirm.",
-      "Confirm elm leaf beetle treatment timing and chemical are still current practice."
+      { "who": "client", "text": "The old website had six separate pages about consultations. We've combined them into one page with a section for each topic. Is that OK, or would you prefer separate pages?" },
+      { "who": "client", "text": "The old website said a tree is 'regulated' if it's over 12 m tall, has a canopy over 12 m wide, or a trunk over 1.5 m around (measured 1 m above the ground), under the Tree Protection Act 2005. The law may have changed since (possibly the Urban Forest Act 2023), so we've left these limits out for now. What are the current rules?" },
+      { "who": "client", "text": "This page mentions ACAT, the Tree Protection Unit and ACTPLA. Are these names still correct?" },
+      { "who": "client", "text": "For elm leaf beetle, is it still right to treat by stem injection in November or soil injection in early September, using imidacloprid?" },
+      { "who": "designer", "text": "Figma uses two names for this service: \"Arborist Consultations & Reports\" in the menu and \"Arborist Consultation and Reports\" on the homepage card. The website uses \"Arborist Consultation & Reports\" everywhere. Please update Figma to match." }
     ]
   },
   {
@@ -317,7 +318,7 @@
       }
     ],
     "review": [
-      "Recent projects date from 2018–2019. Confirm permission to name clients and add newer projects."
+      { "who": "client", "text": "This page lists three projects from 2018–2019 (Transgrid/Zinfra in Holt, Kane Construction at Duntroon, Hindmarsh Construction at ANU). Can we name these clients, and do you have more recent projects to add?" }
     ]
   },
   {
@@ -327,6 +328,9 @@
     "description": "Tree cabling and bracing in Canberra to support weak unions and co-dominant stems, so you can keep the trees you love and reduce risk.",
     "summary": "Dynamic and steel cabling to support structurally weak trees you want to keep.",
     "showOnHome": false,
+    "review": [
+      { "who": "designer", "text": "Cabling & Bracing is in the Services menu but not on the homepage services grid. Should it be added to the grid?" }
+    ],
     "intro": "Trees add environmental, financial and personal value to homes, workplaces and communities. Cabling and bracing can help you keep a tree you love while reducing the risk of failure.",
     "sections": [
       {

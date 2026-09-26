@@ -1,5 +1,5 @@
 {#-
-  Service card (Figma "CardBase - new"): image, H3, summary, "Learn more" button pinned to the
+  Service card (Figma "CardBase - new"): image, H3, summary, "Learn More" button pinned to the
   bottom so buttons line up across a row. service: an item from services.json
 -#}
 {%- from "components/button.njk" import button -%}
@@ -12,7 +12,7 @@
     <p class="text-ink-muted">{{ service.summary }}</p>
     <div class="mt-auto pt-3">
       {%- call button("", url="/services/" + service.slug + "/", variant="secondary") -%}
-      Learn more<span class="sr-only"> about {{ service.title }}</span>
+      Learn More<span class="sr-only"> about {{ service.title }}</span>
       {%- endcall %}
     </div>
   </div>

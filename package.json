@@ -17,13 +17,15 @@
     "check:redirects": "node scripts/check-redirects.js",
     "check:html": "html-validate \"_site/**/*.html\"",
     "check:links": "linkinator _site --recurse --check-fragments --skip \"^https://\"",
-    "check:content": "node scripts/content-review.js"
+    "check:content": "node scripts/content-review.js",
+    "test:apache": "npm run build && node scripts/test-apache.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "@tabler/icons": "^3.48.0",
     "@tailwindcss/cli": "^4.3.3",
     "cross-env": "^10.1.0",
+    "gray-matter": "^4.0.3",
     "html-validate": "^10.9.0",
     "linkinator": "^8.1.0",
     "markdown-it": "^15.0.2",

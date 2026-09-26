@@ -1,24 +1,31 @@
 ---
 layout: layouts/base.njk
 title: Component styleguide
-description: Low-fidelity preview of every component. Development builds only.
+description: Preview of every component, fed from _data. Development builds only.
 noindex: true
 eleventyExcludeFromCollections: true
 ---
-{%- from "components/hero.njk" import hero -%}
+{%- from "components/hero.njk" import hero, heroFeature -%}
 {%- from "components/button.njk" import button -%}
 {%- from "components/service-card.njk" import serviceCard -%}
+{%- from "components/preview-card.njk" import previewCard -%}
+{%- from "components/split.njk" import split -%}
+{%- from "components/section-heading.njk" import sectionHeading -%}
 {%- from "components/content-blocks.njk" import contentBlocks -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
 
-{{ hero("Component styleguide", text="Grey-box versions of every component, fed from _data. Not built in production.", eyebrow="Development only", primary=site.cta.quote, phone=site.phones | primary) }}
+{#- Feature hero (homepage). Holds this page's only <h1>. #}
+{{ heroFeature("Component styleguide", text="Every component, fed from _data. Built in development only, never in production.", primary=site.cta.freeQuote, phone=site.phones | phoneById(site.cta.call.phone), callLabel=site.cta.call.label) }}
+
+{#- Split hero (inner pages), shown with an <h2> so the page keeps one <h1>. #}
+{{ hero("Split hero (inner pages)", text="Used by page.njk and service.njk until inner pages are designed.", eyebrow="Hero", primary=site.cta.quote, phone=site.phones | primary, level=2) }}
 
 <section class="page-container space-y-6 py-section-sm" aria-labelledby="sg-buttons">
-  <h2 id="sg-buttons" class="font-display text-3xl font-bold">Buttons and links</h2>
+  {{ sectionHeading("sg-buttons", "Buttons and links", eyebrow="Section heading with eyebrow") }}
   <div class="flex flex-wrap gap-3">
     {{ button("Primary", url="#") }}
     {{ button("Secondary", url="#", variant="secondary") }}
-    {{ button("Button element", type="button") }}
+    {{ button("Button Element", type="button") }}
   </div>
   <div class="flex flex-wrap gap-3 rounded-card bg-dark p-6">
     {{ button("Inverse", url="#", variant="inverse") }}
@@ -30,17 +37,39 @@ eleventyExcludeFromCollections: true
   </ul>
 </section>
 
-<section class="bg-card" aria-label="Trust icons">
-  {% include "components/trust-icons.njk" %}
+<section class="bg-card py-section-sm" aria-labelledby="sg-cards">
+  <div class="page-container">
+    {{ sectionHeading("sg-cards", "Service cards", eyebrow="service-card") }}
+    <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {%- for service in services %}
+      <li>{{ serviceCard(service) }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
 </section>
 
-<section class="page-container py-section-sm" aria-labelledby="sg-cards">
-  <h2 id="sg-cards" class="font-display text-3xl font-bold">Service cards</h2>
-  <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {%- for service in services %}
-    <li>{{ serviceCard(service) }}</li>
-    {%- endfor %}
-  </ul>
+{{ split("sg-split-light", "Split section, light", body=["Figma “Call to Action”, first instance: cream text panel with a full-height photo. On mobile the text comes first, then the image.", "No button in this instance."], eyebrow="split") }}
+
+{{ split("sg-split-dark", "Split section, dark", body=["Figma “Call to Action”, second instance: the quote band (components/cta.njk) uses this with site.cta.band."], eyebrow="split", tone="dark", primary=site.cta.quote) }}
+
+<section class="py-section-sm" aria-labelledby="sg-preview">
+  <div class="page-container">
+    {{ sectionHeading("sg-preview", "Preview cards", eyebrow="preview-card") }}
+    <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {%- for card in [
+        { "heading": "Qualified people", "text": "Card with an image, an H3 and text." },
+        { "heading": "Specialist equipment", "text": "Four across on desktop, one on mobile." },
+        { "heading": "Professional standards", "text": "Content comes from the page's front matter." },
+        { "heading": "Thorough clean-up", "text": "Used in the homepage's Why section." }
+      ] %}
+      <li>{{ previewCard(card) }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="bg-card" aria-label="Trust icons">
+  {% include "components/trust-icons.njk" %}
 </section>
 
 {% include "components/reviews.njk" %}
@@ -50,7 +79,7 @@ eleventyExcludeFromCollections: true
 {% include "components/cta.njk" %}
 
 <section class="page-container py-section-sm" aria-labelledby="sg-content">
-  <h2 id="sg-content" class="font-display text-3xl font-bold">Content blocks ({{ services[1].title }})</h2>
+  {{ sectionHeading("sg-content", "Content blocks (" + services[1].title + ")", eyebrow="content-blocks") }}
   <div class="mt-8 max-w-prose space-y-10">
     {%- for section in services[1].sections %}
     <div>
@@ -64,7 +93,7 @@ eleventyExcludeFromCollections: true
 <section id="quote" class="bg-card py-section-sm" aria-labelledby="sg-form">
   <div class="page-container">
     <div class="max-w-prose">
-      <h2 id="sg-form" class="font-display text-3xl font-bold">Quote form</h2>
+      {{ sectionHeading("sg-form", "Quote form", eyebrow="jotform-quote") }}
       <div class="mt-8">{% include "components/jotform-quote.njk" %}</div>
     </div>
   </div>

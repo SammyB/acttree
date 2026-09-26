@@ -1,5 +1,6 @@
 {#-
   Client logos (Figma "LogoGrid"): sand background, text on the left, logo grid on the right.
+  Only logos with "show": true in logos.json are displayed.
   Static grid; only animate if the designer specifies it (and then respect prefers-reduced-motion).
   Optional, set before including: logosHeading, logosBody (array of paragraphs).
 -#}
@@ -13,7 +14,7 @@
       {%- endfor %}
     </div>
     <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      {%- for logo in logos %}
+      {%- for logo in logos | selectattr("show") %}
       <li class="flex aspect-video items-center justify-center rounded-card bg-card p-4 text-center text-sm font-semibold text-ink-muted">
         {%- if logo.image %}
         <img src="{{ logo.image }}" alt="{{ logo.name }}" class="max-h-full w-auto" loading="lazy">

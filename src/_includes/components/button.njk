@@ -2,7 +2,7 @@
   Button. Renders <a> when url is given, otherwise <button>.
   variant: primary (filled) | secondary (outline) | inverse (for dark sections)
   Usage: {% from "components/button.njk" import button %}
-         {{ button("Request a quote", url="/contact/") }}
+         {{ button("Request a Quote", url="/contact/") }}
 -#}
 {%- macro button(label, url=null, variant="primary", type="button", attrs="") -%}
 {%- set variants = {

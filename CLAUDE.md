@@ -17,6 +17,7 @@ Read these docs before large changes:
 - `npm run dev` runs the local server with live reload.
 - `npm run build` does a production build to `_site/`.
 - `npm run check` builds, then runs an HTML validation and link check.
+- `npm run test:apache` builds, then serves `_site/` in Apache 2.4 (Docker must be running) and checks the `.htaccess` redirects, blocked files, 404 page and caching. Run it before every launch or `.htaccess` change.
 
 ## Layout
 ```
@@ -43,6 +44,7 @@ src/
   - show visible focus states
   - respect `prefers-reduced-motion`
 - Images go through `@11ty/eleventy-img` (responsive AVIF/WebP, with width and height set).
+  - It **must** output to `/assets/img/generated/` (`outputDir: "_site/assets/img/generated/"`, `urlPath: "/assets/img/generated/"`) with its default content-hashed filenames. `.htaccess` gives only that folder the 1-year `immutable` cache; anything else under `/assets/img/` is cached for 1 week.
 - Every page sets `title` and `description` in front matter. The base layout outputs the canonical link, Open Graph tags and `LocalBusiness` JSON-LD.
 - Use Australian English in all copy.
 - Build to the real design. Use the tokens from `docs/design-tokens.md`, and follow `docs/figma-homepage.md` for the homepage. Apply its [FIX] items, and keep [PENDING] items easy to change (in data or front matter).

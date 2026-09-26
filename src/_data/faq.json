@@ -26,7 +26,7 @@
     "answer": [
       "Falling branches are a common worry for homeowners, especially during storms and high winds. Regular, proper maintenance reduces the risk.",
       "If a branch or tree has fallen, or you're worried about the safety of trees around your home, one of our consulting arborists can meet you to advise on the best and safest course of action.",
-      "We offer full risk assessments or a simple verbal consultation to put your mind at ease and plan future care. See [arborist consultation and reports](/services/arborist-consultation/)."
+      "We offer full risk assessments or a simple verbal consultation to put your mind at ease and plan future care. See [Arborist Consultation & Reports](/services/arborist-consultation/)."
     ]
   },
   {
@@ -37,7 +37,7 @@
       "We can tell you whether your tree is regulated, and can apply for approval on your behalf if you'd like help."
     ],
     "review": [
-      "Old answer listed thresholds (over 12 m tall, over 12 m canopy spread, or over 1.5 m trunk circumference at 1 m above ground) and linked to tccs.act.gov.au. Law has likely changed (Urban Forest Act 2023) – arborist to confirm thresholds and the right ACT Government link before adding them back."
+      { "who": "client", "text": "This answer used to list the size limits for regulated trees and link to the TCCS website. We've taken both out until the current rules are confirmed (see the Arborist Consultation & Reports items in this list). Which ACT Government web page should we link to?" }
     ]
   },
   {
@@ -48,7 +48,7 @@
       "If you've received a notice to clear your powerlines, you'll need an Evoenergy-accredited arborist to do the work. We're accredited to the highest level and very experienced in powerline clearance, so contact us for a free quote."
     ],
     "review": [
-      "Confirm the clearance distances are still Evoenergy's current requirements."
+      { "who": "client", "text": "Are these still Evoenergy's required clearances: 1 m from service lines and power poles, 1.5 m from low-voltage lines and 2 m from high-voltage lines?" }
     ]
   },
   {
