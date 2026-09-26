@@ -1,6 +1,7 @@
 [
   {
     "slug": "tree-removal",
+    "redirectFrom": ["tree-removal.html"],
     "title": "Tree Removal",
     "metaTitle": "Tree Removal Canberra",
     "description": "Safe removal of dead, damaged or dangerous trees across Canberra, including tight spaces and complex rigging. We leave your site clean.",
@@ -33,6 +34,7 @@
   },
   {
     "slug": "tree-pruning",
+    "redirectFrom": ["tree-pruning.html"],
     "title": "Tree Pruning",
     "metaTitle": "Tree Pruning & Shaping Canberra",
     "description": "Expert tree pruning in Canberra to Australian Standard AS 4373, from large specimen trees to fruit trees. Deadwooding, reduction and formative pruning.",
@@ -96,6 +98,7 @@
   },
   {
     "slug": "stump-grinding",
+    "redirectFrom": ["stump-grinding.html"],
     "title": "Stump Grinding",
     "metaTitle": "Stump Grinding Canberra",
     "description": "Stump grinding across Canberra to stop regrowth, remove trip hazards and clear the way for replanting. Our fleet of grinders reaches tight spots.",
@@ -129,6 +132,7 @@
   },
   {
     "slug": "powerline-clearance",
+    "redirectFrom": ["powerline-clearance.html"],
     "title": "Powerline Clearance",
     "metaTitle": "Powerline Tree Clearance Canberra",
     "description": "Evoenergy-accredited powerline tree clearance in Canberra. Trained to work near live lines, so most jobs don't need a power outage.",
@@ -163,6 +167,7 @@
   },
   {
     "slug": "arborist-consultation",
+    "redirectFrom": ["tree-consultation.html"],
     "title": "Arborist Consultation & Reports",
     "metaTitle": "Arborist Consultation & Reports Canberra",
     "description": "Diploma-qualified consulting arborists in Canberra: tree health checks, risk assessments (QTRA, TRAQ), tree management plans, root damage and disease advice.",
@@ -173,6 +178,7 @@
     "sections": [
       {
         "id": "health-and-condition",
+        "redirectFrom": ["tree-consul-health.html"],
         "heading": "Health and condition consultation",
         "content": [
           "If you're worried about a tree's structure, health, condition or life expectancy, about falling or overhanging limbs – or something just doesn't look right – a detailed inspection with one of our consulting arborists will help put your mind at ease.",
@@ -191,6 +197,7 @@
       },
       {
         "id": "tree-risk-assessment",
+        "redirectFrom": ["tree-consul-risk.html"],
         "heading": "Tree risk assessment",
         "content": [
           "Worried about your family's or property's safety because of large trees nearby? The risk from trees is often overestimated, and it takes a trained professional to assess it properly.",
@@ -206,6 +213,7 @@
       },
       {
         "id": "tree-management-plans",
+        "redirectFrom": ["tree-consul-management.html"],
         "heading": "Tree management plans for development sites",
         "content": [
           "If you're planning to build, excavate or develop near a regulated tree, or near any tree on a neighbouring property, you need to comply with AS 4970 (Protection of trees on development sites).",
@@ -216,6 +224,7 @@
       },
       {
         "id": "tree-root-damage",
+        "redirectFrom": ["tree-consul-root.html"],
         "heading": "Tree root damage",
         "content": [
           "Tree roots in pipes and root damage to buildings, paths and driveways are common problems. We have a lot of experience helping people deal with them, with clear advice and reports.",
@@ -224,6 +233,7 @@
       },
       {
         "id": "disease-identification",
+        "redirectFrom": ["tree-consul-disease.html"],
         "heading": "Disease identification and treatment",
         "content": [
           "Does your tree look different from usual – fewer flowers, holes in the leaves, fungus? Our arborists can come to you to inspect, diagnose and, if needed, treat your trees.",
@@ -234,6 +244,7 @@
       },
       {
         "id": "elm-leaf-beetle",
+        "redirectFrom": ["tree-consul-elm-leaf.html"],
         "heading": "Elm leaf beetle treatment",
         "content": [
           "Elm leaf beetle (Pyrrhalta luteola) has been in the Canberra region for many years. Damage to elms has eased recently, but specimen trees often still need treatment to keep them healthy.",
@@ -266,6 +277,7 @@
   },
   {
     "slug": "commercial-tree-services",
+    "redirectFrom": ["commercial-works.html"],
     "title": "Commercial Tree Services",
     "metaTitle": "Commercial Tree Services Canberra",
     "description": "Commercial tree removal and site clearance in Canberra for builders and civil contractors. Compliance packages, SWMS, clear start dates and reliable equipment.",
@@ -329,6 +341,7 @@
   },
   {
     "slug": "cabling-and-bracing",
+    "redirectFrom": ["cable-and-bracing.html"],
     "title": "Cabling & Bracing",
     "metaTitle": "Tree Cabling & Bracing Canberra",
     "description": "Tree cabling and bracing in Canberra to support weak unions and co-dominant stems, so you can keep the trees you love and reduce risk.",

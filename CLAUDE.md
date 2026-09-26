@@ -36,7 +36,7 @@ src/
 - **Never hard-code contact details, IDs or service copy in templates.** Read them from `_data`.
 - Build every repeated UI element as a component in `_includes/components/`. Pages only compose components.
 - Only use theme tokens: no arbitrary Tailwind values (`bg-[#...]`, `mt-[37px]`) and no inline styles.
-- Only add JS where needed (the mobile menu, the reviews carousel, the logo marquee's pause button). Use vanilla ES modules, no jQuery or frameworks. Animations are pure CSS and must have a `prefers-reduced-motion` fallback.
+- Only add JS where needed (the mobile menu, the reviews carousel, the logo marquee's pause button, the service-page "On this page" scroll-spy). Use vanilla ES modules, no jQuery or frameworks. Animations are pure CSS and must have a `prefers-reduced-motion` fallback.
 - Accessibility:
   - use semantic landmarks, with one `<h1>` per page
   - every image needs `alt`
@@ -65,7 +65,7 @@ src/
 
 ## Hosting, redirects and previews
 - The canonical origin is `site.url` in `site.json`: `https://www.acttree.com.au`. Everything that needs the host reads it from there, including `.htaccess`, canonical tags, the sitemap and JSON-LD.
-- Edit `src/htaccess.njk`, never `_site/.htaccess`. Keep the `index.html` redirect guarded with `THE_REQUEST` to avoid a redirect loop. Only hashed or versioned assets get the `immutable` cache.
+- Edit `src/htaccess.njk`, never `_site/.htaccess`. Redirects to service pages and their sections come from `redirectFrom` in `services.json` (section `id`s there are the single source of truth for anchors); `npm run check` fails if a redirect `#anchor` is missing from the build. Keep the `index.html` redirect guarded with `THE_REQUEST` to avoid a redirect loop. Only hashed or versioned assets get the `immutable` cache.
 - UAT previews run on Cloudflare Pages. Non-production builds must output `noindex` and a blocking `robots.txt`, and must not load GTM. `.htaccess` doesn't run on previews.
 
 ## Deploy

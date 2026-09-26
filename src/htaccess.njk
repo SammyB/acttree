@@ -50,19 +50,18 @@ RewriteRule ^ {{ origin }}/%1 [R=301,L]
 RewriteRule ^about\.html$                    {{ origin }}/why-act-tree-felling/ [R=301,L]
 RewriteRule ^testimonials\.html$             {{ origin }}/why-act-tree-felling/#reviews [R=301,NE,L]
 RewriteRule ^services\.html$                 {{ origin }}/services/ [R=301,L]
-RewriteRule ^tree-removal\.html$             {{ origin }}/services/tree-removal/ [R=301,L]
-RewriteRule ^tree-pruning\.html$             {{ origin }}/services/tree-pruning/ [R=301,L]
-RewriteRule ^stump-grinding\.html$           {{ origin }}/services/stump-grinding/ [R=301,L]
-RewriteRule ^powerline-clearance\.html$      {{ origin }}/services/powerline-clearance/ [R=301,L]
-RewriteRule ^cable-and-bracing\.html$        {{ origin }}/services/cabling-and-bracing/ [R=301,L]
-RewriteRule ^commercial-works\.html$         {{ origin }}/services/commercial-tree-services/ [R=301,L]
-RewriteRule ^tree-consultation\.html$        {{ origin }}/services/arborist-consultation/ [R=301,L]
-RewriteRule ^tree-consul-health\.html$       {{ origin }}/services/arborist-consultation/#health-and-condition [R=301,NE,L]
-RewriteRule ^tree-consul-risk\.html$         {{ origin }}/services/arborist-consultation/#tree-risk-assessment [R=301,NE,L]
-RewriteRule ^tree-consul-management\.html$   {{ origin }}/services/arborist-consultation/#tree-management-plans [R=301,NE,L]
-RewriteRule ^tree-consul-root\.html$         {{ origin }}/services/arborist-consultation/#tree-root-damage [R=301,NE,L]
-RewriteRule ^tree-consul-disease\.html$      {{ origin }}/services/arborist-consultation/#disease-identification [R=301,NE,L]
-RewriteRule ^tree-consul-elm-leaf\.html$     {{ origin }}/services/arborist-consultation/#elm-leaf-beetle [R=301,NE,L]
+{#- Service pages and their sections: generated from redirectFrom in services.json (single source
+    of truth for section ids; npm run check verifies every #anchor exists in the build). #}
+{%- for service in services %}
+{%- for from in service.redirectFrom %}
+RewriteRule ^{{ from | replace(".", "\\.") | safe }}$ {{ origin }}/services/{{ service.slug }}/ [R=301,L]
+{%- endfor %}
+{%- for section in service.sections %}
+{%- for from in section.redirectFrom %}
+RewriteRule ^{{ from | replace(".", "\\.") | safe }}$ {{ origin }}/services/{{ service.slug }}/#{{ section.id }} [R=301,NE,L]
+{%- endfor %}
+{%- endfor %}
+{%- endfor %}
 RewriteRule ^faq\.html$                      {{ origin }}/resources/faq/ [R=301,L]
 RewriteRule ^careers\.html$                  {{ origin }}/careers/ [R=301,L]
 RewriteRule ^contact\.html$                  {{ origin }}/contact/ [R=301,L]

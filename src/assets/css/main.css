@@ -88,6 +88,21 @@
   padding-inline: --spacing(6);
 }
 
+/* Sticky service-page sidebar (TOC + quote card), lg and up. Offset = sticky header height + 24px;
+   the header currently scrolls away, so --sticky-header is 0. Scrolls internally if taller than
+   the viewport (e.g. short laptop screens). */
+@utility sticky-sidebar {
+  position: sticky;
+  top: calc(var(--sticky-header) + --spacing(6));
+  max-height: calc(100vh - var(--sticky-header) - --spacing(6));
+  overflow-y: auto;
+}
+
+/* Where in-page anchors land: below any sticky header, with breathing room. */
+@utility scroll-mt-anchor {
+  scroll-margin-top: calc(var(--sticky-header) + --spacing(6));
+}
+
 /* Vertical section spacing: 64px mobile, 96px desktop (docs/design-tokens.md). */
 @utility section-y {
   padding-block: var(--spacing-section-sm);
@@ -123,6 +138,24 @@
  * prefers-reduced-motion: no animation, no copies, a static 2-column grid.
  */
 @layer components {
+  /* "On this page" links (service pages). toc.js sets aria-current="true" on the section in view. */
+  .toc-link {
+    display: block;
+    border-left: 2px solid transparent;
+    padding: --spacing(1.5) --spacing(3);
+    color: var(--color-ink-muted);
+
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    &[aria-current="true"] {
+      border-left-color: var(--color-primary);
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+  }
+
   .logo-marquee {
     --marquee-gap: --spacing(4);
     --marquee-tile: --spacing(42); /* 168px (Figma mobile) */
@@ -270,8 +303,24 @@
 }
 
 @layer base {
+  :root {
+    /* Height of a sticky/fixed site header. 0: the header scrolls away. */
+    --sticky-header: 0px;
+  }
+
   html {
     @apply bg-page text-ink-muted font-sans antialiased;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Safari ignores list-style on <summary>; hide its disclosure triangle too (FAQ, TOC). */
+  summary.list-none::-webkit-details-marker {
+    display: none;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -10,7 +10,9 @@ import { join } from "node:path";
 
 const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
 const canonical = new URL(site.url);
-const htaccess = readFileSync("_site/.htaccess", "utf8");
+// SITE_DIR lets the check run against a build outside _site (default: _site).
+const siteDir = process.env.SITE_DIR || "_site";
+const htaccess = readFileSync(join(siteDir, ".htaccess"), "utf8");
 const problems = [];
 
 if (/&#?\w+;/.test(htaccess)) problems.push("HTML entities found in .htaccess (template autoescape?)");
@@ -78,9 +80,9 @@ for (const rule of rules) {
     problems.push(`${pattern}: target host ${url.origin} does not match site.json url ${canonical.origin}`);
     continue;
   }
-  const file = join("_site", decodeURIComponent(url.pathname), url.pathname.endsWith("/") ? "index.html" : "");
+  const file = join(siteDir, decodeURIComponent(url.pathname), url.pathname.endsWith("/") ? "index.html" : "");
   if (!existsSync(file)) {
-    problems.push(`${pattern}: target ${url.pathname} does not exist in _site`);
+    problems.push(`${pattern}: target ${url.pathname} does not exist in ${siteDir}`);
     continue;
   }
   if (url.hash) {
