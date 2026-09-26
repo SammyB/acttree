@@ -3,35 +3,18 @@
     { "label": "Home", "url": "/" },
     { "label": "Services", "url": "/services/", "megaMenu": "services" },
     { "label": "Why ACT Tree Felling", "url": "/why-act-tree-felling/" },
-    {
-      "label": "Resources",
-      "url": "/resources/faq/",
-      "children": [
-        { "label": "FAQ", "url": "/resources/faq/" }
-      ]
-    },
+    { "label": "Resources", "url": "/resources/faq/" },
+    { "label": "Careers", "url": "/careers/" }
+  ],
+  "footer": [
+    { "label": "Home", "url": "/" },
+    { "label": "Services", "url": "/services/" },
+    { "label": "Why ACT Tree Felling", "url": "/why-act-tree-felling/" },
+    { "label": "Resources", "url": "/resources/faq/" },
     { "label": "Careers", "url": "/careers/" },
     { "label": "Contact", "url": "/contact/" }
   ],
-  "footer": [
-    {
-      "heading": "Company",
-      "links": [
-        { "label": "Why ACT Tree Felling", "url": "/why-act-tree-felling/" },
-        { "label": "Customer reviews", "url": "/why-act-tree-felling/#reviews" },
-        { "label": "Careers", "url": "/careers/" },
-        { "label": "Contact", "url": "/contact/" }
-      ]
-    },
-    {
-      "heading": "Resources",
-      "links": [
-        { "label": "FAQ", "url": "/resources/faq/" }
-      ]
-    }
-  ],
   "legal": [
-    { "label": "Privacy policy", "url": "/privacy-policy/" },
-    { "label": "Sitemap", "url": "/sitemap.xml" }
+    { "label": "Privacy Policy", "url": "/privacy-policy/" }
   ]
 }

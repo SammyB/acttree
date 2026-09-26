@@ -1,25 +1,27 @@
 {#-
-  Site header: logo, main nav (with services mega-menu), phone, quote button, mobile menu toggle.
-  Behaviour: /assets/js/nav.js. Without JS, parent links still go to their landing pages.
+  Site header (Figma "Navbars" / "DesktopMenu" / "MobileMenu1").
+  Logo, main nav with the Services mega menu, mobile-number slot, Contact Us + Request a Quote.
+  Why ACT Tree Felling and Resources are plain links until their sub-menus are designed.
+  Behaviour: /assets/js/nav.js. Without JS, "Services" still links to /services/.
 -#}
 {%- from "components/button.njk" import button -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
+{%- set headerPhone = site.phones | phoneById(site.cta.call.phone) -%}
 <header class="relative border-b border-line bg-page">
   <div class="page-container flex items-center justify-between gap-4 py-4">
+    {#- Logo placeholder until the SVG ("ACT Tree Felling Logo") is supplied. #}
     <a href="/" class="flex shrink-0 flex-col leading-tight whitespace-nowrap">
       <span class="font-display text-xl font-bold">{{ site.name }}</span>
-      <span class="text-xs text-ink-muted">Since {{ site.founded }}</span>
     </a>
 
     <nav id="site-nav" aria-label="Main" class="absolute inset-x-0 top-full z-40 hidden border-b border-line bg-page data-open:block xl:static xl:block xl:border-0">
       <ul class="page-container flex flex-col py-4 xl:w-auto xl:flex-row xl:items-center xl:gap-6 xl:p-0">
         {%- for item in nav.main %}
         {%- set submenuId = "submenu-" + (item.label | slugify) %}
-        {%- set hasSubmenu = item.megaMenu or item.children %}
-        <li class="border-b border-line xl:relative xl:border-0 last:border-0">
+        <li class="border-b border-line xl:relative xl:border-0">
           <div class="flex items-center justify-between gap-1">
             <a href="{{ item.url }}" class="block py-3 font-semibold whitespace-nowrap hover:text-primary xl:py-2"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
-            {%- if hasSubmenu %}
+            {%- if item.megaMenu %}
             <button type="button" class="rounded-button p-2 hover:text-primary" aria-expanded="false" aria-controls="{{ submenuId }}" data-submenu-toggle>
               <span class="sr-only">Show {{ item.label }} menu</span>
               {% icon "chevron-down", "size-4" %}
@@ -27,24 +29,12 @@
             {%- endif %}
           </div>
           {%- if item.megaMenu == "services" %}
-          <div id="{{ submenuId }}" hidden class="pb-4 xl:absolute xl:left-0 xl:top-full xl:mt-2 xl:w-2xl xl:rounded-card xl:border xl:border-line xl:bg-card xl:p-6 xl:shadow-lg">
-            <ul class="grid gap-2 xl:grid-cols-2 xl:gap-4">
+          <div id="{{ submenuId }}" hidden class="pb-4 xl:absolute xl:left-0 xl:top-full xl:mt-2 xl:w-xl xl:rounded-card xl:border xl:border-line xl:bg-card xl:p-6 xl:shadow-lg">
+            <ul class="grid gap-1 xl:grid-cols-2 xl:gap-2">
               {%- for service in services %}
               <li>
-                <a href="/services/{{ service.slug }}/" class="block rounded-button p-2 hover:bg-page"{% if page.url == "/services/" + service.slug + "/" %} aria-current="page"{% endif %}>
-                  <span class="block font-semibold">{{ service.title }}</span>
-                  <span class="hidden text-sm text-ink-muted xl:block">{{ service.summary }}</span>
-                </a>
+                <a href="/services/{{ service.slug }}/" class="block rounded-button p-2 font-semibold hover:bg-page hover:text-primary"{% if page.url == "/services/" + service.slug + "/" %} aria-current="page"{% endif %}>{{ service.title }}</a>
               </li>
-              {%- endfor %}
-            </ul>
-            <a href="{{ item.url }}" class="mt-4 inline-flex items-center gap-1 p-2 font-semibold text-primary hover:underline">All services {% icon "arrow-right", "size-4" %}</a>
-          </div>
-          {%- elif item.children %}
-          <div id="{{ submenuId }}" hidden class="pb-4 xl:absolute xl:left-0 xl:top-full xl:mt-2 xl:w-56 xl:rounded-card xl:border xl:border-line xl:bg-card xl:p-4 xl:shadow-lg">
-            <ul class="grid gap-1">
-              {%- for child in item.children %}
-              <li><a href="{{ child.url }}" class="block rounded-button p-2 hover:bg-page"{% if page.url == child.url %} aria-current="page"{% endif %}>{{ child.label }}</a></li>
               {%- endfor %}
             </ul>
           </div>
@@ -52,11 +42,18 @@
         </li>
         {%- endfor %}
       </ul>
+      {#- Mobile menu buttons, full width. On desktop these sit in the header bar instead. #}
+      <div class="page-container flex flex-col gap-3 pb-6 xl:hidden">
+        {{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary") }}
+        {{ button(site.cta.quote.label, url=site.cta.quote.url) }}
+      </div>
     </nav>
 
-    <div class="flex shrink-0 items-center gap-2 whitespace-nowrap sm:gap-4">
-      {{ phoneLink(site.phones | primary, class="rounded-button p-2 font-semibold hover:text-primary", textClass="sr-only sm:not-sr-only") }}
-      <span class="hidden md:inline-flex">{{ button(site.cta.quote.label, url=site.cta.quote.url) }}</span>
+    <div class="flex shrink-0 items-center gap-2 whitespace-nowrap xl:gap-3">
+      {#- Phone slot (Figma TODO): mobile number from site.json. Icon-only below 2xl. #}
+      {{ phoneLink(headerPhone, class="rounded-button p-2 font-semibold hover:text-primary", textClass="sr-only 2xl:not-sr-only") }}
+      <span class="hidden xl:inline-flex">{{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary") }}</span>
+      <span class="hidden xl:inline-flex">{{ button(site.cta.quote.label, url=site.cta.quote.url) }}</span>
       <button type="button" class="rounded-button p-2 xl:hidden" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
         <span class="sr-only">Menu</span>
         <span data-menu-icon="open">{% icon "menu-2" %}</span>

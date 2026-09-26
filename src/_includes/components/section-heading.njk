@@ -1,0 +1,9 @@
+{#- Eyebrow + section heading. The eyebrow is stored in sentence case and shown in capitals via CSS. -#}
+{%- macro sectionHeading(id, heading, eyebrow=null) -%}
+<div>
+  {%- if eyebrow %}
+  <p class="text-sm font-semibold tracking-wider text-primary uppercase">{{ eyebrow }}</p>
+  {%- endif %}
+  <h2 id="{{ id }}" class="{{ 'mt-2 ' if eyebrow }}font-display text-3xl font-bold text-balance md:text-4xl">{{ heading }}</h2>
+</div>
+{%- endmacro -%}

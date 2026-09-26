@@ -1,13 +1,10 @@
-{#- Trust points from site.trustPoints. -#}
+{#- Trust icons from site.trust: icon above an H3-size label. 3 columns on desktop, 1 on mobile. -#}
 <div class="page-container py-section-sm">
-  <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-    {%- for point in site.trustPoints %}
-    <li class="flex gap-4">
-      <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-placeholder">{% icon point.icon %}</span>
-      <div>
-        <p class="font-semibold">{{ point.title }}</p>
-        <p class="mt-1 text-sm text-ink-muted">{{ point.text }}</p>
-      </div>
+  <ul class="grid gap-10 text-center sm:grid-cols-2 lg:grid-cols-3">
+    {%- for item in site.trust %}
+    <li class="flex flex-col items-center gap-3">
+      {% icon item.icon, "size-10 text-primary" %}
+      <p class="font-display text-xl font-semibold">{{ item.label }}</p>
     </li>
     {%- endfor %}
   </ul>

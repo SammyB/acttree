@@ -4,7 +4,8 @@
     "title": "Tree Removal",
     "metaTitle": "Tree Removal Canberra",
     "description": "Safe removal of dead, damaged or dangerous trees across Canberra, including tight spaces and complex rigging. We leave your site clean.",
-    "summary": "Safe, efficient removal of dead, damaged or dangerous trees – even in tight spaces.",
+    "summary": "Safe and efficient removal of dead, dangerous, unwanted and difficult-to-access trees.",
+    "showOnHome": true,
     "intro": "We always prefer to keep trees where we can. When removal is needed, we take trees down safely and efficiently and leave your site spotlessly clean.",
     "sections": [
       {
@@ -34,7 +35,8 @@
     "title": "Tree Pruning",
     "metaTitle": "Tree Pruning & Shaping Canberra",
     "description": "Expert tree pruning in Canberra to Australian Standard AS 4373, from large specimen trees to fruit trees. Deadwooding, reduction and formative pruning.",
-    "summary": "Pruning and shaping to Australian Standards, from large specimen trees to fruit trees.",
+    "summary": "Professional pruning to improve tree structure, safety, clearance, appearance and long-term health.",
+    "showOnHome": true,
     "intro": "Pruning is one of our specialties, and a service we take pride in delivering to the highest standard.",
     "sections": [
       {
@@ -95,7 +97,8 @@
     "title": "Stump Grinding",
     "metaTitle": "Stump Grinding Canberra",
     "description": "Stump grinding across Canberra to stop regrowth, remove trip hazards and clear the way for replanting. Our fleet of grinders reaches tight spots.",
-    "summary": "Fast, cost-effective stump removal that stops regrowth and clears the way for replanting.",
+    "summary": "Remove unwanted tree stumps and reclaim usable space in your garden or landscape.",
+    "showOnHome": true,
     "intro": "Tree stumps can be unsightly, get in the way and create hazards. Stump grinding is the most efficient, cost-effective way to remove them, preventing regrowth and the spread of disease.",
     "sections": [
       {
@@ -126,7 +129,8 @@
     "title": "Powerline Clearance",
     "metaTitle": "Powerline Tree Clearance Canberra",
     "description": "Evoenergy-accredited powerline tree clearance in Canberra. Trained to work near live lines, so most jobs don't need a power outage.",
-    "summary": "Evoenergy-accredited clearing of trees near powerlines and service lines.",
+    "summary": "Our appropriately trained and accredited staff undertake tree work around powerlines and can coordinate outages with Evoenergy where required.",
+    "showOnHome": true,
     "intro": "ACT property owners are legally responsible for keeping their trees clear of powerlines and service lines.",
     "sections": [
       {
@@ -158,7 +162,8 @@
     "title": "Arborist Consultation & Reports",
     "metaTitle": "Arborist Reports & Tree Consultation Canberra",
     "description": "Diploma-qualified consulting arborists in Canberra: tree health checks, risk assessments (QTRA, TRAQ), tree management plans, root damage and disease advice.",
-    "summary": "Independent advice and written reports from Diploma-qualified consulting arborists.",
+    "summary": "Our consulting arborists can assess tree health, structural condition, risk, development impacts and long-term management options.",
+    "showOnHome": true,
     "intro": "Our Diploma-qualified consulting arborists give objective, independent advice about your trees – verbally on site, or in a written report.",
     "sections": [
       {
@@ -254,51 +259,12 @@
     ]
   },
   {
-    "slug": "cabling-and-bracing",
-    "title": "Cabling & Bracing",
-    "metaTitle": "Tree Cabling & Bracing Canberra",
-    "description": "Tree cabling and bracing in Canberra to support weak unions and co-dominant stems, so you can keep the trees you love and reduce risk.",
-    "summary": "Dynamic and steel cabling to support structurally weak trees you want to keep.",
-    "intro": "Trees add environmental, financial and personal value to homes, workplaces and communities. Cabling and bracing can help you keep a tree you love while reducing the risk of failure.",
-    "sections": [
-      {
-        "content": [
-          "Trees with multiple trunks (co-dominant stems) can be structurally weaker than ideal, and unions like these can fail. Other defective unions or tree parts can also be more likely than average to fail.",
-          "We'll inspect your trees, assess any structural weakness, and recommend whether bracing will help you keep them – and which cabling or bracing system suits your situation. The result: you keep the trees you love, with the peace of mind that you've done everything you can to reduce the risk."
-        ]
-      },
-      {
-        "heading": "Cabling and bracing systems",
-        "content": [
-          "We offer two main types:",
-          {
-            "list": [
-              { "term": "Dynamic cabling", "text": "A synthetic cable slung between branches or trunks with a little slack. The tree can still move naturally in the wind, so no shear point is created, but branches can't spread far enough to fail. In the unlikely event of a failure, the cable catches the failed part." },
-              { "term": "Rigid steel cabling and bracing", "text": "Gives more holding strength than dynamic cabling. Often used where a tree has already failed and needs to be winched back together and held in place." }
-            ]
-          }
-        ]
-      },
-      {
-        "heading": "Why cable or brace a tree?",
-        "content": [
-          {
-            "list": [
-              { "term": "Prevention", "text": "Reduces the chance of failure in a healthy tree with a structural weakness." },
-              { "term": "Restoration", "text": "Extends the life of a damaged tree." },
-              { "term": "Mitigation", "text": "Reduces the risk a tree poses." }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
     "slug": "commercial-tree-services",
     "title": "Commercial Tree Services",
     "metaTitle": "Commercial Tree Services Canberra",
     "description": "Commercial tree removal and site clearance in Canberra for builders and civil contractors. Compliance packages, SWMS, clear start dates and reliable equipment.",
-    "summary": "Site clearance and tree works for builders and civil contractors, with full compliance packages.",
+    "summary": "Professional arboricultural services for commercial property managers, strata organisations, civil contractors, developers and government clients.",
+    "showOnHome": true,
     "intro": "Large civil and construction projects need careful planning, compliance and training to run safely and efficiently. Tree removal and site clearance are often among the first jobs on site, so we work as part of your trades team to keep the project moving.",
     "sections": [
       {
@@ -352,6 +318,47 @@
     ],
     "review": [
       "Recent projects date from 2018–2019. Confirm permission to name clients and add newer projects."
+    ]
+  },
+  {
+    "slug": "cabling-and-bracing",
+    "title": "Cabling & Bracing",
+    "metaTitle": "Tree Cabling & Bracing Canberra",
+    "description": "Tree cabling and bracing in Canberra to support weak unions and co-dominant stems, so you can keep the trees you love and reduce risk.",
+    "summary": "Dynamic and steel cabling to support structurally weak trees you want to keep.",
+    "showOnHome": false,
+    "intro": "Trees add environmental, financial and personal value to homes, workplaces and communities. Cabling and bracing can help you keep a tree you love while reducing the risk of failure.",
+    "sections": [
+      {
+        "content": [
+          "Trees with multiple trunks (co-dominant stems) can be structurally weaker than ideal, and unions like these can fail. Other defective unions or tree parts can also be more likely than average to fail.",
+          "We'll inspect your trees, assess any structural weakness, and recommend whether bracing will help you keep them – and which cabling or bracing system suits your situation. The result: you keep the trees you love, with the peace of mind that you've done everything you can to reduce the risk."
+        ]
+      },
+      {
+        "heading": "Cabling and bracing systems",
+        "content": [
+          "We offer two main types:",
+          {
+            "list": [
+              { "term": "Dynamic cabling", "text": "A synthetic cable slung between branches or trunks with a little slack. The tree can still move naturally in the wind, so no shear point is created, but branches can't spread far enough to fail. In the unlikely event of a failure, the cable catches the failed part." },
+              { "term": "Rigid steel cabling and bracing", "text": "Gives more holding strength than dynamic cabling. Often used where a tree has already failed and needs to be winched back together and held in place." }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why cable or brace a tree?",
+        "content": [
+          {
+            "list": [
+              { "term": "Prevention", "text": "Reduces the chance of failure in a healthy tree with a structural weakness." },
+              { "term": "Restoration", "text": "Extends the life of a damaged tree." },
+              { "term": "Mitigation", "text": "Reduces the risk a tree poses." }
+            ]
+          }
+        ]
+      }
     ]
   }
 ]

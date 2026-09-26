@@ -1,12 +1,13 @@
 {#-
   Every tel: link goes through here so it always carries data-track="phone" for GTM.
   phone: an item from site.phones
+  label: optional link text instead of the number (e.g. "Call ACT Tree Felling")
   textClass: e.g. "sr-only sm:not-sr-only" for an icon-only link on small screens
 -#}
-{%- macro phoneLink(phone, class="", showLabel=false, showIcon=true, textClass="") -%}
+{%- macro phoneLink(phone, class="", showLabel=false, showIcon=true, textClass="", label=null) -%}
 <a href="tel:{{ phone.tel }}" data-track="phone" class="inline-flex items-center gap-2 {{ class }}">
   {%- if showIcon %}{% icon "phone", "size-5 shrink-0" %}{% endif -%}
-  {%- set text = (phone.label + ": " + phone.display) if showLabel else phone.display %}
+  {%- set text = label or ((phone.label + ": " + phone.display) if showLabel else phone.display) %}
   <span class="{{ textClass }}">{{ text | nbsp }}</span>
 </a>
 {%- endmacro -%}

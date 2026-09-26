@@ -27,6 +27,8 @@
   --color-primary-hover: #25632a;
   --color-on-primary: #ffffff;
   --color-card: #ffffff;
+  --color-sand: #e7e1d3;
+  --color-star: #e8a317;
   --color-line: #d9d6cc;
   --color-focus: #1d4ed8;
 
@@ -46,8 +48,10 @@
 
   --container-content: 72rem;
   --container-prose: 44rem;
+  --container-measure: 70ch;
 
   --aspect-photo: 4 / 3;
+  --aspect-card: 395 / 219;
 }
 
 /* Centred page column with side gutters. */

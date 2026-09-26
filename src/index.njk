@@ -2,41 +2,105 @@
 layout: layouts/page.njk
 title: Tree Removal, Pruning & Arborists in Canberra | ACT Tree Felling
 description: Canberra's longest-running tree services business, since 1975. Tree removal, pruning, stump grinding, powerline clearance and arborist reports.
-heading: Tree removal, pruning and arborist services in Canberra
-eyebrow: Since 1975
-intro: From a single overgrown tree to a full site clearance, our qualified arborists get the job done safely and leave your property clean.
+heroVariant: feature
+# PENDING (Figma feedback): headline may change to say what the business does.
+heading: Serving the region since 1975
+intro: From specialist pruning and difficult tree removals to stump grinding, power line clearance and professional arborist advice, ACT Tree Felling provides experienced, reliable tree care throughout Canberra and the surrounding region.
+# The quote CTA band sits mid-page on the homepage, so the layout's default one is turned off.
+cta: false
+
+home:
+  services:
+    eyebrow: Services
+    heading: Professional Tree Services in Canberra
+  experience:
+    heading: Canberra tree care backed by more than 50 years of experience
+    body:
+      - ACT Tree Felling is one of Canberra's longest-established professional tree-care businesses.
+      - Since 1975, we have provided arboricultural services to homeowners, businesses, property managers, government organisations and major institutions throughout the Canberra region.
+      - Our work ranges from small residential pruning jobs through to large, technically difficult tree removals, commercial projects and professional arborist assessments.
+      - We combine experienced people, specialised equipment and sound arboricultural practice to achieve safe, practical and professional outcomes.
+  reviews:
+    eyebrow: Reviews
+    heading: See what our customers say
+  why:
+    eyebrow: Why ACT Tree Felling
+    heading: Experience matters
+    intro:
+      - Tree work can involve considerable risk to people, property and the tree itself.
+      - ACT Tree Felling has been operating in Canberra since 1975 and has built decades of experience dealing with the region's tree species, weather conditions, urban environment and regulatory requirements.
+      - Our team has the capability to undertake everything from everyday residential work to technically demanding jobs requiring specialised climbing, rigging and machinery.
+    cards:
+      - heading: Qualified people
+        text: Our tree work is undertaken by appropriately trained and experienced personnel, including qualified arborists.
+      - heading: Specialist equipment
+        text: Our trucks, chippers, stump grinders, climbing equipment and specialised machinery allow us to complete work efficiently and safely.
+      - heading: Professional standards
+        text: We take arboriculture seriously. Wherever practical, our preference is to retain healthy trees and recommend work that supports their long-term safety and condition.
+      - heading: Thorough clean-up
+        text: Our crews take pride not only in the tree work itself, but also in leaving the work area clean and tidy when the job is complete.
+    button:
+      label: Discover more
+      url: /why-act-tree-felling/
+  logos:
+    heading: Trusted throughout Canberra
+    body:
+      - Over more than five decades, ACT Tree Felling has undertaken arboricultural work for residential, commercial, government and institutional clients across Canberra.
+      - Our previous work has included specialist tree services for prominent Canberra sites including the Australian National Botanic Gardens and the Prime Minister's Lodge.
 ---
+{#- Section order follows docs/figma-homepage.md. Header, hero and footer come from the layouts. -#}
+{%- from "components/section-heading.njk" import sectionHeading -%}
 {%- from "components/service-card.njk" import serviceCard -%}
+{%- from "components/split.njk" import split -%}
+{%- from "components/preview-card.njk" import previewCard -%}
 {%- from "components/button.njk" import button -%}
 
-{% include "components/trust-icons.njk" %}
-
+{#- 3. Services grid #}
 <section class="bg-card py-section" aria-labelledby="services-heading">
   <div class="page-container">
-    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-      <h2 id="services-heading" class="font-display text-3xl font-bold">Our services</h2>
-      {{ button(site.cta.services.label, url=site.cta.services.url, variant="secondary") }}
-    </div>
-    <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {%- for service in services %}
+    {{ sectionHeading("services-heading", home.services.heading, eyebrow=home.services.eyebrow) }}
+    <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {%- for service in services | selectattr("showOnHome") %}
       <li>{{ serviceCard(service) }}</li>
       {%- endfor %}
     </ul>
   </div>
 </section>
 
-<section class="py-section" aria-labelledby="about-heading">
-  <div class="page-container grid items-center gap-10 lg:grid-cols-2">
-    <div class="aspect-photo rounded-card bg-placeholder" aria-hidden="true"></div>
-    <div>
-      <h2 id="about-heading" class="font-display text-3xl font-bold">A genuine commitment to caring for trees</h2>
-      <p class="mt-4">We're professional arborists with a passion for trees and a real interest in keeping them healthy and safe, for the benefit of Canberra's neighbourhoods and communities.</p>
-      <p class="mt-4">We look after every part of tree care: specialist pruning, deadwooding, removal, stump grinding, cabling and bracing, and powerline clearance.</p>
-      <div class="mt-6">{{ button("Why choose ACT Tree Felling", url="/why-act-tree-felling/", variant="secondary") }}</div>
+{#- 4. Experience split #}
+{{ split("experience-heading", home.experience.heading, body=home.experience.body) }}
+
+{#- 5. Trust icons #}
+{% include "components/trust-icons.njk" %}
+
+{#- 6. Reviews (Google reviews only on the homepage) #}
+{%- set reviewItems = reviews | whereEq("source", "google") %}
+{%- set reviewsEyebrow = home.reviews.eyebrow %}
+{%- set reviewsHeading = home.reviews.heading %}
+{% include "components/reviews.njk" %}
+
+{#- 7. Quote CTA band #}
+{% include "components/cta.njk" %}
+
+{#- 8. Why ACT Tree Felling #}
+<section class="py-section" aria-labelledby="why-heading">
+  <div class="page-container">
+    {{ sectionHeading("why-heading", home.why.heading, eyebrow=home.why.eyebrow) }}
+    <div class="mt-6 max-w-measure space-y-4">
+      {%- for paragraph in home.why.intro %}
+      <p>{{ paragraph }}</p>
+      {%- endfor %}
     </div>
+    <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {%- for card in home.why.cards %}
+      <li>{{ previewCard(card) }}</li>
+      {%- endfor %}
+    </ul>
+    <div class="mt-10">{{ button(home.why.button.label, url=home.why.button.url) }}</div>
   </div>
 </section>
 
-{% include "components/reviews.njk" %}
-
+{#- 9. Client logos #}
+{%- set logosHeading = home.logos.heading %}
+{%- set logosBody = home.logos.body %}
 {% include "components/logo-grid.njk" %}

@@ -1,10 +1,14 @@
 {#-
-  Page hero. Holds the page's only <h1>.
+  Page heroes. Each holds the page's only <h1>.
+    hero()        split layout for inner pages (not designed yet)
+    heroFeature() homepage: full-bleed photo, dark gradient on the left, left-aligned text (Figma "Hero")
   primary: { label, url } for the main button
   phone:   an item from site.phones for the call button (optional)
+  callLabel: text for the call button (defaults to the number)
 -#}
 {%- from "components/button.njk" import button -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
+
 {%- macro hero(heading, text=null, eyebrow=null, primary=null, phone=null) -%}
 <section class="bg-dark text-on-dark" aria-labelledby="page-title">
   <div class="page-container grid items-center gap-10 py-section-sm lg:grid-cols-2 lg:py-section">
@@ -24,6 +28,28 @@
       {%- endif %}
     </div>
     <div class="aspect-photo rounded-card bg-placeholder-strong" aria-hidden="true"></div>
+  </div>
+</section>
+{%- endmacro -%}
+
+{%- macro heroFeature(heading, text=null, primary=null, phone=null, callLabel=null) -%}
+<section class="relative isolate overflow-hidden bg-dark text-on-dark" aria-labelledby="page-title">
+  {#- Photo placeholder: fairy-wren, 1467 × 762 desktop plus a separate mobile crop. #}
+  <div class="absolute inset-0 -z-20 bg-placeholder-strong" aria-hidden="true"></div>
+  <div class="absolute inset-0 -z-10 bg-dark/75 md:bg-transparent md:bg-linear-to-r md:from-dark md:via-dark/80 md:to-transparent" aria-hidden="true"></div>
+  <div class="page-container flex min-h-128 items-center py-section-sm lg:min-h-160">
+    <div class="max-w-2xl">
+      <h1 id="page-title" class="font-display text-4xl font-bold text-balance md:text-6xl">{{ heading }}</h1>
+      {%- if text %}
+      <p class="mt-6 max-w-measure text-lg">{{ text }}</p>
+      {%- endif %}
+      {%- if primary or phone %}
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        {%- if primary %}{{ button(primary.label, url=primary.url) }}{% endif %}
+        {%- if phone %}{{ phoneLink(phone, label=callLabel, class="justify-center rounded-button border-2 border-primary bg-white px-5 py-3 font-semibold text-primary hover:bg-page") }}{% endif %}
+      </div>
+      {%- endif %}
+    </div>
   </div>
 </section>
 {%- endmacro -%}

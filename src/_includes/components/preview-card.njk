@@ -1,0 +1,11 @@
+{#- Preview card (Figma "Preview Cards"): image, H3, text. card: { heading, text } -#}
+{%- macro previewCard(card, headingLevel=3) -%}
+<article class="flex h-full flex-col overflow-hidden rounded-card bg-card">
+  {#- Image placeholder, 288 × 216. #}
+  <div class="aspect-photo bg-placeholder" aria-hidden="true"></div>
+  <div class="space-y-2 p-6">
+    <h{{ headingLevel }} class="font-display text-xl font-bold">{{ card.heading }}</h{{ headingLevel }}>
+    <p class="text-ink-muted">{{ card.text }}</p>
+  </div>
+</article>
+{%- endmacro -%}

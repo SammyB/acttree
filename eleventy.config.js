@@ -24,6 +24,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("localBusinessJsonLd", (site) => toJsonLd(localBusiness(site)));
   eleventyConfig.addFilter("mdInline", mdInline);
   eleventyConfig.addFilter("primary", primary);
+  // site.phones | phoneById("mobile")
+  eleventyConfig.addFilter("phoneById", (phones = [], id) => phones.find((phone) => phone.id === id));
+  // reviews | whereEq("source", "google")
+  eleventyConfig.addFilter("whereEq", (items = [], key, value) => items.filter((item) => item[key] === value));
   // Keeps phone numbers on one line.
   eleventyConfig.addFilter("nbsp", (text) => String(text).replace(/ /g, "\u00a0"));
 

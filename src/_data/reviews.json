@@ -1,5 +1,24 @@
 [
   {
+    "id": "rachael-hunter",
+    "source": "google",
+    "name": "Rachael Hunter",
+    "rating": 5,
+    "text": "Amazing service at a very competitive price. I would highly recommend ACT Tree Felling. The team were super professional and fast! The whole experience was smooth and great value. Thanks guys. I'm really thrilled ☺️",
+    "url": "",
+    "permissionConfirmed": false
+  },
+  {
+    "id": "kay-johns",
+    "source": "google",
+    "name": "Kay Johns",
+    "rating": 5,
+    "text": "Great service, minimum fuss and very professional. Price reasonable.",
+    "ownerResponse": "Hi Kay, Thank you for taking the time to leave us a positive review! We appreciate the kind words and feedback, and hope to see you again! Kind Regards, ACT Tree Felling.",
+    "url": "",
+    "permissionConfirmed": false
+  },
+  {
     "id": "cedric-bryant",
     "name": "Cedric Bryant",
     "role": "Garden designer, horticultural consultant and garden writer for Canberra CityNews",

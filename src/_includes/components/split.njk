@@ -1,0 +1,30 @@
+{#-
+  Split section (Figma "Call to Action"): text panel on one side, full-height photo on the other.
+  On mobile the text comes first, then the image.
+    tone:    "light" (cream panel) | "dark" (grey 900 panel)
+    body:    array of paragraphs
+    primary: optional { label, url } button
+-#}
+{%- from "components/button.njk" import button -%}
+{%- from "components/section-heading.njk" import sectionHeading -%}
+{%- macro split(id, heading, body=[], eyebrow=null, tone="light", primary=null) -%}
+<section class="{{ 'bg-dark text-on-dark' if tone == 'dark' else 'bg-page' }}" aria-labelledby="{{ id }}">
+  <div class="grid lg:grid-cols-2">
+    <div class="flex items-center px-4 py-section-sm md:px-8 lg:px-16 lg:py-section">
+      <div class="max-w-measure space-y-6">
+        {{ sectionHeading(id, heading, eyebrow=eyebrow) }}
+        <div class="space-y-4">
+          {%- for paragraph in body %}
+          <p>{{ paragraph }}</p>
+          {%- endfor %}
+        </div>
+        {%- if primary %}
+        <div>{{ button(primary.label, url=primary.url) }}</div>
+        {%- endif %}
+      </div>
+    </div>
+    {#- Photo placeholder, 720 × ~600. Fills the panel height on desktop. #}
+    <div class="min-h-72 bg-placeholder lg:min-h-full" aria-hidden="true"></div>
+  </div>
+</section>
+{%- endmacro -%}
