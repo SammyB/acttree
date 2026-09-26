@@ -4,7 +4,7 @@ Context: project-brief.md is the source of truth for decisions, the stack, track
 
 Stack (decided, don't re-litigate unless I ask): Eleventy 3 + Nunjucks + Tailwind. Output is plain static HTML on OzHosting (Plesk/Apache, .htaccess only, no database, no server-side code). The contact form is a styled HTML form posting to JotForm (form 201330756177049). The code lives in GitHub. There's no CMS at launch.
 
-Current stage: the homepage design is with the client for validation. Build core functionality and low-fidelity components now; apply the final Figma styling only once I confirm the designs are approved.
+Current stage: the core build is done. We're now building the real Figma design (see design-tokens.md and figma-homepage.md). The next phase is UAT previews for the designer and client. Nothing goes to the live site until go-live. The canonical host is https://www.acttree.com.au.
 
 How to work with me:
 - Give me code that fits the structure in CLAUDE.md: data in _data, components in _includes/components, one template per repeated page type.

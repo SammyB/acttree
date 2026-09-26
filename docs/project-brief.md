@@ -1,6 +1,6 @@
 # ACT Tree Felling – Website Rebuild: Project Brief
 
-_Last updated: 26 Sep 2026 · Owner: Sam Brunno (developer)_
+_Last updated: 26 Sep 2026 (rev 2) · Owner: Sam Brunno (developer)_
 
 ## 1. The job
 
@@ -8,19 +8,27 @@ Rebuild **acttree.com.au** for ACT Tree Felling. The business was founded in Can
 
 The old site is hand-written HTML/jQuery from around 2020. The new site is a static Eleventy + Tailwind build based on the designer's Figma.
 
-**Current stage:** the homepage design has been reviewed and feedback sent to the designer and client (see §8). Designs are being validated with the client. **Build the core functionality now; apply the final visual design later.**
+**Current stage:**
+- The homepage design has been reviewed and feedback sent to the designer and client (§8).
+- The core build is done in Claude Code: the scaffold, SEO, data files, components, pages and `.htaccess` (build plan steps 1–6).
+- **We are now building the actual Figma design.** Sam doesn't expect much to change. The tokens and homepage copy have been extracted to `docs/design-tokens.md` and `docs/figma-homepage.md`.
+- The next phase is **UAT**: proof-of-concept previews for the designer and client.
+- **Nothing is uploaded to the live site until go-live.**
 
 ## 2. Decisions (confirmed)
 
 | Area | Decision |
 |---|---|
 | Generator | **Eleventy 3** with Nunjucks templates |
-| Styling | **Tailwind CSS**. Design tokens (colours, fonts, spacing) come from the Figma and live in one place |
+| Styling | **Tailwind CSS**. Design tokens come from the Figma variables and are documented in `docs/design-tokens.md`. The font is **Alexandria** (Google Fonts), the brand green is `#037b3e`, and a warm grey scale runs from cream to near-black |
 | Output | Plain static HTML/CSS/minimal vanilla JS. No framework in the browser |
 | Hosting | **OzHosting** (Plesk, Apache). `.htaccess` for HTTPS, redirects and caching. **No database, no server-side PHP needed** |
 | Contact/quote form | **JotForm** (existing form ID `201330756177049`). A custom-styled HTML form that POSTs to `https://submit.jotform.com/submit/201330756177049/`. JotForm redirects to `/thank-you/` on our site |
 | Version control | GitHub |
-| Deploy | Phase 1: build locally, upload `_site/` by FTP or the Plesk File Manager. Phase 2: GitHub Actions builds and deploys (FTP, or Plesk Git extension if OzHosting supports it) |
+| Canonical host | **`https://www.acttree.com.au`** (decided). Google has indexed www and the old site links to it. Non-www and http redirect 301 to it. The host is set in `site.json` |
+| UAT / previews | **Cloudflare Pages** (planned) builds preview links from GitHub for the designer and client. Non-production builds are `noindex`, and GTM is off. `.htaccess` doesn't run there |
+| Live site | **No uploads or changes to the live site until go-live** (Sam's decision) |
+| Deploy (at launch) | Phase 1: build locally, upload `_site/` by FTP or the Plesk File Manager. Phase 2: GitHub Actions builds and deploys (FTP, or Plesk Git extension if OzHosting supports it) |
 | CMS | **None at launch.** Content lives in `_data/*.json` so **Pages CMS** (free, Git-based) can be added later if the client wants to self-edit |
 
 ## 3. Business facts (from the current site – verify before launch)
@@ -49,7 +57,18 @@ The old site is hand-written HTML/jQuery from around 2020. The new site is a sta
 - Original file (designer): `wkru217NnARkUHeANt182D` "ACT Tree Feeling 2026". Sam's connected Figma account (SammyB) has **view-only** access, so the Figma MCP can't read it until the designer grants edit access.
 - Working copy (Sam's drafts, readable by the MCP): `SZ570YQEPeviNy0oQtXAOf`, node `29392:3375`, page "Creative Explore 🔴". This is a snapshot and won't show the designer's later changes.
 - Designed so far: homepage (desktop 1440 and mobile 368), desktop mega-menu and mobile menu, navbar and footer. **Everything else is still to design.**
-- Visual notes: cream page background, dark near-black sections, a green primary button with a green-outline secondary, white rounded cards, and icons that look like Tabler. **Take exact tokens from Figma variables, not from screenshots.**
+- Tokens extracted from the Figma variables and styles are in **`docs/design-tokens.md`**:
+  - font Alexandria, with an h1–h6 scale in desktop and mobile sizes
+  - colours: a warm grey scale plus green `#037b3e`
+  - spacing on a 4px grid
+  - corner radius: 6px for buttons, 16px for cards
+  - content container 1248px wide
+- Homepage structure and copy (10 sections, plus the menus and footer) are in **`docs/figma-homepage.md`**. It marks each item as [FIX], [PENDING] or [TODO].
+- The icon library hasn't been identified yet; its layers use names like `Map / Map` and `People / User Check`. Ask the designer. Until then, export the icons as SVGs.
+- Ignore these Figma leftovers:
+  - the `Themes` variable collection ("Cogito Group")
+  - Inter, which only appears in the reviews mock-up
+  - Gotham, which only appears in one leftover text style
 
 ## 6. Sitemap and redirects (proposed – confirm with client)
 
@@ -77,7 +96,11 @@ New nav: Home · Services · Why ACT Tree Felling · Resources · Careers · Con
 
 New pages: `/thank-you/`, `/privacy-policy/`, `/404.html`.
 
-**Canonical host: `https://www.acttree.com.au`** (decided 26 Sep 2026: it's what Google has indexed and what the old site links to). `acttree.com.au` 301s to `www`. The host is set once, as `url` in `site.json`.
+**Canonical host is www** (decided 26 Sep 2026). Both hosts currently serve the site without redirecting, but Google has indexed www.
+
+As implemented in `src/htaccess.njk`:
+- the six consultation pages redirect to anchors on `/services/arborist-consultation/`
+- `mulch-orders.html` is a temporary **302** to `/contact/` until the client decides; change it to a 301 once they do
 
 ## 7. Contact form (JotForm) spec
 
@@ -142,7 +165,9 @@ These items are pending from the designer:
 - Do the X and YouTube accounts exist?
 - Are the hero wren photo and other images licensed?
 
-## 10. Old server clean-up (live site, do now)
+## 10. Old server clean-up (live site – deferred to launch, no live changes for now)
+
+The new `.htaccess` also returns `410 Gone` for these paths, in case any copies are left behind.
 
 Remove:
 
@@ -153,7 +178,9 @@ Remove:
 - the duplicate `contact_form/` site copy
 - the `archived/` folders
 
-## 11. Build plan (while design is validated)
+## 11. Build plan
+
+Steps 1–6 are done. Step 10 is now in progress.
 
 1. Repo, Eleventy, Tailwind scaffold, and `npm run dev` / `npm run build`
 2. Base layout with SEO:
@@ -169,7 +196,9 @@ Remove:
 7. GTM snippet in the layout, with an env/data toggle so it only loads in production
 8. Image pipeline with `@11ty/eleventy-img` (responsive AVIF/WebP)
 9. Deploy script (phase 1) and GitHub Actions (phase 2)
-10. **Later, once designs are approved:** pull tokens from Figma into Tailwind and restyle the components
+10. **Now:** apply the tokens from `design-tokens.md` and rebuild the homepage, header and footer to match `figma-homepage.md`
+11. UAT: Cloudflare Pages previews, with `noindex` on non-production builds. Send the links to the designer and client
+12. Inner pages, reusing the homepage components until the designer supplies inner-page designs
 
 ## 12. Open questions / blockers
 
@@ -177,4 +206,33 @@ Remove:
 - Who owns Google Ads and GTM? We need conversion labels and GTM access.
 - GA4: new property or existing?
 - Figma edit access on the designer's original file
-- Final page list: Resources contents, consultation structure, mulch
+- Final page list: Resources contents, consultation structure (currently anchors on one page), mulch
+- Which icon library the designer is using
+- Export-ready images at 2× (listed at the end of `figma-homepage.md`)
+- Should Cabling & Bracing appear on the homepage grid (7 in the menu vs 6 on the homepage)?
+- What does the "Sustainment Services" label mean?
+
+## 13. Pre-launch test list (before go-live)
+
+- **`.htaccess`**, tested on an OzHosting staging subdomain:
+  - the homepage has no redirect loop
+  - http → https and non-www → www happen in one hop
+  - every old `.html` URL redirects 301 to the right new page (mulch is a temporary 302)
+  - dotfiles are blocked
+  - the 404 page works
+- **Uploading `.htaccess`:** upload it deliberately, because FTP clients can hide dotfiles. Use either the `.htaccess` rules or Plesk's HTTPS/preferred-domain settings, not both. Enable HSTS only once HTTPS works on both hosts.
+- **JotForm:**
+  - redirects to `/thank-you/` on the site
+  - spam protection is on
+  - notifications go to the right inbox
+  - a test submission arrives
+- **Tracking:**
+  - the Google Ads conversion fires on `/thank-you/` and on `tel:` clicks via GTM (check with Tag Assistant)
+  - GA4 is live
+- **SEO:**
+  - the production build has no `noindex`
+  - `sitemap.xml` and `robots.txt` are correct
+  - the sitemap is submitted in Search Console
+- **Clean-up:**
+  - the old server files are removed (§10)
+  - updated non-hashed assets (logo, icons) show after deploy

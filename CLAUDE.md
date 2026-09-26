@@ -1,18 +1,22 @@
 # CLAUDE.md – acttree.com.au
 
 Static marketing site for ACT Tree Felling (Canberra tree services since 1975).
-Full context lives in `docs/project-brief.md`. Old site copy lives in `docs/old-site-content.md`. Read them before large changes.
+Read these docs before large changes:
+- `docs/project-brief.md`: decisions, status, redirects, open questions, pre-launch tests
+- `docs/design-tokens.md`: fonts, colours, spacing and radii from the Figma
+- `docs/figma-homepage.md`: homepage section order, layouts and copy
+- `docs/old-site-content.md`: the old site's copy, for the inner pages (out of date in places)
 
 ## Stack
 - Eleventy 3 with Nunjucks (`.njk`) templates. Content lives in `src/_data/*.json` and front matter.
-- Tailwind CSS. Design tokens (colour, font, spacing, radius) are defined **once** in the Tailwind theme.
+- Tailwind CSS. Design tokens (colour, font, spacing, radius) are defined **once** in the Tailwind theme, using the values in `docs/design-tokens.md`. The font is Alexandria.
 - Output is plain HTML in `_site/`, hosted on OzHosting (Plesk/Apache). No database, no server-side code.
 - The contact form is a styled HTML form that POSTs to JotForm (see "Forms").
 
 ## Commands
 - `npm run dev` runs the local server with live reload.
 - `npm run build` does a production build to `_site/`.
-- `npm run check` builds, then runs HTML validation, a link/anchor check, a redirect check against `.htaccess`, and lists content still awaiting client sign-off.
+- `npm run check` builds, then runs an HTML validation and link check.
 
 ## Layout
 ```
@@ -24,7 +28,7 @@ src/
   assets/       css/main.css (Tailwind entry) · js/ (small vanilla modules) · img/
   services/     services.njk – ONE paginated template generates every page in services.json
   *.njk         index, why-act-tree-felling, resources/faq, careers, contact, thank-you, privacy-policy, 404
-  htaccess.njk  → /.htaccess: HTTPS + canonical host (from site.json `url`), 301 map from old *.html URLs, caching
+  htaccess.njk  generates _site/.htaccess: HTTPS + canonical host, 301 map from old *.html URLs, 410s for old files, caching
 ```
 
 ## Rules
@@ -41,7 +45,9 @@ src/
 - Images go through `@11ty/eleventy-img` (responsive AVIF/WebP, with width and height set).
 - Every page sets `title` and `description` in front matter. The base layout outputs the canonical link, Open Graph tags and `LocalBusiness` JSON-LD.
 - Use Australian English in all copy.
-- Designs are still being validated. Until Figma tokens are approved, build **low-fidelity** layouts that match the Figma structure, and keep styling easy to swap.
+- Build to the real design. Use the tokens from `docs/design-tokens.md`, and follow `docs/figma-homepage.md` for the homepage. Apply its [FIX] items, and keep [PENDING] items easy to change (in data or front matter).
+- Inner pages aren't designed yet. Reuse the homepage components and styles for them.
+- Use the Figma MCP (file `SZ570YQEPeviNy0oQtXAOf`) to check details like shadows and spacing, not screenshots.
 
 ## Forms (JotForm)
 - The form ID and field names live in `site.json`. They must exactly match the JotForm form (e.g. `q3_name[first]`, `q4_email`, `formID`).
@@ -53,7 +59,13 @@ src/
 - No hard-coded gtag, UA or AW tags; everything goes through GTM.
 - Add `data-track="phone"` to all `tel:` links so GTM can track click-to-call.
 
+## Hosting, redirects and previews
+- The canonical origin is `site.url` in `site.json`: `https://www.acttree.com.au`. Everything that needs the host reads it from there, including `.htaccess`, canonical tags, the sitemap and JSON-LD.
+- Edit `src/htaccess.njk`, never `_site/.htaccess`. Keep the `index.html` redirect guarded with `THE_REQUEST` to avoid a redirect loop. Only hashed or versioned assets get the `immutable` cache.
+- UAT previews run on Cloudflare Pages. Non-production builds must output `noindex` and a blocking `robots.txt`, and must not load GTM. `.htaccess` doesn't run on previews.
+
 ## Deploy
+- **Nothing is uploaded to the live site until go-live.** Don't suggest or run deploys to OzHosting before Sam asks.
 - Phase 1: `npm run build`, then upload the contents of `_site/` to `httpdocs/`.
 - Phase 2: a GitHub Actions workflow builds and deploys on push to `main`. Credentials are stored in repo secrets, never in the repo.
 - Never deploy `.git`, `node_modules` or `docs/`.
