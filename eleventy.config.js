@@ -1,6 +1,7 @@
 import { localBusiness, primary, toJsonLd } from "./lib/schema.js";
 import { icon } from "./lib/icons.js";
 import { mdInline } from "./lib/markdown.js";
+import { marqueeTracks } from "./lib/marquee.js";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
 export default function (eleventyConfig) {
@@ -49,6 +50,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("phoneById", (phones = [], id) => phones.find((phone) => phone.id === id));
   // reviews | whereEq("source", "google")
   eleventyConfig.addFilter("whereEq", (items = [], key, value) => items.filter((item) => item[key] === value));
+  // logos | selectattr("show") | marqueeTracks(2, 6)
+  eleventyConfig.addFilter("marqueeTracks", marqueeTracks);
   // Keeps phone numbers on one line.
   eleventyConfig.addFilter("nbsp", (text) => String(text).replace(/ /g, "\u00a0"));
 

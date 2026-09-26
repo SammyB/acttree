@@ -14,7 +14,7 @@ eleventyExcludeFromCollections: true
 {%- from "components/content-blocks.njk" import contentBlocks -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
 
-{#- Feature hero (homepage). Holds this page's only <h1>. #}
+{#- Feature hero (homepage). Holds this page's only <h1>. -#}
 {{ heroFeature("Component styleguide", text="Every component, fed from _data. Built in development only, never in production.", primary=site.cta.freeQuote, phone=site.phones | phoneById(site.cta.call.phone), callLabel=site.cta.call.label) }}
 
 {#- Split hero (inner pages), shown with an <h2> so the page keeps one <h1>. #}
@@ -74,7 +74,26 @@ eleventyExcludeFromCollections: true
 
 {% include "components/reviews.njk" %}
 
+<section class="page-container space-y-2 pt-section-sm" aria-labelledby="sg-logos">
+  <h2 id="sg-logos" class="font-display text-3xl">Logo marquee states</h2>
+  <p>1. Animating (default): hover or focus pauses it; the round button toggles pause. 2. Paused (button pressed). 3. Static grid, shown when the visitor prefers reduced motion.</p>
+</section>
+
+{%- set logosHeadingId = "sg-logos-animating" %}
+{%- set logosHeading = "1. Animating" %}
+{%- set logosState = null %}
 {% include "components/logo-grid.njk" %}
+
+{%- set logosHeadingId = "sg-logos-paused" %}
+{%- set logosHeading = "2. Paused" %}
+{%- set logosState = "paused" %}
+{% include "components/logo-grid.njk" %}
+
+{%- set logosHeadingId = "sg-logos-static" %}
+{%- set logosHeading = "3. Static (reduced motion)" %}
+{%- set logosState = "static" %}
+{% include "components/logo-grid.njk" %}
+{%- set logosHeadingId = null %}{% set logosHeading = null %}{% set logosState = null %}
 
 {% include "components/cta.njk" %}
 

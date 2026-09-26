@@ -36,7 +36,7 @@ src/
 - **Never hard-code contact details, IDs or service copy in templates.** Read them from `_data`.
 - Build every repeated UI element as a component in `_includes/components/`. Pages only compose components.
 - Only use theme tokens: no arbitrary Tailwind values (`bg-[#...]`, `mt-[37px]`) and no inline styles.
-- Only add JS where needed (the mobile menu, the reviews carousel). Use vanilla ES modules, no jQuery or frameworks.
+- Only add JS where needed (the mobile menu, the reviews carousel, the logo marquee's pause button). Use vanilla ES modules, no jQuery or frameworks. Animations are pure CSS and must have a `prefers-reduced-motion` fallback.
 - Accessibility:
   - use semantic landmarks, with one `<h1>` per page
   - every image needs `alt`

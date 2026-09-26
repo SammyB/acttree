@@ -8,6 +8,17 @@
 @source "../../";
 @source "../../../lib";
 
+/* Logo marquee static grid: when the visitor prefers reduced motion, or inside .is-static
+   (used by the styleguide to preview that state). */
+@custom-variant static-marquee {
+  @media (prefers-reduced-motion: reduce) {
+    @slot;
+  }
+  &:where(.is-static, .is-static *) {
+    @slot;
+  }
+}
+
 @theme {
   /* Reset Tailwind's default palette so only project tokens exist. */
   --color-*: initial;
@@ -100,6 +111,162 @@
    Use inside an @container element capped at --container-frame (cqw excludes the scrollbar). */
 @utility split-inset {
   padding-inline-start: max(--spacing(6), calc((100cqw - var(--container-content)) / 2));
+}
+
+/*
+ * Logo marquee (components/logo-grid.njk). Pure CSS: each track holds the logo list twice and
+ * moves by exactly -50% per loop, so the second copy lands where the first started (seamless).
+ *   Below lg: two horizontal rows (row 1 left, row 2 right), fading at the left/right edges.
+ *   lg and up: two vertical columns (column 1 up, column 2 down) in a fixed-height section,
+ *              column 2 dropped 48px as in Figma, fading at the top/bottom edges.
+ * Paused on hover, on :focus-within and by the pause button (.is-paused, set by marquee.js).
+ * prefers-reduced-motion: no animation, no copies, a static 2-column grid.
+ */
+@layer components {
+  .logo-marquee {
+    --marquee-gap: --spacing(4);
+    --marquee-tile: --spacing(42); /* 168px (Figma mobile) */
+    --marquee-fade: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: var(--marquee-gap);
+    overflow: hidden;
+    -webkit-mask-image: var(--marquee-fade);
+    mask-image: var(--marquee-fade);
+  }
+
+  .logo-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: logo-marquee-x var(--marquee-duration, 40s) linear infinite;
+    will-change: transform;
+  }
+
+  .logo-marquee__track--reverse {
+    --marquee-duration: 46s; /* slightly slower, so the rows drift apart */
+    animation-direction: reverse;
+  }
+
+  .logo-marquee__list {
+    display: flex;
+    gap: var(--marquee-gap);
+    /* Trailing gap so both copies are exactly the same length. */
+    padding-inline-end: var(--marquee-gap);
+  }
+
+  .logo-marquee__tile {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--marquee-tile);
+    height: var(--marquee-tile);
+    padding: --spacing(5);
+    border-radius: var(--radius-lg);
+    background: var(--color-card);
+  }
+
+  .logo-marquee__tile img {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .logo-marquee:hover .logo-marquee__track,
+  .logo-marquee-region:focus-within .logo-marquee__track,
+  .logo-marquee-region.is-paused .logo-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @media (width >= 64rem) {
+    .logo-marquee-section {
+      height: --spacing(206); /* 824px, Figma LogoGrid */
+    }
+
+    .logo-marquee {
+      --marquee-gap: --spacing(8);
+      --marquee-tile: --spacing(75); /* 300px */
+      --marquee-fade: linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+      flex-direction: row;
+      justify-content: flex-end;
+      height: 100%;
+    }
+
+    .logo-marquee__track {
+      flex-direction: column;
+      width: auto;
+      height: max-content;
+      animation-name: logo-marquee-y;
+    }
+
+    .logo-marquee__track--reverse {
+      margin-top: --spacing(12); /* Figma: right column dropped 48px */
+    }
+
+    .logo-marquee__list {
+      flex-direction: column;
+      padding-inline-end: 0;
+      padding-block-end: var(--marquee-gap);
+    }
+
+    .logo-marquee__tile {
+      padding: --spacing(6);
+      border-radius: var(--radius-card);
+    }
+  }
+
+  /* Static grid: prefers-reduced-motion, or .is-static (styleguide preview). See @custom-variant. */
+  .logo-marquee-section {
+    @variant static-marquee {
+      height: auto;
+    }
+  }
+
+  .logo-marquee {
+    @variant static-marquee {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      height: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+
+  .logo-marquee__track,
+  .logo-marquee__list {
+    @variant static-marquee {
+      flex-direction: column;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      animation: none;
+    }
+  }
+
+  .logo-marquee__list[aria-hidden="true"],
+  .logo-marquee__tile[data-repeat] {
+    @variant static-marquee {
+      display: none;
+    }
+  }
+
+  .logo-marquee__tile {
+    @variant static-marquee {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+  }
+}
+
+@keyframes logo-marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes logo-marquee-y {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -50%, 0); }
 }
 
 @layer base {

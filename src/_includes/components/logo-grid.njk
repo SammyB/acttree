@@ -1,40 +1,67 @@
 {#-
-  Client logos (Figma "LogoGrid"): sand background with the text first.
-    Mobile:  two rows of 168px white tiles, the second row shifted right, running off both edges.
-    Desktop: two columns of 300px tiles beside the text, the right column dropped 48px, running off
-             the top and bottom of the section.
-  One list serves both layouts (screen readers hear each logo once).
-  Only logos with "show": true in logos.json are displayed; blank tiles pad the grid to 6 (as in Figma).
-  Static; only animate if the designer specifies it (and then respect prefers-reduced-motion).
-  Optional, set before including: logosHeading, logosBody (array of paragraphs).
+  Client logos (Figma "LogoGrid") as a slow, looping marquee. Styles: "Logo marquee" in main.css.
+    Below lg:  text, then two horizontal rows scrolling in opposite directions.
+    lg and up: text on the left, two vertical columns scrolling in opposite directions (left up,
+               right down), bleeding off the top and bottom of the fixed-height section.
+  logos.json items with "show": true are split across the two tracks and repeated until each track
+  is long enough. Each track holds its list twice for a seamless loop; the copy and the repeats are
+  aria-hidden, so screen readers hear each organisation once. (Tiles have no links; if links are
+  added, give the ones in hidden copies tabindex="-1".)
+  Pauses on hover and focus; the pause button (marquee.js) is shown only when JS runs.
+  prefers-reduced-motion: static 2-column grid, no copies.
+  Optional, set before including: logosEyebrow, logosHeading, logosBody (array of paragraphs),
+    logosHeadingId (default "logos-heading"; needed when the component appears more than once),
+    logosState ("paused" or "static"; styleguide previews of those states).
 -#}
 {%- from "components/section-heading.njk" import sectionHeading -%}
-{%- set shown = logos | selectattr("show") -%}
-{%- set tiles = 6 if shown.length < 6 else shown.length -%}
-<section class="overflow-hidden bg-sand" aria-labelledby="logos-heading">
-  <div class="page-container grid gap-12 section-y lg:min-h-206 lg:grid-cols-2 lg:items-center lg:py-0">
+{%- set tracks = logos | selectattr("show") | marqueeTracks(2, 6) -%}
+{%- set headingId = logosHeadingId or "logos-heading" -%}
+{%- set paused = logosState == "paused" -%}
+{%- macro tile(entry, inHiddenCopy) -%}
+<li class="logo-marquee__tile"{% if entry.repeat %} data-repeat{% endif %}{% if entry.repeat and not inHiddenCopy %} aria-hidden="true"{% endif %}>
+  {%- if entry.item.image %}
+  <img src="{{ entry.item.image }}" alt="{{ entry.item.name }}" sizes="(min-width: 1024px) 252px, 128px" eleventy:widths="128,252,504" eleventy:formats="avif,webp,png" loading="lazy">
+  {%- else %}
+  <span class="text-center font-semibold">{{ entry.item.name }}</span>
+  {%- endif %}
+</li>
+{%- endmacro -%}
+<section class="logo-marquee-section logo-marquee-region overflow-hidden bg-sand{{ ' is-paused' if paused }}{{ ' is-static' if logosState == 'static' }}" aria-labelledby="{{ headingId }}" data-marquee>
+  <div class="page-container grid gap-12 section-y lg:h-full lg:grid-cols-2 lg:items-center lg:py-0 static-marquee:lg:py-section">
     <div class="max-w-narrow space-y-4">
-      {{ sectionHeading("logos-heading", logosHeading or "Trusted throughout Canberra") }}
+      {{ sectionHeading(headingId, logosHeading or "Trusted throughout Canberra", eyebrow=logosEyebrow) }}
       <div class="space-y-3 text-lg">
         {%- for paragraph in logosBody %}
         <p>{{ paragraph }}</p>
         {%- endfor %}
       </div>
     </div>
-    <div class="relative lg:h-full">
-      <ul class="-ml-12 grid w-max grid-flow-col grid-rows-2 gap-4 lg:absolute lg:top-1/2 lg:right-0 lg:ml-0 lg:grid-rows-3 lg:gap-8 lg:-translate-y-1/2">
-        {%- for i in range(0, tiles) %}
-        {%- set logo = shown[i] %}
-        {#- Mobile: odd tiles form the second row, shifted right. Desktop: tiles 4–6 form the dropped column. #}
-        <li class="flex size-42 items-center justify-center rounded-lg bg-card p-5 lg:rounded-card text-center font-semibold lg:size-75 lg:p-6{{ ' translate-x-24 lg:translate-x-0' if i % 2 == 1 }}{{ ' lg:translate-y-12' if i >= 3 }}"{% if not logo %} aria-hidden="true"{% endif %}>
-          {%- if logo and logo.image %}
-          <img src="{{ logo.image }}" alt="{{ logo.name }}" sizes="(min-width: 1024px) 252px, 128px" eleventy:widths="128,252,504" eleventy:formats="avif,webp,png" class="max-h-28 w-auto object-contain">
-          {%- elif logo %}
-          {{ logo.name }}
-          {%- endif %}
-        </li>
+
+    {#- min-w-0 / absolute positioning: the tracks are thousands of pixels long and must not size the
+        grid (they pushed the text out of view). #}
+    <div class="relative -mx-6 min-w-0 lg:mx-0 lg:-ml-8 lg:self-stretch static-marquee:mx-0 static-marquee:lg:self-center">
+      <div class="logo-marquee lg:absolute lg:inset-0 static-marquee:lg:static">
+        {%- for track in tracks %}
+        <div class="logo-marquee__track{{ ' logo-marquee__track--reverse' if loop.index0 % 2 == 1 }}">
+          <ul class="logo-marquee__list">
+            {%- for entry in track %}{{ tile(entry, false) }}{% endfor %}
+          </ul>
+          {#- Copy for the seamless loop: hidden from assistive tech. #}
+          <ul class="logo-marquee__list" aria-hidden="true">
+            {%- for entry in track %}{{ tile(entry, true) }}{% endfor %}
+          </ul>
+        </div>
         {%- endfor %}
-      </ul>
+      </div>
+
+      {#- Shown by marquee.js. aria-pressed="true" means paused. Hidden when motion is reduced. #}
+      <div class="mt-4 flex justify-end px-6 lg:absolute lg:right-0 lg:bottom-6 lg:mt-0 lg:px-0 static-marquee:hidden">
+        <button type="button" class="group flex size-10 items-center justify-center rounded-full bg-dark text-on-dark hover:bg-primary" aria-pressed="{{ 'true' if paused else 'false' }}" aria-label="Pause logo animation" data-marquee-toggle hidden>
+          <span class="group-aria-pressed:hidden">{% icon "player-pause", "size-5", "filled" %}</span>
+          <span class="hidden group-aria-pressed:block">{% icon "player-play", "size-5", "filled" %}</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
+<script type="module" src="/assets/js/marquee.js?v={{ env.buildId }}"></script>

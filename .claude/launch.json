@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 8080
+    },
+    {
+      "name": "preview-build",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["node_modules/@11ty/eleventy-dev-server/cmd.js", "--dir=C:/Users/sammy/AppData/Local/Temp/acttree-preview", "--port=8081"],
+      "port": 8081
     }
   ]
 }
