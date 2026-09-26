@@ -1,60 +1,53 @@
 {#-
-  Reviews (Figma "Google review"): Google summary card + scroll-snap carousel of review cards.
-  /assets/js/carousel.js adds the prev/next buttons.
+  Reviews (Figma "Google review"): three equal columns on desktop – the Google summary card, then a
+  scroll-snap carousel showing two review cards – with round prev/next buttons under the cards.
+  /assets/js/carousel.js shows the buttons when there's more to scroll.
   Optional, set before including:
     reviewItems     which reviews to show (default: all of reviews.json)
     reviewsEyebrow / reviewsHeading
-  No relative dates ("1 week ago") are ever shown.
+  [FIX] Site font and green button (Figma mock-up uses Inter and black), no clipping, and never
+  relative dates ("1 week ago").
 -#}
 {%- from "components/section-heading.njk" import sectionHeading -%}
+{%- from "components/button.njk" import button -%}
 {%- set items = reviewItems or reviews -%}
 {%- set summary = site.googleReviews -%}
 {%- macro stars(rating, size="size-5") -%}
-<span class="flex text-star" aria-hidden="true">
+<span class="flex gap-1 text-star" aria-hidden="true">
   {%- for i in range(0, 5) %}{% icon "star", size, "filled" %}{% endfor -%}
 </span>
 <span class="sr-only">Rated {{ rating }} out of 5</span>
 {%- endmacro -%}
-<section id="reviews" class="py-section" aria-labelledby="reviews-heading" data-carousel>
+<section id="reviews" class="bg-canvas section-y" aria-labelledby="reviews-heading" data-carousel>
   <div class="page-container">
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-      {{ sectionHeading("reviews-heading", reviewsHeading or "See what our customers say", eyebrow=reviewsEyebrow or "Reviews") }}
-      <div class="flex gap-3" data-carousel-controls hidden>
-        <button type="button" class="rounded-full border-2 border-ink p-3 hover:bg-ink hover:text-page disabled:opacity-40" data-carousel-prev>
-          <span class="sr-only">Previous reviews</span>{% icon "chevron-left", "size-5" %}
-        </button>
-        <button type="button" class="rounded-full border-2 border-primary bg-primary p-3 text-on-primary hover:bg-primary-hover disabled:opacity-40" data-carousel-next>
-          <span class="sr-only">Next reviews</span>{% icon "chevron-right", "size-5" %}
-        </button>
-      </div>
-    </div>
+    {{ sectionHeading("reviews-heading", reviewsHeading or "See what our customers say", eyebrow=reviewsEyebrow or "Reviews") }}
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-4">
+    <div class="mt-12 grid gap-8 lg:grid-cols-3">
       {%- if summary.count %}
-      <div class="flex flex-col items-start gap-3 rounded-card border border-line bg-card p-6">
-        {% icon "brand-google", "size-8" %}
-        <p class="font-semibold">{{ site.name }}</p>
-        <p class="flex items-center gap-2"><span class="font-display text-3xl font-bold">{{ summary.rating }}</span>{{ stars(summary.rating) }}</p>
+      <div class="flex min-h-80 flex-col items-center justify-center gap-3 rounded-card border-2 border-page bg-card p-6 text-center lg:min-h-105">
+        {% icon "brand-google", "size-8 text-ink" %}
+        <p class="font-display text-2xl font-semibold text-ink">{{ site.name }}</p>
+        <p class="flex items-center gap-2"><span class="text-xl font-semibold text-ink">{{ summary.rating }}</span>{{ stars(summary.rating) }}</p>
         {%- if summary.profileUrl %}
-        <a href="{{ summary.profileUrl }}" class="text-primary underline" rel="noopener">Read our {{ summary.count }} Reviews</a>
+        <a href="{{ summary.profileUrl }}" class="text-sm underline" rel="noopener">Read our {{ summary.count }} Reviews</a>
         {%- else %}
-        <p class="text-ink-muted">Read our {{ summary.count }} Reviews</p>
+        <p class="text-sm">Read our {{ summary.count }} Reviews</p>
         {%- endif %}
         {%- if summary.writeReviewUrl %}
-        <a href="{{ summary.writeReviewUrl }}" class="mt-auto inline-flex items-center justify-center rounded-button bg-primary px-5 py-3 font-semibold text-on-primary hover:bg-primary-hover" rel="noopener">Write a Review</a>
+        <div class="mt-2 w-full">{{ button("Write a Review", url=summary.writeReviewUrl, attrs='rel="noopener"') }}</div>
         {%- endif %}
       </div>
       {%- endif %}
 
-      <ul class="relative flex min-w-0 snap-x snap-mandatory gap-6 overflow-x-auto pb-4 {{ 'lg:col-span-3' if summary.count else 'lg:col-span-4' }}" tabindex="0" aria-label="Customer reviews (scrollable)" data-carousel-track>
+      <ul class="relative flex min-w-0 snap-x snap-mandatory gap-8 overflow-x-auto {{ 'lg:col-span-2' if summary.count else 'lg:col-span-3' }}" tabindex="0" aria-label="Customer reviews (scrollable)" data-carousel-track>
         {%- for review in items %}
-        <li class="shrink-0 basis-full snap-start md:basis-1/2">
-          <article class="flex h-full flex-col gap-4 rounded-card border border-line bg-card p-6" aria-label="Review by {{ review.name }}">
-            <div class="flex items-center gap-3">
-              <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary font-semibold text-on-primary" aria-hidden="true">{{ review.name | first | upper }}</span>
+        <li class="shrink-0 basis-full snap-start md:basis-half-gap-8">
+          <article class="flex h-full min-h-80 flex-col gap-5 rounded-card border-2 border-page bg-card p-6 lg:min-h-105" aria-label="Review by {{ review.name }}">
+            <div class="flex items-center gap-2">
+              <span class="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary text-xl text-on-primary" aria-hidden="true">{{ review.name | first | upper }}</span>
               <div>
-                <p class="font-semibold">{{ review.name }}</p>
-                {%- if review.role %}<p class="text-sm text-ink-muted">{{ review.role }}</p>{% endif %}
+                <p class="font-semibold text-ink">{{ review.name }}</p>
+                {%- if review.role %}<p class="text-sm">{{ review.role }}</p>{% endif %}
               </div>
             </div>
             {%- if review.rating %}
@@ -64,18 +57,27 @@
               <p>{{ review.text or review.excerpt }}</p>
             </blockquote>
             {%- if review.ownerResponse %}
-            <div class="rounded-button bg-page p-4 text-sm">
-              <p class="font-semibold">Response from the owner</p>
-              <p class="mt-1">{{ review.ownerResponse }}</p>
+            <div class="rounded-xl bg-page px-4 py-3 text-sm">
+              <p class="text-xs font-medium text-ink">Response from the owner</p>
+              <p class="mt-2">{{ review.ownerResponse }}</p>
             </div>
             {%- endif %}
             {%- if review.url %}
-            <a href="{{ review.url }}" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline" rel="noopener">View on Google<span class="sr-only"> (review by {{ review.name }})</span>{% icon "external-link", "size-4" %}</a>
+            <a href="{{ review.url }}" class="inline-flex items-center gap-2 border-t border-line pt-3 text-sm hover:underline" rel="noopener">{% icon "brand-google", "size-5" %}View on Google<span class="sr-only"> (review by {{ review.name }})</span></a>
             {%- endif %}
           </article>
         </li>
         {%- endfor %}
       </ul>
+    </div>
+
+    <div class="mt-8 flex justify-end gap-3" data-carousel-controls hidden>
+      <button type="button" class="flex size-12 items-center justify-center rounded-full bg-placeholder text-ink hover:bg-stone disabled:opacity-60" data-carousel-prev>
+        <span class="sr-only">Previous reviews</span>{% icon "chevron-left", "size-7" %}
+      </button>
+      <button type="button" class="flex size-12 items-center justify-center rounded-full bg-primary text-on-primary hover:bg-primary-hover disabled:opacity-60" data-carousel-next>
+        <span class="sr-only">Next reviews</span>{% icon "chevron-right", "size-7" %}
+      </button>
     </div>
   </div>
 </section>

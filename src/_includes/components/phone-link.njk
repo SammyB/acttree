@@ -1,14 +1,17 @@
 {#-
   Every tel: link goes through here so it always carries data-track="phone" for GTM.
-  phone:     an item from site.phones
-  label:     optional link text instead of the number (e.g. "Call ACT Tree Felling")
-  textClass: e.g. "sr-only sm:not-sr-only" for an icon-only link on small screens
-  ariaLabel: accessible name when the text may be hidden (must contain the visible text)
+  phone:        an item from site.phones
+  label:        optional link text instead of the number (e.g. "Call ACT Tree Felling")
+  textClass:    e.g. "sr-only sm:not-sr-only" for an icon-only link on small screens
+  ariaLabel:    accessible name when the text may be hidden (must contain the visible text)
+  showIcon:     leading phone icon
+  trailingIcon: optional trailing icon name, for links styled as buttons (e.g. "circle-chevron-right")
 -#}
-{%- macro phoneLink(phone, class="", showLabel=false, showIcon=true, textClass="", label=null, ariaLabel=null) -%}
+{%- macro phoneLink(phone, class="", showLabel=false, showIcon=true, textClass="", label=null, ariaLabel=null, trailingIcon=null, trailingIconClass="size-5") -%}
 <a href="tel:{{ phone.tel }}" data-track="phone" class="inline-flex items-center gap-2 {{ class }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}"{% endif %}>
   {%- if showIcon %}{% icon "phone", "size-5 shrink-0" %}{% endif -%}
   {%- set text = label or ((phone.label + ": " + phone.display) if showLabel else phone.display) %}
   <span class="{{ textClass }}">{{ text | nbsp }}</span>
+  {%- if trailingIcon %}{% icon trailingIcon, trailingIconClass + " shrink-0" %}{% endif -%}
 </a>
 {%- endmacro -%}

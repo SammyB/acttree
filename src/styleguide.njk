@@ -83,7 +83,7 @@ eleventyExcludeFromCollections: true
   <div class="mt-8 max-w-prose space-y-10">
     {%- for section in services[1].sections %}
     <div>
-      {%- if section.heading %}<h3 class="mb-4 font-display text-2xl font-bold">{{ section.heading }}</h3>{% endif %}
+      {%- if section.heading %}<h3 class="mb-4 font-display text-2xl">{{ section.heading }}</h3>{% endif %}
       {{ contentBlocks(section.content) }}
     </div>
     {%- endfor %}

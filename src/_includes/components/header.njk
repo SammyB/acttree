@@ -7,20 +7,22 @@
 {%- from "components/button.njk" import button -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
 {%- set headerPhone = site.phones | phoneById(site.cta.call.phone) -%}
-<header class="relative border-b border-line bg-page">
-  <div class="page-container flex items-center justify-between gap-4 py-4">
+<header class="relative bg-page">
+  <div class="page-container flex min-h-16 items-center justify-between gap-4 xl:h-19">
     {#- Logo placeholder until the SVG ("ACT Tree Felling Logo") is supplied. #}
     <a href="/" class="flex shrink-0 flex-col leading-tight whitespace-nowrap">
-      <span class="font-display text-xl font-bold">{{ site.name }}</span>
+      <span class="font-display text-xl font-semibold text-ink">{{ site.name }}</span>
     </a>
 
-    <nav id="site-nav" aria-label="Main" class="absolute inset-x-0 top-full z-40 hidden border-b border-line bg-page data-open:block xl:static xl:block xl:border-0">
-      <ul class="page-container flex flex-col py-4 xl:w-auto xl:flex-row xl:items-center xl:gap-6 xl:p-0">
+    <nav id="site-nav" aria-label="Main" class="absolute inset-x-0 top-full z-40 hidden border-y border-line bg-page data-open:block xl:static xl:block xl:self-stretch xl:border-0">
+      <ul class="page-container flex flex-col py-4 xl:h-full xl:w-auto xl:flex-row xl:items-stretch xl:gap-8 xl:p-0">
         {%- for item in nav.main %}
         {%- set submenuId = "submenu-" + (item.label | slugify) %}
-        <li class="border-b border-line xl:relative xl:border-0">
+        {%- set current = page.url == item.url %}
+        <li class="border-b border-line xl:relative xl:flex xl:border-0">
           <div class="flex items-center justify-between gap-1">
-            <a href="{{ item.url }}" class="block py-3 font-semibold whitespace-nowrap hover:text-primary xl:py-2"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+            {#- Figma "Navbars/Link": 3px bottom border on the current page. #}
+            <a href="{{ item.url }}" class="block py-3 whitespace-nowrap hover:text-primary xl:flex xl:h-full xl:items-center xl:border-b-3 xl:px-1 xl:pt-1 xl:pb-0 {{ 'text-ink xl:border-stone' if current else 'xl:border-transparent' }}"{% if current %} aria-current="page"{% endif %}>{{ item.label }}</a>
             {%- if item.megaMenu %}
             <button type="button" class="rounded-button p-2 hover:text-primary" aria-expanded="false" aria-controls="{{ submenuId }}" data-submenu-toggle>
               <span class="sr-only">Show {{ item.label }} menu</span>
@@ -50,9 +52,10 @@
     </nav>
 
     <div class="flex shrink-0 items-center gap-2 whitespace-nowrap xl:gap-3">
-      {#- Phone slot (Figma TODO): mobile number from site.json. The number fits as text from sm up
-          (checked at 640, 1280 and 1440 with the 1248px container); below that it's icon-only. #}
-      {{ phoneLink(headerPhone, class="rounded-button p-2 font-semibold hover:text-primary", textClass="sr-only sm:not-sr-only", ariaLabel="Call " + headerPhone.display) }}
+      {#- Phone slot (Figma TODO): mobile number from site.json. Shown as text from sm up in the
+          mobile header bar. Icon-only on desktop (xl+): beside the Figma nav and icon buttons the
+          number doesn't fit the 1248px container. The aria-label always gives the number. #}
+      {{ phoneLink(headerPhone, class="rounded-button p-2 hover:text-primary", textClass="sr-only sm:not-sr-only xl:sr-only", ariaLabel="Call " + headerPhone.display) }}
       <span class="hidden xl:inline-flex">{{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary") }}</span>
       <span class="hidden xl:inline-flex">{{ button(site.cta.quote.label, url=site.cta.quote.url) }}</span>
       <button type="button" class="rounded-button p-2 xl:hidden" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>

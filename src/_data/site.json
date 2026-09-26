@@ -29,6 +29,8 @@
   },
   "hours": {
     "display": "7.30 am – 4.00 pm, Monday–Friday",
+    "time": "7.30 am – 4.00 pm",
+    "dayRange": "Monday – Friday",
     "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     "opens": "07:30",
     "closes": "16:00"

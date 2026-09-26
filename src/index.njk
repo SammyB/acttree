@@ -67,10 +67,10 @@ home:
 {%- from "components/button.njk" import button -%}
 
 {#- 3. Services grid #}
-<section class="bg-card py-section" aria-labelledby="services-heading">
+<section class="bg-canvas section-y" aria-labelledby="services-heading">
   <div class="page-container">
     {{ sectionHeading("services-heading", home.services.heading, eyebrow=home.services.eyebrow) }}
-    <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <ul class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {%- for service in services | selectattr("showOnHome") %}
       <li>{{ serviceCard(service) }}</li>
       {%- endfor %}
@@ -94,20 +94,20 @@ home:
 {% include "components/cta.njk" %}
 
 {#- 8. Why ACT Tree Felling #}
-<section class="py-section" aria-labelledby="why-heading">
+<section class="bg-canvas section-y" aria-labelledby="why-heading">
   <div class="page-container">
     {{ sectionHeading("why-heading", home.why.heading, eyebrow=home.why.eyebrow) }}
-    <div class="mt-6 max-w-measure space-y-4">
+    <div class="mt-4 max-w-measure space-y-3 text-lg">
       {%- for paragraph in home.why.intro %}
       <p>{{ paragraph }}</p>
       {%- endfor %}
     </div>
-    <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <ul class="mt-8 grid gap-x-8 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
       {%- for card in home.why.cards %}
       <li>{{ previewCard(card) }}</li>
       {%- endfor %}
     </ul>
-    <div class="mt-10">{{ button(home.why.button.label, url=home.why.button.url) }}</div>
+    <div class="mt-8">{{ button(home.why.button.label, url=home.why.button.url) }}</div>
   </div>
 </section>
 

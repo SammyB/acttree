@@ -1,17 +1,17 @@
 {#-
-  Service card (Figma "CardBase - new"): image, H3, summary, "Learn More" button pinned to the
+  Service card (Figma "CardBase - new"): image, H3, summary, primary "Learn More" button pinned to the
   bottom so buttons line up across a row. service: an item from services.json
 -#}
 {%- from "components/button.njk" import button -%}
 {%- macro serviceCard(service, headingLevel=3) -%}
-<article class="flex h-full flex-col overflow-hidden rounded-card border border-line bg-card">
+<article class="flex h-full flex-col overflow-hidden rounded-card bg-page shadow-card">
   {#- Image placeholder, 395 × 219. #}
-  <div class="aspect-card bg-placeholder" aria-hidden="true"></div>
-  <div class="flex flex-1 flex-col gap-3 p-6">
-    <h{{ headingLevel }} class="font-display text-xl font-bold">{{ service.title }}</h{{ headingLevel }}>
-    <p class="text-ink-muted">{{ service.summary }}</p>
-    <div class="mt-auto pt-3">
-      {%- call button("", url="/services/" + service.slug + "/", variant="secondary") -%}
+  <div class="aspect-card bg-placeholder-strong" aria-hidden="true"></div>
+  <div class="flex flex-1 flex-col gap-4 p-6">
+    <h{{ headingLevel }} class="font-display text-2xl lg:text-3xl">{{ service.title }}</h{{ headingLevel }}>
+    <p>{{ service.summary }}</p>
+    <div class="mt-auto">
+      {%- call button("", url="/services/" + service.slug + "/") -%}
       Learn More<span class="sr-only"> about {{ service.title }}</span>
       {%- endcall %}
     </div>

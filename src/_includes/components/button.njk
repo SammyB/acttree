@@ -1,19 +1,26 @@
 {#-
-  Button. Renders <a> when url is given, otherwise <button>.
-  variant: primary (filled) | secondary (outline) | inverse (for dark sections)
-  Usage: {% from "components/button.njk" import button %}
+  Button (Figma "Button"). Renders <a> when url is given, otherwise <button>.
+  variant: primary (green fill) | secondary (cream fill, green outline) | inverse (for dark sections)
+  size:    md (16px text, header/cards) | lg (18px text, hero)
+  icon:    trailing icon name (Figma "Icon R" = circle chevron); null for none
+  Labels are Title Case. Usage: {% from "components/button.njk" import button %}
          {{ button("Request a Quote", url="/contact/") }}
 -#}
-{%- macro button(label, url=null, variant="primary", type="button", attrs="") -%}
+{%- macro button(label, url=null, variant="primary", type="button", attrs="", size="md", icon="circle-chevron-right") -%}
 {%- set variants = {
-  "primary": "bg-primary text-on-primary hover:bg-primary-hover",
-  "secondary": "border-2 border-primary text-primary hover:bg-primary hover:text-on-primary",
-  "inverse": "border-2 border-on-dark text-on-dark hover:bg-on-dark hover:text-dark"
+  "primary": "border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover",
+  "secondary": "border-primary bg-page text-primary hover:bg-canvas",
+  "inverse": "border-on-dark text-on-dark hover:bg-on-dark hover:text-dark"
 } -%}
-{%- set classes = "inline-flex items-center justify-center gap-2 rounded-button px-5 py-3 font-semibold transition-colors " + variants[variant] -%}
+{%- set sizes = {
+  "md": "px-4 py-3 text-base leading-6",
+  "lg": "px-6 py-4 text-lg leading-7"
+} -%}
+{%- set classes = "inline-flex items-center justify-center gap-2 rounded-button border-2 font-normal transition-colors " + sizes[size] + " " + variants[variant] -%}
+{%- set iconHtml -%}{% if icon %}{% icon icon, ("size-6" if size == "lg" else "size-5") + " shrink-0" %}{% endif %}{%- endset -%}
 {%- if url -%}
-<a href="{{ url }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}</a>
+<a href="{{ url }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}{{ iconHtml | safe }}</a>
 {%- else -%}
-<button type="{{ type }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}</button>
+<button type="{{ type }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}{{ iconHtml | safe }}</button>
 {%- endif -%}
 {%- endmacro -%}

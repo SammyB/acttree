@@ -1,32 +1,33 @@
 {#-
   Split section (Figma "Call to Action"): text panel on one side, full-height photo on the other.
   On mobile the text comes first, then the image. Never wider than --container-frame (1440px).
-    tone:    "light" (cream panel) | "dark" (grey 900 panel)
+    tone:    "light" (canvas panel, 543px text) | "dark" (grey 900 panel, 445px text)
     body:    array of paragraphs
     primary: optional { label, url } button
 -#}
 {%- from "components/button.njk" import button -%}
 {%- from "components/section-heading.njk" import sectionHeading -%}
 {%- macro split(id, heading, body=[], eyebrow=null, tone="light", primary=null) -%}
-<section class="{{ 'bg-dark text-on-dark' if tone == 'dark' else 'bg-page' }}" aria-labelledby="{{ id }}">
+{%- set dark = tone == "dark" -%}
+<section class="{{ 'bg-dark' if dark else 'bg-canvas' }}" aria-labelledby="{{ id }}">
   {#- Capped at the Figma frame width (1440px) so the photo doesn't stretch on wide screens;
       the section background still runs full width. Text lines up with .page-container. #}
-  <div class="@container mx-auto grid max-w-frame lg:grid-cols-2">
-    <div class="flex items-center px-6 py-section-sm lg:split-inset lg:pr-16 lg:py-section">
-      <div class="max-w-measure space-y-6">
-        {{ sectionHeading(id, heading, eyebrow=eyebrow) }}
-        <div class="space-y-4">
+  <div class="@container mx-auto grid max-w-frame lg:min-h-150 lg:grid-cols-2">
+    <div class="flex items-center px-6 section-y lg:split-inset lg:pr-16">
+      <div class="space-y-4 {{ 'max-w-narrow' if dark else 'max-w-split' }}">
+        {{ sectionHeading(id, heading, eyebrow=eyebrow, tone=tone) }}
+        <div class="space-y-3 text-lg {{ 'text-sand' if dark }}">
           {%- for paragraph in body %}
           <p>{{ paragraph }}</p>
           {%- endfor %}
         </div>
         {%- if primary %}
-        <div>{{ button(primary.label, url=primary.url) }}</div>
+        <div class="pt-2">{{ button(primary.label, url=primary.url) }}</div>
         {%- endif %}
       </div>
     </div>
-    {#- Photo placeholder, 720 × ~600. Fills the panel height on desktop. #}
-    <div class="min-h-72 bg-placeholder lg:min-h-full" aria-hidden="true"></div>
+    {#- Photo placeholder, 720 × ~600. Fills the right half on desktop. #}
+    <div class="min-h-72 bg-placeholder-strong" aria-hidden="true"></div>
   </div>
 </section>
 {%- endmacro -%}

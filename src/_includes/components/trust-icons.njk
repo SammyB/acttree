@@ -1,11 +1,16 @@
-{#- Trust icons from site.trust: icon above an H3-size label. 3 columns on desktop, 1 on mobile. -#}
-<div class="page-container py-section-sm">
-  <ul class="grid gap-10 text-center sm:grid-cols-2 lg:grid-cols-3">
-    {%- for item in site.trust %}
-    <li class="flex flex-col items-center gap-3">
-      {% icon item.icon, "size-10 text-primary" %}
-      <p class="font-display text-xl font-semibold">{{ item.label }}</p>
-    </li>
-    {%- endfor %}
-  </ul>
+{#-
+  Trust icons from site.trust (Figma "Frame 1618873017"): left-aligned, 96px green icon above an
+  H3-size label. 3 columns on desktop, 1 on mobile. Brings its own canvas background and spacing.
+-#}
+<div class="bg-canvas section-y">
+  <div class="page-container">
+    <ul class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {%- for item in site.trust %}
+      <li class="flex flex-col items-start gap-4">
+        {% icon item.icon, "size-24 text-primary" %}
+        <p class="font-display text-2xl font-semibold text-ink lg:text-3xl">{{ item.label }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
 </div>

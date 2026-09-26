@@ -15,7 +15,7 @@ layout: layouts/base.njk
     {%- for section in service.sections %}
     {%- if section.heading %}
     <section{% if section.id %} id="{{ section.id }}"{% endif %} aria-labelledby="{{ section.id or ('section-' + loop.index) }}-heading" class="scroll-mt-8">
-      <h2 id="{{ section.id or ('section-' + loop.index) }}-heading" class="mb-4 font-display text-2xl font-bold">{{ section.heading }}</h2>
+      <h2 id="{{ section.id or ('section-' + loop.index) }}-heading" class="mb-4 font-display text-2xl">{{ section.heading }}</h2>
       {{ contentBlocks(section.content) }}
     </section>
     {%- else %}
@@ -40,8 +40,8 @@ layout: layouts/base.njk
     {%- endif %}
 
     <div class="rounded-card bg-dark p-6 text-on-dark">
-      <h2 class="font-display text-xl font-bold">{{ site.cta.band.heading }}</h2>
-      <p class="mt-2">{{ site.cta.band.body[0] }}</p>
+      <h2 class="font-display text-2xl text-on-dark">{{ site.cta.band.heading }}</h2>
+      <p class="mt-2 text-sand">{{ site.cta.band.body[0] }}</p>
       <div class="mt-4 flex flex-col gap-3">
         {{ button(site.cta.quote.label, url=site.cta.quote.url) }}
         {{ phoneLink(site.phones | primary, class="justify-center rounded-button border-2 border-on-dark px-5 py-3 font-semibold hover:bg-on-dark hover:text-dark") }}

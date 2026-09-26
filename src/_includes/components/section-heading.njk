@@ -1,9 +1,13 @@
-{#- Eyebrow + section heading. The eyebrow is stored in sentence case and shown in capitals via CSS. -#}
-{%- macro sectionHeading(id, heading, eyebrow=null) -%}
-<div>
+{#-
+  Eyebrow + section heading (Figma "h2-lockup": body-base/uppercase kicker, h2 48/48 desktop, 36/40 mobile).
+  The eyebrow is stored in sentence case and shown in capitals via CSS.
+  tone: "light" | "dark" (cream text on dark sections)
+-#}
+{%- macro sectionHeading(id, heading, eyebrow=null, tone="light") -%}
+<div class="space-y-4">
   {%- if eyebrow %}
-  <p class="text-sm font-semibold tracking-wider text-primary uppercase">{{ eyebrow }}</p>
+  <p class="text-base uppercase {{ 'text-on-dark' if tone == 'dark' else 'text-ink-muted' }}">{{ eyebrow }}</p>
   {%- endif %}
-  <h2 id="{{ id }}" class="{{ 'mt-2 ' if eyebrow }}font-display text-3xl font-bold text-balance md:text-4xl">{{ heading }}</h2>
+  <h2 id="{{ id }}" class="font-display text-4xl text-balance lg:text-5xl{{ ' text-on-dark' if tone == 'dark' }}">{{ heading }}</h2>
 </div>
 {%- endmacro -%}

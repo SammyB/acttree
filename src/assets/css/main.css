@@ -1,7 +1,6 @@
 /*
  * Tailwind entry. Design tokens live ONLY in the @theme block below.
- * Values are low-fidelity placeholders until the Figma variables are approved;
- * swap them here and every component follows.
+ * Values come from docs/design-tokens.md (Figma variables); Figma variable names in comments.
  */
 @import "tailwindcss" source(none);
 
@@ -17,32 +16,38 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* Placeholder brand tokens (from Figma notes: cream bg, near-black sections, green actions). */
-  --color-page: #f7f4ec;
-  --color-ink: #1a1a1a;
-  --color-ink-muted: #5c5c5c;
-  --color-dark: #141613;
-  --color-on-dark: #f7f4ec;
-  --color-primary: #2f7d32;
-  --color-primary-hover: #25632a;
-  --color-on-primary: #ffffff;
-  --color-card: #ffffff;
-  --color-sand: #e7e1d3;
+  --color-page: #fffcf7;          /* grey-50  bg/surface: page, header, service cards */
+  --color-canvas: #fff9ed;        /* grey-100 bg/canvas: section backgrounds */
+  --color-sand: #e4d9cf;          /* grey-200 bg/subtle: logos section, text on dark, dividers */
+  --color-line: #e4d9cf;          /* grey-200 dividers and borders */
+  --color-placeholder: #c6bdb1;   /* grey-300 bg/muted: image placeholders, disabled carousel button */
+  --color-stone: #9e9689;         /* grey-400 fg/disabled: active nav underline */
+  --color-placeholder-strong: #62584d; /* grey-600 photo placeholder background */
+  --color-ink-muted: #443b2f;     /* grey-700 fg/muted: body text, descriptions, eyebrows, nav */
+  --color-ink: #1c1614;           /* grey-900 fg/default: headings */
+  --color-dark: #1c1614;          /* grey-900 dark sections, footer */
+  --color-on-dark: #fffcf7;       /* text on dark */
+  --color-primary: #037b3e;       /* green-500 accent/default */
+  --color-primary-hover: #00672a; /* green-600 (no hover state designed yet) */
+  --color-on-primary: #fffcf7;    /* fg/on-accent */
+  --color-card: #ffffff;          /* white: review cards, logo tiles */
   --color-star: #e8a317;
-  --color-line: #d9d6cc;
-  --color-focus: #1d4ed8;
+  --color-focus: #047dba;         /* blue-500, only used for the focus ring */
 
-  /* Grey-box placeholders for low-fidelity images and blocks. */
-  --color-placeholder: #cfcbc0;
-  --color-placeholder-strong: #a8a397;
+  --font-sans: "Alexandria", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Alexandria", ui-sans-serif, system-ui, sans-serif;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Figma line heights: body-base 16/22, body-medium 18/26 (Tailwind's other sizes already match). */
+  --text-base--line-height: 1.375rem;
+  --text-lg--line-height: 1.625rem;
 
-  --radius-card: 1rem;
-  --radius-button: 0.5rem;
+  --radius-card: 1rem;   /* 16px cards, images */
+  --radius-button: 6px;  /* buttons, inputs */
 
-  /* Vertical rhythm for page sections (Figma currently inconsistent: 76/88/96/108px). */
+  /* Figma "Shadow/Light/400" (CardBase - new). */
+  --shadow-card: 0 0 1px 0 rgb(48 49 51 / 0.05), 0 8px 16px 0 rgb(48 49 51 / 0.1);
+
+  /* Section spacing: 96px desktop, 64px mobile (docs/design-tokens.md). */
   --spacing-section: 6rem;
   --spacing-section-sm: 4rem;
 
@@ -52,6 +57,10 @@
   --container-frame: 90rem;
   --container-prose: 44rem;
   --container-measure: 70ch;
+  /* Figma text-column widths. */
+  --container-hero: 39.6875rem;   /* 635px hero lockup */
+  --container-split: 34rem;       /* 543px experience split */
+  --container-narrow: 27.8125rem; /* 445px quote band and logos */
 
   --aspect-photo: 4 / 3;
   --aspect-card: 395 / 219;
@@ -66,6 +75,20 @@
   padding-inline: --spacing(6);
 }
 
+/* Vertical section spacing: 64px mobile, 96px desktop (docs/design-tokens.md). */
+@utility section-y {
+  padding-block: var(--spacing-section-sm);
+
+  @variant lg {
+    padding-block: var(--spacing-section);
+  }
+}
+
+/* Two carousel cards per view with a gap-8 (32px) between them. */
+@utility basis-half-gap-8 {
+  flex-basis: calc(50% - --spacing(4));
+}
+
 /* Left padding that lines a full-bleed panel's text up with .page-container content.
    Use inside an @container element capped at --container-frame (cqw excludes the scrollbar). */
 @utility split-inset {
@@ -74,7 +97,11 @@
 
 @layer base {
   html {
-    @apply bg-page text-ink font-sans antialiased;
+    @apply bg-page text-ink-muted font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-ink font-semibold;
   }
 
   :focus-visible {
