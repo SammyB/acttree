@@ -48,6 +48,8 @@
 
   /* Max content width: 1248px (docs/design-tokens.md; 1440 frame minus 96px side padding). */
   --container-content: 78rem;
+  /* Figma frame width. Full-bleed layouts (split sections) stop growing here. */
+  --container-frame: 90rem;
   --container-prose: 44rem;
   --container-measure: 70ch;
 
@@ -62,6 +64,12 @@
   width: 100%;
   max-width: calc(var(--container-content) + 2 * --spacing(6));
   padding-inline: --spacing(6);
+}
+
+/* Left padding that lines a full-bleed panel's text up with .page-container content.
+   Use inside an @container element capped at --container-frame (cqw excludes the scrollbar). */
+@utility split-inset {
+  padding-inline-start: max(--spacing(6), calc((100cqw - var(--container-content)) / 2));
 }
 
 @layer base {
