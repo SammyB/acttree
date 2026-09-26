@@ -1,12 +1,33 @@
 import { localBusiness, primary, toJsonLd } from "./lib/schema.js";
 import { icon } from "./lib/icons.js";
 import { mdInline } from "./lib/markdown.js";
+import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
 export default function (eleventyConfig) {
   // Static assets copied as-is. CSS is built separately by the Tailwind CLI.
+  // Raster images are NOT copied: the image plugin below generates optimised versions of them.
   eleventyConfig.addPassthroughCopy("src/assets/js/**/*.js");
-  eleventyConfig.addPassthroughCopy("src/assets/img/**/*");
+  eleventyConfig.addPassthroughCopy("src/assets/img/**/*.svg");
   eleventyConfig.addPassthroughCopy("src/favicon.ico");
+
+  // Every <img src="/assets/img/…"> in the HTML becomes a responsive <picture> (AVIF, WebP, JPEG/PNG)
+  // with width and height set. Output MUST stay in /assets/img/generated/ with hashed filenames:
+  // .htaccess gives only that folder the 1-year immutable cache. Set `sizes` on each <img>;
+  // use eleventy:widths="…" to override the widths, and eleventy:ignore to skip an image (e.g. SVGs).
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    outputDir: "./_site/assets/img/generated/",
+    urlPath: "/assets/img/generated/",
+    // JPEG fallback for photos; transparent logos opt in to PNG with eleventy:formats="avif,webp,png".
+    formats: ["avif", "webp", "jpeg"],
+    widths: [400, 800, 1200, 1600],
+    sharpAvifOptions: { quality: 50 },
+    sharpWebpOptions: { quality: 72 },
+    sharpJpegOptions: { quality: 72, mozjpeg: true, progressive: true },
+    failOnError: true,
+    htmlOptions: {
+      imgAttributes: { loading: "lazy", decoding: "async" },
+    },
+  });
 
   // Tailwind writes straight into _site; reload the browser when it does.
   eleventyConfig.setServerOptions({

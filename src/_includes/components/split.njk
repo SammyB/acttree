@@ -4,10 +4,11 @@
     tone:    "light" (canvas panel, 543px text) | "dark" (grey 900 panel, 445px text)
     body:    array of paragraphs
     primary: optional { label, url } button
+    image:   optional { src, alt } photo
 -#}
 {%- from "components/button.njk" import button -%}
 {%- from "components/section-heading.njk" import sectionHeading -%}
-{%- macro split(id, heading, body=[], eyebrow=null, tone="light", primary=null) -%}
+{%- macro split(id, heading, body=[], eyebrow=null, tone="light", primary=null, image=null) -%}
 {%- set dark = tone == "dark" -%}
 <section class="{{ 'bg-dark' if dark else 'bg-canvas' }}" aria-labelledby="{{ id }}">
   {#- Capped at the Figma frame width (1440px) so the photo doesn't stretch on wide screens;
@@ -22,12 +23,16 @@
           {%- endfor %}
         </div>
         {%- if primary %}
-        <div class="pt-2">{{ button(primary.label, url=primary.url) }}</div>
+        <div class="pt-2">{{ button(primary.label, url=primary.url, class="w-full lg:w-auto") }}</div>
         {%- endif %}
       </div>
     </div>
-    {#- Photo placeholder, 720 × ~600. Fills the right half on desktop. #}
-    <div class="min-h-72 bg-placeholder-strong" aria-hidden="true"></div>
+    {#- Photo, 720 × ~600 in Figma. Fills the right half on desktop. #}
+    <div class="relative min-h-125 bg-placeholder-strong lg:min-h-0"{% if not image %} aria-hidden="true"{% endif %}>
+      {%- if image %}
+      <img src="{{ image.src }}" alt="{{ image.alt }}" sizes="(min-width: 1024px) 50vw, 100vw" eleventy:widths="600,900,1200,1600" class="absolute inset-0 size-full object-cover">
+      {%- endif %}
+    </div>
   </div>
 </section>
 {%- endmacro -%}

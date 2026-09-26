@@ -3,12 +3,17 @@ layout: layouts/page.njk
 title: Tree Removal, Pruning & Arborists in Canberra | ACT Tree Felling
 description: Canberra's longest-running tree services business, since 1975. Tree removal, pruning, stump grinding, powerline clearance and arborist reports.
 heroVariant: feature
+heroImage:
+  src: /assets/img/photos/hero-fairy-wren.png
+  alt: A superb fairy-wren with bright blue plumage perched on a branch
 # PENDING (Figma feedback): headline may change to say what the business does.
 heading: Serving the region since 1975
 intro: From specialist pruning and difficult tree removals to stump grinding, power line clearance and professional arborist advice, ACT Tree Felling provides experienced, reliable tree care throughout Canberra and the surrounding region.
 # The quote CTA band sits mid-page on the homepage, so the layout's default one is turned off.
 cta: false
 review:
+  - who: client
+    text: The website uses the photos from the design, including the fairy-wren in the banner and the photos of your crew at work. Please confirm you own these photos or have a licence to use them online, and that everyone pictured is happy to appear on the website.
   - who: designer
     text: Our earlier feedback suggested a hero headline that says what the business does. The website still uses "Serving the region since 1975". Is that staying?
   - who: designer
@@ -25,6 +30,9 @@ home:
     eyebrow: Services
     heading: Professional Tree Services in Canberra
   experience:
+    image:
+      src: /assets/img/photos/experience-arborist.jpg
+      alt: A smiling ACT Tree Felling arborist in a climbing helmet and orange work shirt
     heading: Canberra tree care backed by more than 50 years of experience
     body:
       - ACT Tree Felling is one of Canberra's longest-established professional tree-care businesses.
@@ -43,12 +51,25 @@ home:
       - Our team has the capability to undertake everything from everyday residential work to technically demanding jobs requiring specialised climbing, rigging and machinery.
     cards:
       - heading: Qualified people
+        image:
+          src: /assets/img/photos/why-qualified-people.jpg
+          alt: Three arborists in high-visibility shirts watching a branch being lowered
+          position: lower
         text: Our tree work is undertaken by appropriately trained and experienced personnel, including qualified arborists.
       - heading: Specialist equipment
+        image:
+          src: /assets/img/photos/why-specialist-equipment.jpg
+          alt: A green loader carrying a load of cut branches
         text: Our trucks, chippers, stump grinders, climbing equipment and specialised machinery allow us to complete work efficiently and safely.
       - heading: Professional standards
+        image:
+          src: /assets/img/photos/why-professional-standards.jpg
+          alt: An arborist working from an elevated platform among tall trees
         text: We take arboriculture seriously. Wherever practical, our preference is to retain healthy trees and recommend work that supports their long-term safety and condition.
       - heading: Thorough clean-up
+        image:
+          src: /assets/img/photos/why-thorough-clean-up.jpg
+          alt: An arborist in a helmet and visor carrying a log on their shoulder
         text: Our crews take pride not only in the tree work itself, but also in leaving the work area clean and tidy when the job is complete.
     button:
       label: Discover More
@@ -79,7 +100,7 @@ home:
 </section>
 
 {#- 4. Experience split #}
-{{ split("experience-heading", home.experience.heading, body=home.experience.body) }}
+{{ split("experience-heading", home.experience.heading, body=home.experience.body, image=home.experience.image) }}
 
 {#- 5. Trust icons #}
 {% include "components/trust-icons.njk" %}
@@ -107,7 +128,7 @@ home:
       <li>{{ previewCard(card) }}</li>
       {%- endfor %}
     </ul>
-    <div class="mt-8">{{ button(home.why.button.label, url=home.why.button.url) }}</div>
+    <div class="mt-8">{{ button(home.why.button.label, url=home.why.button.url, class="w-full md:w-auto") }}</div>
   </div>
 </section>
 

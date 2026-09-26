@@ -23,7 +23,9 @@
   --color-placeholder: #c6bdb1;   /* grey-300 bg/muted: image placeholders, disabled carousel button */
   --color-stone: #9e9689;         /* grey-400 fg/disabled: active nav underline */
   --color-placeholder-strong: #62584d; /* grey-600 photo placeholder background */
+  --color-ink-soft: #62584d;      /* grey-600: menu sub-items (Figma uses grey-500, which fails AA) */
   --color-ink-muted: #443b2f;     /* grey-700 fg/muted: body text, descriptions, eyebrows, nav */
+  --color-accent-subtle: #71e9ac; /* accent/subtle: open mobile-menu button */
   --color-ink: #1c1614;           /* grey-900 fg/default: headings */
   --color-dark: #1c1614;          /* grey-900 dark sections, footer */
   --color-on-dark: #fffcf7;       /* text on dark */
@@ -82,6 +84,11 @@
   @variant lg {
     padding-block: var(--spacing-section);
   }
+}
+
+/* Focal point for photos whose subject sits low in the frame (matches the Figma crops). */
+@utility object-lower {
+  object-position: 50% 78%;
 }
 
 /* Two carousel cards per view with a gap-8 (32px) between them. */

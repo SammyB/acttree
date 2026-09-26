@@ -8,34 +8,37 @@
 {%- from "components/phone-link.njk" import phoneLink -%}
 {%- set headerPhone = site.phones | phoneById(site.cta.call.phone) -%}
 <header class="relative bg-page">
-  <div class="page-container flex min-h-16 items-center justify-between gap-4 xl:h-19">
-    {#- Logo placeholder until the SVG ("ACT Tree Felling Logo") is supplied. #}
-    <a href="/" class="flex shrink-0 flex-col leading-tight whitespace-nowrap">
-      <span class="font-display text-xl font-semibold text-ink">{{ site.name }}</span>
+  <div class="page-container flex min-h-16.5 items-center justify-between gap-4 py-3 xl:h-19 xl:py-0">
+    {#- Figma "ACT Tree Felling Logo" (SVG, 146 × 59). #}
+    <a href="/" class="flex shrink-0">
+      <img src="{{ site.logo.src }}" alt="{{ site.name }} home" width="{{ site.logo.width }}" height="{{ site.logo.height }}" class="h-11 w-auto xl:h-14.75" eleventy:ignore>
     </a>
 
-    <nav id="site-nav" aria-label="Main" class="absolute inset-x-0 top-full z-40 hidden border-y border-line bg-page data-open:block xl:static xl:block xl:self-stretch xl:border-0">
-      <ul class="page-container flex flex-col py-4 xl:h-full xl:w-auto xl:flex-row xl:items-stretch xl:gap-8 xl:p-0">
+    {#- Mobile (Figma "MobileMenu1"): cream panel with a shadow under the bar, no dividers, 16px gaps,
+        Services expands in place, small full-width buttons. Desktop: inline links; Services opens the
+        single-column mega menu (Figma "DesktopMenu"). #}
+    <nav id="site-nav" aria-label="Main" class="absolute inset-x-0 top-full z-40 hidden bg-page shadow-lg data-open:block xl:static xl:block xl:self-stretch xl:shadow-none">
+      <ul class="flex flex-col gap-4 px-4 pt-4 xl:h-full xl:flex-row xl:items-stretch xl:gap-8 xl:p-0">
         {%- for item in nav.main %}
         {%- set submenuId = "submenu-" + (item.label | slugify) %}
         {%- set current = page.url == item.url %}
-        <li class="border-b border-line xl:relative xl:flex xl:border-0">
+        <li class="xl:relative xl:flex">
           <div class="flex items-center justify-between gap-1">
-            {#- Figma "Navbars/Link": 3px bottom border on the current page. #}
-            <a href="{{ item.url }}" class="block py-3 whitespace-nowrap hover:text-primary xl:flex xl:h-full xl:items-center xl:border-b-3 xl:px-1 xl:pt-1 xl:pb-0 {{ 'text-ink xl:border-stone' if current else 'xl:border-transparent' }}"{% if current %} aria-current="page"{% endif %}>{{ item.label }}</a>
+            {#- Figma "Navbars/Link": 3px bottom border on the current page (desktop). #}
+            <a href="{{ item.url }}" class="block flex-1 rounded-button px-3 py-2 whitespace-nowrap text-ink hover:text-primary xl:flex xl:h-full xl:flex-none xl:items-center xl:rounded-none xl:border-b-3 xl:px-1 xl:pt-1 xl:pb-0 {{ 'xl:border-stone' if current else 'xl:border-transparent xl:text-ink-muted' }}"{% if current %} aria-current="page"{% endif %}>{{ item.label }}</a>
             {%- if item.megaMenu %}
-            <button type="button" class="rounded-button p-2 hover:text-primary" aria-expanded="false" aria-controls="{{ submenuId }}" data-submenu-toggle>
+            <button type="button" class="group rounded-button p-2 text-ink hover:text-primary" aria-expanded="false" aria-controls="{{ submenuId }}" data-submenu-toggle>
               <span class="sr-only">Show {{ item.label }} menu</span>
-              {% icon "chevron-down", "size-4" %}
+              {% icon "chevron-down", "size-6 transition-transform group-aria-expanded:rotate-180 xl:size-4" %}
             </button>
             {%- endif %}
           </div>
           {%- if item.megaMenu == "services" %}
-          <div id="{{ submenuId }}" hidden class="pb-4 xl:absolute xl:left-0 xl:top-full xl:mt-2 xl:w-xl xl:rounded-card xl:border xl:border-line xl:bg-card xl:p-6 xl:shadow-lg">
-            <ul class="grid gap-1 xl:grid-cols-2 xl:gap-2">
+          <div id="{{ submenuId }}" hidden class="pt-2 pl-5 xl:absolute xl:top-full xl:left-0 xl:mt-2 xl:w-86 xl:rounded-card xl:bg-page xl:p-4 xl:shadow-lg">
+            <ul class="flex flex-col gap-1">
               {%- for service in services %}
               <li>
-                <a href="/services/{{ service.slug }}/" class="block rounded-button p-2 font-semibold hover:bg-page hover:text-primary"{% if page.url == "/services/" + service.slug + "/" %} aria-current="page"{% endif %}>{{ service.title }}</a>
+                <a href="/services/{{ service.slug }}/" class="block rounded-button px-3 py-2.5 text-ink-soft hover:bg-canvas hover:text-primary"{% if page.url == "/services/" + service.slug + "/" %} aria-current="page"{% endif %}>{{ service.title }}</a>
               </li>
               {%- endfor %}
             </ul>
@@ -44,10 +47,10 @@
         </li>
         {%- endfor %}
       </ul>
-      {#- Mobile menu buttons, full width. On desktop these sit in the header bar instead. #}
-      <div class="page-container flex flex-col gap-3 pb-6 xl:hidden">
-        {{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary") }}
-        {{ button(site.cta.quote.label, url=site.cta.quote.url) }}
+      {#- Mobile menu buttons (Figma: small size, full width). On desktop these sit in the header bar. #}
+      <div class="flex flex-col gap-4 px-4 pt-4 pb-8 xl:hidden">
+        {{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary", size="sm") }}
+        {{ button(site.cta.quote.label, url=site.cta.quote.url, size="sm") }}
       </div>
     </nav>
 
@@ -58,10 +61,10 @@
       {{ phoneLink(headerPhone, class="rounded-button p-2 hover:text-primary", textClass="sr-only sm:not-sr-only xl:sr-only", ariaLabel="Call " + headerPhone.display) }}
       <span class="hidden xl:inline-flex">{{ button(site.cta.contact.label, url=site.cta.contact.url, variant="secondary") }}</span>
       <span class="hidden xl:inline-flex">{{ button(site.cta.quote.label, url=site.cta.quote.url) }}</span>
-      <button type="button" class="rounded-button p-2 xl:hidden" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+      <button type="button" class="rounded-button p-2 aria-expanded:bg-accent-subtle xl:hidden" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
         <span class="sr-only">Menu</span>
-        <span data-menu-icon="open">{% icon "menu-2" %}</span>
-        <span data-menu-icon="close" hidden>{% icon "x" %}</span>
+        <span data-menu-icon="open">{% icon "menu", "size-6 text-primary" %}</span>
+        <span data-menu-icon="close" hidden>{% icon "x", "size-6 text-ink" %}</span>
       </button>
     </div>
   </div>

@@ -57,10 +57,8 @@
         </a>
         {%- endfor %}
       </div>
-      {#- Arboriculture Australia "Member" badge (134px) – placeholder until the artwork is supplied. #}
-      {%- for membership in site.memberships %}
-      <p class="flex size-33.5 items-center justify-center rounded-full bg-primary p-4 text-center text-sm text-on-primary">{{ membership }} Member</p>
-      {%- endfor %}
+      {#- Arboriculture Australia "Member" badge, 134px. #}
+      <img src="{{ site.memberBadge.src }}" alt="{{ site.memberBadge.alt }}" sizes="134px" eleventy:widths="134,268" eleventy:formats="avif,webp,png" class="size-33.5">
     </div>
   </div>
 </footer>

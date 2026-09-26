@@ -24,8 +24,8 @@
 
     <div class="mt-12 grid gap-8 lg:grid-cols-3">
       {%- if summary.count %}
-      <div class="flex min-h-80 flex-col items-center justify-center gap-3 rounded-card border-2 border-page bg-card p-6 text-center lg:min-h-105">
-        {% icon "brand-google", "size-8 text-ink" %}
+      <div class="flex min-h-105 flex-col items-center justify-center gap-3 rounded-card border-2 border-page bg-card p-6 text-center">
+        <img src="/assets/img/brand/google.svg" alt="Google" width="64" height="20" eleventy:ignore>
         <p class="font-display text-2xl font-semibold text-ink">{{ site.name }}</p>
         <p class="flex items-center gap-2"><span class="text-xl font-semibold text-ink">{{ summary.rating }}</span>{{ stars(summary.rating) }}</p>
         {%- if summary.profileUrl %}
@@ -42,7 +42,7 @@
       <ul class="relative flex min-w-0 snap-x snap-mandatory gap-8 overflow-x-auto {{ 'lg:col-span-2' if summary.count else 'lg:col-span-3' }}" tabindex="0" aria-label="Customer reviews (scrollable)" data-carousel-track>
         {%- for review in items %}
         <li class="shrink-0 basis-full snap-start md:basis-half-gap-8">
-          <article class="flex h-full min-h-80 flex-col gap-5 rounded-card border-2 border-page bg-card p-6 lg:min-h-105" aria-label="Review by {{ review.name }}">
+          <article class="flex h-full min-h-105 flex-col gap-5 rounded-card border-2 border-page bg-card p-6 " aria-label="Review by {{ review.name }}">
             <div class="flex items-center gap-2">
               <span class="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary text-xl text-on-primary" aria-hidden="true">{{ review.name | first | upper }}</span>
               <div>

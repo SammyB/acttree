@@ -44,12 +44,14 @@ src/
   - show visible focus states
   - respect `prefers-reduced-motion`
 - Images go through `@11ty/eleventy-img` (responsive AVIF/WebP, with width and height set).
+  - It runs as an HTML transform: write a plain `<img src="/assets/img/…" alt="…" sizes="…">` (works inside macros) and the build turns it into a `<picture>`. Add `eleventy:ignore` for SVGs, and `eleventy:formats="avif,webp,png"` for images that need transparency.
+  - Source images live in `src/assets/img/`: `photos/` (from the Figma), `logos/` (client logos and the Arboriculture Australia badge) and `brand/` (SVG site logo and Google wordmark, copied as-is). Image paths and alt text live in `_data` or front matter, not in templates.
   - It **must** output to `/assets/img/generated/` (`outputDir: "_site/assets/img/generated/"`, `urlPath: "/assets/img/generated/"`) with its default content-hashed filenames. `.htaccess` gives only that folder the 1-year `immutable` cache; anything else under `/assets/img/` is cached for 1 week.
 - Every page sets `title` and `description` in front matter. The base layout outputs the canonical link, Open Graph tags and `LocalBusiness` JSON-LD.
 - Use Australian English in all copy.
 - Build to the real design. Use the tokens from `docs/design-tokens.md`, and follow `docs/figma-homepage.md` for the homepage. Apply its [FIX] items, and keep [PENDING] items easy to change (in data or front matter).
 - Inner pages aren't designed yet. Reuse the homepage components and styles for them.
-- Use the Figma MCP (file `SZ570YQEPeviNy0oQtXAOf`) to check details like shadows and spacing, not screenshots.
+- Use the Figma MCP to check details like shadows and spacing, not screenshots. The design file is `ig9ALsJjjUUGvOvBA0mzcC` ("ACT Tree Feeling 2026 - Master", edit access), page "Creative Explore" (node `29392:3375`): frames "Home - Desktop" (`29397:48144`), "Home - Mobile" (`29417:46986`), "MobileMenu1" and "DesktopMenu". The older working copy `SZ570YQEPeviNy0oQtXAOf` is out of date.
 
 ## Forms (JotForm)
 - The form ID and field names live in `site.json`. They must exactly match the JotForm form (e.g. `q3_name[first]`, `q4_email`, `formID`).

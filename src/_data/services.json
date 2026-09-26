@@ -6,6 +6,7 @@
     "description": "Safe removal of dead, damaged or dangerous trees across Canberra, including tight spaces and complex rigging. We leave your site clean.",
     "summary": "Safe and efficient removal of dead, dangerous, unwanted and difficult-to-access trees.",
     "showOnHome": true,
+    "image": { "src": "/assets/img/photos/service-tree-removal.jpg", "alt": "A green tracked loader moving cut logs on a tree removal job" },
     "intro": "We always prefer to keep trees where we can. When removal is needed, we take trees down safely and efficiently and leave your site spotlessly clean.",
     "sections": [
       {
@@ -37,6 +38,7 @@
     "description": "Expert tree pruning in Canberra to Australian Standard AS 4373, from large specimen trees to fruit trees. Deadwooding, reduction and formative pruning.",
     "summary": "Professional pruning to improve tree structure, safety, clearance, appearance and long-term health.",
     "showOnHome": true,
+    "image": { "src": "/assets/img/photos/service-tree-pruning.jpg", "alt": "An arborist on ropes pruning high in a tall eucalypt" },
     "intro": "Pruning is one of our specialties, and a service we take pride in delivering to the highest standard.",
     "sections": [
       {
@@ -99,6 +101,7 @@
     "description": "Stump grinding across Canberra to stop regrowth, remove trip hazards and clear the way for replanting. Our fleet of grinders reaches tight spots.",
     "summary": "Remove unwanted tree stumps and reclaim usable space in your garden or landscape.",
     "showOnHome": true,
+    "image": { "src": "/assets/img/photos/service-stump-grinding.jpg", "alt": "An arborist in a helmet carrying a hollow section of tree stump" },
     "intro": "Tree stumps can be unsightly, get in the way and create hazards. Stump grinding is the most efficient, cost-effective way to remove them, preventing regrowth and the spread of disease.",
     "sections": [
       {
@@ -131,6 +134,7 @@
     "description": "Evoenergy-accredited powerline tree clearance in Canberra. Trained to work near live lines, so most jobs don't need a power outage.",
     "summary": "Our appropriately trained and accredited staff undertake tree work around powerlines and can coordinate outages with Evoenergy where required.",
     "showOnHome": true,
+    "image": { "src": "/assets/img/photos/service-powerline-clearance.png", "alt": "Arborists working in a large tree beside overhead powerlines" },
     "intro": "ACT property owners are legally responsible for keeping their trees clear of powerlines and service lines.",
     "sections": [
       {
@@ -164,6 +168,7 @@
     "description": "Diploma-qualified consulting arborists in Canberra: tree health checks, risk assessments (QTRA, TRAQ), tree management plans, root damage and disease advice.",
     "summary": "Our consulting arborists can assess tree health, structural condition, risk, development impacts and long-term management options.",
     "showOnHome": true,
+    "image": { "src": "/assets/img/photos/service-arborist-consultation.jpg", "alt": "A climbing arborist in an orange shirt inspecting a tree trunk" },
     "intro": "Our Diploma-qualified consulting arborists give objective, independent advice about your trees – verbally on site, or in a written report.",
     "sections": [
       {
@@ -266,6 +271,7 @@
     "description": "Commercial tree removal and site clearance in Canberra for builders and civil contractors. Compliance packages, SWMS, clear start dates and reliable equipment.",
     "summary": "Professional arboricultural services for commercial property managers, strata organisations, civil contractors, developers and government clients.",
     "showOnHome": true,
+    "image": { "src": "/assets/img/photos/service-commercial-tree-services.jpg", "alt": "Black Mountain Tower rising above the treetops in Canberra", "position": "lower" },
     "intro": "Large civil and construction projects need careful planning, compliance and training to run safely and efficiently. Tree removal and site clearance are often among the first jobs on site, so we work as part of your trades team to keep the project moving.",
     "sections": [
       {

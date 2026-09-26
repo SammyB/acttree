@@ -42,6 +42,8 @@
     { "name": "YouTube", "url": "" }
   ],
   "memberships": ["Arboriculture Australia"],
+  "memberBadge": { "src": "/assets/img/logos/arboriculture-australia-member.png", "alt": "Arboriculture Australia member" },
+  "logo": { "src": "/assets/img/brand/logo.svg", "width": 146, "height": 59 },
   "ogImage": "",
   "cta": {
     "quote": { "label": "Request a Quote", "url": "/contact/#quote" },
@@ -50,6 +52,7 @@
     "call": { "label": "Call ACT Tree Felling", "phone": "mobile" },
     "services": { "label": "See Our Services", "url": "/services/" },
     "band": {
+      "image": { "src": "/assets/img/photos/quote-band.jpg", "alt": "An arborist in a helmet and visor checking the cut face of a large log" },
       "eyebrow": "Need tree work?",
       "heading": "Request a free quotation",
       "body": [

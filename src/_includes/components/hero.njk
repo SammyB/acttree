@@ -34,13 +34,18 @@
 </section>
 {%- endmacro -%}
 
-{%- macro heroFeature(heading, text=null, primary=null, phone=null, callLabel=null) -%}
+{%- macro heroFeature(heading, text=null, primary=null, phone=null, callLabel=null, image=null) -%}
 <section class="relative isolate overflow-hidden bg-dark text-on-dark" aria-labelledby="page-title">
-  {#- Photo placeholder: fairy-wren, 1467 × 762 desktop plus a separate mobile crop. #}
-  <div class="absolute inset-0 -z-20 bg-placeholder-strong" aria-hidden="true"></div>
+  {#- Photo: fairy-wren, 1467 × 762 desktop (a separate mobile crop is still to come from the designer).
+      Above the fold, so it loads eagerly with high priority. #}
+  <div class="absolute inset-0 -z-20 bg-placeholder-strong">
+    {%- if image %}
+    <img src="{{ image.src }}" alt="{{ image.alt }}" sizes="100vw" eleventy:widths="768,1440,2172" loading="eager" fetchpriority="high" class="size-full object-cover">
+    {%- endif %}
+  </div>
   {#- Figma overlay: black 55% up to 65% across, fading to clear at the right edge. #}
   <div class="absolute inset-0 -z-10 bg-black/55 md:bg-transparent md:bg-linear-to-r md:from-black/55 md:from-65% md:to-transparent" aria-hidden="true"></div>
-  <div class="page-container flex min-h-128 items-center py-section-sm lg:min-h-190 lg:py-section">
+  <div class="page-container flex min-h-164 items-center py-12 lg:min-h-190 lg:py-section">
     <div class="max-w-hero space-y-6">
       <h1 id="page-title" class="font-display text-5xl leading-none text-balance text-on-dark lg:text-7xl">{{ heading }}</h1>
       {%- if text %}

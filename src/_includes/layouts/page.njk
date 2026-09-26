@@ -8,13 +8,14 @@ layout: layouts/base.njk
     intro        hero paragraph
     eyebrow      small label above the h1 (split hero only)
     heroVariant  "feature" for the full-bleed homepage hero
+    heroImage    { src, alt } photo for the feature hero
     heroActions  false to hide the hero buttons
     cta          false to hide the CTA band (e.g. when the page places it itself)
 -#}
 {%- from "components/hero.njk" import hero, heroFeature -%}
 {%- set showActions = heroActions !== false -%}
 {%- if heroVariant == "feature" -%}
-{{ heroFeature(heading or title, text=intro, primary=site.cta.freeQuote if showActions else null, phone=(site.phones | phoneById(site.cta.call.phone)) if showActions else null, callLabel=site.cta.call.label) }}
+{{ heroFeature(heading or title, text=intro, primary=site.cta.freeQuote if showActions else null, phone=(site.phones | phoneById(site.cta.call.phone)) if showActions else null, callLabel=site.cta.call.label, image=heroImage) }}
 {%- else -%}
 {{ hero(heading or title, text=intro, eyebrow=eyebrow, primary=site.cta.quote if showActions else null, phone=(site.phones | primary) if showActions else null) }}
 {%- endif %}

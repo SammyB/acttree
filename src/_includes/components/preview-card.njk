@@ -1,11 +1,15 @@
 {#-
   Preview card (Figma "Preview Cards"): rounded image, H3 and text, with no card background.
-  card: { heading, text }
+  card: { heading, text, image?: { src, alt, position? } }
 -#}
 {%- macro previewCard(card, headingLevel=3) -%}
 <article class="space-y-4">
-  {#- Image placeholder, 288 × 216. #}
+  {#- 288 × 216 in Figma. #}
+  {%- if card.image %}
+  <img src="{{ card.image.src }}" alt="{{ card.image.alt }}" sizes="(min-width: 1024px) 288px, (min-width: 768px) 50vw, 100vw" class="aspect-photo w-full rounded-card bg-placeholder-strong object-cover{{ ' object-lower' if card.image.position == 'lower' }}">
+  {%- else %}
   <div class="aspect-photo rounded-card bg-placeholder-strong" aria-hidden="true"></div>
+  {%- endif %}
   <h{{ headingLevel }} class="font-display text-2xl lg:text-3xl">{{ card.heading }}</h{{ headingLevel }}>
   <p>{{ card.text }}</p>
 </article>
