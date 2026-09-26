@@ -51,7 +51,7 @@ src/
 - Use Australian English in all copy.
 - Build to the real design. Use the tokens from `docs/design-tokens.md`, and follow `docs/figma-homepage.md` for the homepage. Apply its [FIX] items, and keep [PENDING] items easy to change (in data or front matter).
 - Inner pages aren't designed yet. Reuse the homepage components and styles for them.
-- Use the Figma MCP to check details like shadows and spacing, not screenshots. The design file is `ig9ALsJjjUUGvOvBA0mzcC` ("ACT Tree Feeling 2026 - Master", edit access), page "Creative Explore" (node `29392:3375`): frames "Home - Desktop" (`29397:48144`), "Home - Mobile" (`29417:46986`), "MobileMenu1" and "DesktopMenu". The older working copy `SZ570YQEPeviNy0oQtXAOf` is out of date.
+- Use the Figma MCP to check details like shadows and spacing, not screenshots. Use Sam's team copy `JSWVzi7e2wvXptHlpO9X6s` ("ACT Tree Feeling 2026 - Master (Copy)"): it's on the Dev seat, so the MCP isn't rate-limited. Page "Creative Explore" (node `29392:3375`): frames "Home - Desktop" (`29397:48144`), "Home - Mobile" (`29417:46986`), "MobileMenu1" (`29440:54046` closed, `29440:54047` Services open) and "DesktopMenu" (`29440:54031`). The designer's original is `ig9ALsJjjUUGvOvBA0mzcC` (Starter team, rate-limited): if the designer changes it, re-copy it into Sam's team. The older working copy `SZ570YQEPeviNy0oQtXAOf` is out of date.
 
 ## Forms (JotForm)
 - The form ID and field names live in `site.json`. They must exactly match the JotForm form (e.g. `q3_name[first]`, `q4_email`, `formID`).

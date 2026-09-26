@@ -1,5 +1,7 @@
 {#-
-  Site footer (Figma "Footer"): centred, on grey 900 with 96px padding. Underlined nav row, divider,
+  Site footer (Figma "Footer"): centred, on grey 900. On mobile the nav links and the four columns
+  stack and centre; on desktop the nav is one row and the columns sit side by side, left-aligned.
+  Mobile Figma uses dimmer greys (#c6bdb1 / #80756b); we keep the desktop cream for AA contrast. Underlined nav row, divider,
   four contact columns (only the numbers and email are links), divider, copyright and privacy link,
   social icons, then the Arboriculture Australia "Member" badge.
   Everything comes from site.json and nav.json. Social accounts with an empty URL are hidden.
@@ -7,7 +9,7 @@
 <footer class="bg-dark text-on-dark">
   <div class="page-container flex flex-col items-center gap-12 section-y">
     <nav aria-label="Footer">
-      <ul class="flex flex-wrap justify-center gap-x-8 gap-y-3">
+      <ul class="flex flex-col items-center gap-8 lg:flex-row lg:flex-wrap lg:justify-center lg:gap-y-3">
         {%- for link in nav.footer %}
         <li><a href="{{ link.url }}" class="underline hover:text-sand"{% if page.url == link.url %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
         {%- endfor %}
@@ -16,7 +18,7 @@
 
     <hr class="w-full border-sand">
 
-    <div class="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid w-full gap-8 text-center lg:grid-cols-4 lg:text-left">
       <div>
         <h2 class="mb-3 text-base font-bold text-on-dark">Get in touch</h2>
         <ul class="space-y-3">

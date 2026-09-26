@@ -22,7 +22,7 @@ This list is created automatically by `npm run check` from notes in the website'
 14. **FAQ: "Do I need government approval to prune or remove my tree?"** This answer used to list the size limits for regulated trees and link to the TCCS website. We've taken both out until the current rules are confirmed (see the Arborist Consultation & Reports items in this list). Which ACT Government web page should we link to?
 15. **FAQ: "I got a letter from Evoenergy asking me to clear my powerlines. What do I do now?"** Are these still Evoenergy's required clearances: 1 m from service lines and power poles, 1.5 m from low-voltage lines and 2 m from high-voltage lines?
 16. **Customer reviews.** Can we show these customer reviews on the website? Rachael Hunter, Kay Johns, Cedric Bryant, Dave Bowditch, Lionel and Juliana Wood, Kate Richards, Lindsey Burne, Julie Castrission. The letters are from about 2010–2019, so please check they're still OK to use alongside your Google reviews.
-17. **Client logos.** Do we have permission to show these organisations' logos on the website? ACT Government, Evoenergy, Antarctica New Zealand, ASX, Australian Bureau of Statistics.
+17. **Client logos.** Do we have permission to show these organisations' logos on the website? ACT Government, Evoenergy, Antarctica New Zealand, ASX, Australian Bureau of Statistics, Airservices Australia.
 18. **Privacy policy page.** The privacy policy is a draft. Please read it (with your legal adviser if you have one) and tell us who can see enquiries sent through the website, and whether you use any tools besides Google Analytics and Google Ads to track visits or advertising.
 
 ## Designer to confirm
