@@ -68,9 +68,14 @@ eleventyExcludeFromCollections: true
   </div>
 </section>
 
-<section class="bg-card" aria-label="Trust icons">
-  {% include "components/trust-icons.njk" %}
+<section class="page-container space-y-2 pt-section-sm" aria-labelledby="sg-trust">
+  <h2 id="sg-trust" class="font-display text-3xl">Trust icons (draw-on)</h2>
+  <p>Each icon's lines draw on as it scrolls into view (once), then the icon bumps and the label fades up. Items that appear together cascade in reading order. No animation without JS or when the visitor prefers reduced motion.</p>
+  <button type="button" class="rounded-full border border-ink px-4 py-2 text-sm font-semibold" data-draw-replay aria-controls="sg-trust-list" hidden>Replay animation</button>
 </section>
+{%- set trustId = "sg-trust-list" %}
+{% include "components/trust-icons.njk" %}
+{%- set trustId = null %}
 
 {% include "components/reviews.njk" %}
 

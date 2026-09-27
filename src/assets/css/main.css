@@ -156,6 +156,73 @@
     }
   }
 
+  /*
+   * Trust icons "draw-on" (components/trust-icons.njk). trust-icons.js adds .is-ready to the list
+   * (so nothing is hidden without JS), sets --draw-length on each line and, as each item scrolls
+   * into view, the delays and .is-drawn. Draw 900ms ease-out, then a 250ms 1 → 1.06 → 1 bump;
+   * the label fades up 8px. Reduced motion: everything shown, no animation.
+   */
+  .is-ready .draw-item {
+    & .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect):not([stroke="none"]) {
+      stroke-dasharray: var(--draw-length) var(--draw-length);
+      stroke-dashoffset: var(--draw-length);
+      stroke-opacity: 0;
+      /* stroke-opacity switches on (0s) when the line starts, so no round-cap dot shows before. */
+      transition:
+        stroke-dashoffset 900ms ease-out var(--draw-delay, 0ms),
+        stroke-opacity 0s linear var(--draw-delay, 0ms);
+    }
+
+    & .draw-item__label {
+      opacity: 0;
+      transform: translateY(--spacing(2));
+      transition:
+        opacity 300ms ease-out var(--label-delay, 0ms),
+        transform 300ms ease-out var(--label-delay, 0ms);
+    }
+
+    &.is-drawn .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect):not([stroke="none"]) {
+      stroke-dashoffset: 0;
+      stroke-opacity: 1;
+    }
+
+    &.is-drawn .draw-item__icon {
+      animation: draw-item-bump 250ms ease-out var(--bump-delay, 0ms) both;
+    }
+
+    &.is-drawn .draw-item__label {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Replay (styleguide): snap back to undrawn without transitioning. */
+  .is-ready.is-resetting .draw-item :is(*, * *) {
+    transition: none;
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce), print {
+    .is-ready .draw-item {
+      & .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect) {
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+        stroke-opacity: 1;
+        transition: none;
+      }
+
+      & .draw-item__icon {
+        animation: none;
+      }
+
+      & .draw-item__label {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  }
+
   .logo-marquee {
     --marquee-gap: --spacing(4);
     --marquee-tile: --spacing(42); /* 168px (Figma mobile) */
@@ -290,6 +357,10 @@
       aspect-ratio: 1;
     }
   }
+}
+
+@keyframes draw-item-bump {
+  50% { transform: scale(1.06); }
 }
 
 @keyframes logo-marquee-x {
