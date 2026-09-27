@@ -1,0 +1,14 @@
+// Cloudflare Workers config for the UAT preview only (the live site is Apache on OzHosting).
+// Static assets, no Worker script. Cloudflare's build command must be `npm run build:uat`;
+// `wrangler deploy` then uploads the already-built _site/ as-is and does not rebuild.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "acttree",
+  "compatibility_date": "2026-09-27",
+  "assets": {
+    "directory": "_site",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  "preview_urls": true
+}
