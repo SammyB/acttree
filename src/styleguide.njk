@@ -14,6 +14,11 @@ eleventyExcludeFromCollections: true
 {%- from "components/content-blocks.njk" import contentBlocks -%}
 {%- from "components/phone-link.njk" import phoneLink -%}
 
+{#- Styleguide-only: re-arms the scroll reveals inside `target` (reveal.js shows it when JS runs). -#}
+{%- macro replay(target) -%}
+<button type="button" class="rounded-full border border-ink px-4 py-2 text-sm font-semibold hover:bg-canvas" data-reveal-replay aria-controls="{{ target }}" hidden>Replay animation</button>
+{%- endmacro -%}
+
 {#- Feature hero (homepage). Holds this page's only <h1>. -#}
 {{ heroFeature("Component styleguide", text="Every component, fed from _data. Built in development only, never in production.", primary=site.cta.freeQuote, phone=site.phones | phoneById(site.cta.call.phone), callLabel=site.cta.call.label) }}
 
@@ -37,10 +42,21 @@ eleventyExcludeFromCollections: true
   </ul>
 </section>
 
+<section class="page-container space-y-4 pb-section-sm" aria-labelledby="sg-motion">
+  <h2 id="sg-motion" class="font-display text-3xl">Motion</h2>
+  <ul class="list-disc space-y-2 pl-6">
+    <li><strong>Scroll reveal</strong> (reveal.js, <code>data-reveal</code>): section headings, service and preview cards, and split text panels fade up 12px the first time they scroll into view. Things that appear together cascade 120ms apart in reading order. Anything already on screen when the page loads is left alone. The replay buttons below re-arm a section.</li>
+    <li><strong>Parallax</strong> (<code>parallax</code> utility, pure CSS): feature-hero and split-section photos drift ±5% as they scroll past. From 768px up, in Chrome, Edge and Safari 26+; a still photo elsewhere (e.g. Firefox). See the light split section below.</li>
+    <li><strong>Hover</strong>: button chevrons nudge right, service-card photos zoom 4%, desktop nav links grow a green underline, footer link underlines ease away from the text.</li>
+    <li><strong>Reduced motion</strong>: none of the above. Nothing is hidden and nothing moves.</li>
+  </ul>
+</section>
+
 <section class="bg-card py-section-sm" aria-labelledby="sg-cards">
   <div class="page-container">
     {{ sectionHeading("sg-cards", "Service cards", eyebrow="service-card") }}
-    <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-4">{{ replay("sg-cards-list") }}</div>
+    <ul id="sg-cards-list" class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {%- for service in services %}
       <li>{{ serviceCard(service) }}</li>
       {%- endfor %}
@@ -48,14 +64,15 @@ eleventyExcludeFromCollections: true
   </div>
 </section>
 
-{{ split("sg-split-light", "Split section, light", body=["Figma “Call to Action”, first instance: cream text panel with a full-height photo. On mobile the text comes first, then the image.", "No button in this instance."], eyebrow="split") }}
+{{ split("sg-split-light", "Split section, light", body=["Figma “Call to Action”, first instance: cream text panel with a full-height photo. On mobile the text comes first, then the image.", "No button in this instance.", "The photo has the parallax drift (768px and up)."], eyebrow="split", image=site.cta.band.image) }}
 
 {{ split("sg-split-dark", "Split section, dark", body=["Figma “Call to Action”, second instance: the quote band (components/cta.njk) uses this with site.cta.band."], eyebrow="split", tone="dark", primary=site.cta.quote) }}
 
 <section class="py-section-sm" aria-labelledby="sg-preview">
   <div class="page-container">
     {{ sectionHeading("sg-preview", "Preview cards", eyebrow="preview-card") }}
-    <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-4">{{ replay("sg-preview-list") }}</div>
+    <ul id="sg-preview-list" class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {%- for card in [
         { "heading": "Qualified people", "text": "Card with an image, an H3 and text." },
         { "heading": "Specialist equipment", "text": "Four across on desktop, one on mobile." },
@@ -71,7 +88,7 @@ eleventyExcludeFromCollections: true
 <section class="page-container space-y-2 pt-section-sm" aria-labelledby="sg-trust">
   <h2 id="sg-trust" class="font-display text-3xl">Trust icons (draw-on)</h2>
   <p>Each icon's lines draw on as it scrolls into view (once), then the icon bumps and the label fades up. Items that appear together cascade in reading order. No animation without JS or when the visitor prefers reduced motion.</p>
-  <button type="button" class="rounded-full border border-ink px-4 py-2 text-sm font-semibold" data-draw-replay aria-controls="sg-trust-list" hidden>Replay animation</button>
+  {{ replay("sg-trust-list") }}
 </section>
 {%- set trustId = "sg-trust-list" %}
 {% include "components/trust-icons.njk" %}

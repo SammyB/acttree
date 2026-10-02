@@ -1,13 +1,16 @@
 {#-
   Service card (Figma "CardBase - new"): image, H3, summary, primary "Learn More" button pinned to the
   bottom so buttons line up across a row. service: an item from services.json
+  Fades up on scroll (reveal.js); the photo zooms slightly while the card is hovered.
 -#}
 {%- from "components/button.njk" import button -%}
 {%- macro serviceCard(service, headingLevel=3) -%}
-<article class="flex h-full flex-col overflow-hidden rounded-card bg-page shadow-card">
+<article class="group flex h-full flex-col overflow-hidden rounded-card bg-page shadow-card" data-reveal>
   {#- 395 × 219 in Figma. Grey placeholder until a photo is supplied. #}
   {%- if service.image %}
-  <img src="{{ service.image.src }}" alt="{{ service.image.alt }}" sizes="(min-width: 1024px) 395px, (min-width: 768px) 50vw, 100vw" class="aspect-card w-full bg-placeholder-strong object-cover{{ ' object-lower' if service.image.position == 'lower' }}">
+  <div class="overflow-hidden">
+    <img src="{{ service.image.src }}" alt="{{ service.image.alt }}" sizes="(min-width: 1024px) 395px, (min-width: 768px) 50vw, 100vw" class="aspect-card w-full bg-placeholder-strong object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-104{{ ' object-lower' if service.image.position == 'lower' }}">
+  </div>
   {%- else %}
   <div class="aspect-card bg-placeholder-strong" aria-hidden="true"></div>
   {%- endif %}

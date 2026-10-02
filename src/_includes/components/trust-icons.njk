@@ -2,15 +2,15 @@
   Trust icons from site.trust (Figma "Frame 1618873017"): left-aligned, 96px green icon above an
   H3-size label. 3 columns on desktop, 1 on mobile. Brings its own canvas background and spacing.
   Icons are Tabler outline (stroke) SVGs, inlined by the icon shortcode, with the same names as the
-  Figma layers. /assets/js/trust-icons.js "draws" each icon's lines on as it scrolls into view;
+  Figma layers. reveal.js (data-reveal="draw") "draws" each icon's lines on as it scrolls into view;
   without JS, or when the visitor prefers reduced motion, the icons are simply shown.
   Optional: trustId (id on the list, e.g. for the styleguide's replay button).
 -#}
 <div class="bg-canvas section-y">
   <div class="page-container">
-    <ul class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-draw-icons{% if trustId %} id="{{ trustId }}"{% endif %}>
+    <ul class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"{% if trustId %} id="{{ trustId }}"{% endif %}>
       {%- for item in site.trust %}
-      <li class="draw-item flex flex-col items-start gap-4">
+      <li class="flex flex-col items-start gap-4" data-reveal="draw">
         {% icon item.icon, "draw-item__icon size-24 text-primary" %}
         <p class="draw-item__label font-display text-2xl font-semibold text-ink lg:text-3xl">{{ item.label }}</p>
       </li>
@@ -18,4 +18,3 @@
     </ul>
   </div>
 </div>
-<script type="module" src="/assets/js/trust-icons.js?v={{ env.buildId }}"></script>

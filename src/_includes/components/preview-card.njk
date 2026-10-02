@@ -1,9 +1,10 @@
 {#-
   Preview card (Figma "Preview Cards"): rounded image, H3 and text, with no card background.
   card: { heading, text, image?: { src, alt, position? } }
+  Fades up on scroll (reveal.js). No hover zoom: the card isn't a link.
 -#}
 {%- macro previewCard(card, headingLevel=3) -%}
-<article class="space-y-4">
+<article class="space-y-4" data-reveal>
   {#- 288 × 216 in Figma. #}
   {%- if card.image %}
   <img src="{{ card.image.src }}" alt="{{ card.image.alt }}" sizes="(min-width: 1024px) 288px, (min-width: 768px) 50vw, 100vw" class="aspect-photo w-full rounded-card bg-placeholder-strong object-cover{{ ' object-lower' if card.image.position == 'lower' }}">

@@ -24,8 +24,9 @@
         {%- set current = page.url == item.url %}
         <li class="xl:relative xl:flex">
           <div class="flex items-center justify-between gap-1">
-            {#- Figma "Navbars/Link": 3px bottom border on the current page (desktop). #}
-            <a href="{{ item.url }}" class="block flex-1 rounded-button px-3 py-2 whitespace-nowrap text-ink hover:text-primary xl:flex xl:h-full xl:flex-none xl:items-center xl:rounded-none xl:border-b-3 xl:px-1 xl:pt-1 xl:pb-0 {{ 'xl:border-stone' if current else 'xl:border-transparent xl:text-ink-muted' }}"{% if current %} aria-current="page"{% endif %}>{{ item.label }}</a>
+            {#- Figma "Navbars/Link": 3px bottom border on the current page (desktop). On hover a green
+                underline grows from the left over that border (xl only). #}
+            <a href="{{ item.url }}" class="block flex-1 rounded-button px-3 py-2 whitespace-nowrap text-ink hover:text-primary xl:relative xl:after:absolute xl:after:inset-x-1 xl:after:-bottom-0.75 xl:after:h-0.75 xl:after:origin-left xl:after:scale-x-0 xl:after:bg-primary xl:after:transition-transform xl:after:duration-300 xl:after:ease-out xl:hover:after:scale-x-100 xl:flex xl:h-full xl:flex-none xl:items-center xl:rounded-none xl:border-b-3 xl:px-1 xl:pt-1 xl:pb-0 {{ 'xl:border-stone' if current else 'xl:border-transparent xl:text-ink-muted' }}"{% if current %} aria-current="page"{% endif %}>{{ item.label }}</a>
             {%- if item.megaMenu %}
             <button type="button" class="group rounded-button p-2 text-ink hover:text-primary" aria-expanded="false" aria-controls="{{ submenuId }}" data-submenu-toggle>
               <span class="sr-only">Show {{ item.label }} menu</span>

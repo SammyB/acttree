@@ -117,6 +117,21 @@
   object-position: 50% 78%;
 }
 
+/* Photo drifts slower than the page as it scrolls past (Figma has no motion spec; kept subtle).
+   Pure CSS scroll-driven animation: md and up, motion allowed, and only in browsers that support
+   animation-timeline (Chrome, Edge, Safari 26+); everywhere else it's a still photo. The photo is
+   scaled up 12% so the ±5% drift never shows an edge; its parent must clip (overflow-hidden). */
+@utility parallax {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) and (width >= 48rem) {
+      scale: 1.12;
+      animation: parallax-drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+}
+
 /* Two carousel cards per view with a gap-8 (32px) between them. */
 @utility basis-half-gap-8 {
   flex-basis: calc(50% - --spacing(4));
@@ -157,12 +172,27 @@
   }
 
   /*
-   * Trust icons "draw-on" (components/trust-icons.njk). trust-icons.js adds .is-ready to the list
-   * (so nothing is hidden without JS), sets --draw-length on each line and, as each item scrolls
-   * into view, the delays and .is-drawn. Draw 900ms ease-out, then a 250ms 1 → 1.06 → 1 bump;
-   * the label fades up 8px. Reduced motion: everything shown, no animation.
+   * Scroll reveal (assets/js/reveal.js). Progressive enhancement: reveal.js adds .is-ready only to
+   * elements that are below the fold when it runs (nothing is hidden without JS), then .is-shown
+   * (and a staggered --reveal-delay) as each one scrolls into view. Reduced motion: never hidden.
+   *   [data-reveal]         fade up 12px over 600ms (section headings, cards, split text panels)
+   *   [data-reveal="draw"]  trust icons: each line draws on (900ms ease-out, lines 80ms apart),
+   *                         then a 250ms 1 → 1.06 → 1 bump; the label fades up 8px (300ms).
    */
-  .is-ready .draw-item {
+  [data-reveal].is-ready:not([data-reveal="draw"]) {
+    opacity: 0;
+    transform: translateY(--spacing(3));
+    transition:
+      opacity 600ms ease-out var(--reveal-delay, 0ms),
+      transform 600ms ease-out var(--reveal-delay, 0ms);
+
+    &.is-shown {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  [data-reveal="draw"].is-ready {
     & .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect):not([stroke="none"]) {
       stroke-dasharray: var(--draw-length) var(--draw-length);
       stroke-dashoffset: var(--draw-length);
@@ -181,45 +211,41 @@
         transform 300ms ease-out var(--label-delay, 0ms);
     }
 
-    &.is-drawn .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect):not([stroke="none"]) {
+    &.is-shown .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect):not([stroke="none"]) {
       stroke-dashoffset: 0;
       stroke-opacity: 1;
     }
 
-    &.is-drawn .draw-item__icon {
+    &.is-shown .draw-item__icon {
       animation: draw-item-bump 250ms ease-out var(--bump-delay, 0ms) both;
     }
 
-    &.is-drawn .draw-item__label {
+    &.is-shown .draw-item__label {
       opacity: 1;
       transform: none;
     }
   }
 
-  /* Replay (styleguide): snap back to undrawn without transitioning. */
-  .is-ready.is-resetting .draw-item :is(*, * *) {
-    transition: none;
-    animation: none;
+  /* reveal.js sets this on <html> for one frame to hide or reset elements without transitioning. */
+  :root.reveal-instant :is([data-reveal], [data-reveal] *) {
+    transition: none !important;
+    animation: none !important;
   }
 
   @media (prefers-reduced-motion: reduce), print {
-    .is-ready .draw-item {
-      & .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect) {
-        stroke-dasharray: none;
-        stroke-dashoffset: 0;
-        stroke-opacity: 1;
-        transition: none;
-      }
+    [data-reveal].is-ready,
+    [data-reveal].is-ready :is(.draw-item__icon, .draw-item__label) {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: none;
+    }
 
-      & .draw-item__icon {
-        animation: none;
-      }
-
-      & .draw-item__label {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
+    [data-reveal].is-ready .draw-item__icon :is(path, line, polyline, polygon, circle, ellipse, rect) {
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+      stroke-opacity: 1;
+      transition: none;
     }
   }
 
@@ -357,6 +383,11 @@
       aspect-ratio: 1;
     }
   }
+}
+
+@keyframes parallax-drift {
+  from { translate: 0 -5%; }
+  to { translate: 0 5%; }
 }
 
 @keyframes draw-item-bump {

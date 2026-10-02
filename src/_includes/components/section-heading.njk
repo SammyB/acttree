@@ -2,9 +2,10 @@
   Eyebrow + section heading (Figma "h2-lockup": body-base/uppercase kicker, h2 48/48 desktop, 36/40 mobile).
   The eyebrow is stored in sentence case and shown in capitals via CSS.
   tone: "light" | "dark" (cream text on dark sections)
+  reveal: fade up on scroll (reveal.js); false when a parent already reveals (split panels)
 -#}
-{%- macro sectionHeading(id, heading, eyebrow=null, tone="light") -%}
-<div class="space-y-4">
+{%- macro sectionHeading(id, heading, eyebrow=null, tone="light", reveal=true) -%}
+<div class="space-y-4"{% if reveal %} data-reveal{% endif %}>
   {%- if eyebrow %}
   <p class="text-base uppercase {{ 'text-on-dark' if tone == 'dark' else 'text-ink-muted' }}">{{ eyebrow }}</p>
   {%- endif %}

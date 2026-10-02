@@ -37,7 +37,11 @@ src/
 - **Never hard-code contact details, IDs or service copy in templates.** Read them from `_data`.
 - Build every repeated UI element as a component in `_includes/components/`. Pages only compose components.
 - Only use theme tokens: no arbitrary Tailwind values (`bg-[#...]`, `mt-[37px]`) and no inline styles.
-- Only add JS where needed (the mobile menu, the reviews carousel, the logo marquee's pause button, the service-page "On this page" scroll-spy, the trust icons' draw-on trigger). Use vanilla ES modules, no jQuery or frameworks. Animations are pure CSS and must have a `prefers-reduced-motion` fallback.
+- Only add JS where needed (the mobile menu, the reviews carousel, the logo marquee's pause button, the service-page "On this page" scroll-spy, and `reveal.js`, which triggers the scroll reveals). Use vanilla ES modules, no jQuery or frameworks. Animations are pure CSS and must have a `prefers-reduced-motion` fallback.
+- Motion:
+  - Scroll reveal: add `data-reveal` (fade up) or `data-reveal="draw"` (trust icons) to a component's root element. Don't nest reveals; pass `reveal=false` to `sectionHeading` inside an element that already reveals. Never use it on hero content: anything on screen at load is skipped anyway.
+  - Parallax: the `parallax` utility on a photo whose parent has `overflow-hidden` (pure CSS scroll-driven, md and up, still photo where unsupported). Only on the feature hero and split photos.
+  - Hover movement uses `motion-safe:`.
 - Accessibility:
   - use semantic landmarks, with one `<h1>` per page
   - every image needs `alt`

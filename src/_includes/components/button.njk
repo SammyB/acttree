@@ -4,6 +4,7 @@
   size:    sm (14px text, mobile menu) | md (16px text, header/cards) | lg (18px text, hero)
   icon:    trailing icon name (Figma "Icon R" = circle chevron); null for none
   class:   extra classes, e.g. "w-full lg:w-auto" for full-width mobile buttons
+  The trailing icon nudges right on hover.
   Labels are Title Case. Usage: {% from "components/button.njk" import button %}
          {{ button("Request a Quote", url="/contact/") }}
 -#}
@@ -18,8 +19,8 @@
   "md": "rounded-button px-4 py-3 text-base leading-6",
   "lg": "rounded-button px-6 py-4 text-lg leading-7"
 } -%}
-{%- set classes = "inline-flex items-center justify-center gap-2 border-2 font-normal transition-colors " + sizes[size] + " " + variants[variant] + " " + class -%}
-{%- set iconHtml -%}{% if icon %}{% icon icon, ("size-6" if size == "lg" else ("size-4" if size == "sm" else "size-5")) + " shrink-0" %}{% endif %}{%- endset -%}
+{%- set classes = "group/btn inline-flex items-center justify-center gap-2 border-2 font-normal transition-colors " + sizes[size] + " " + variants[variant] + " " + class -%}
+{%- set iconHtml -%}{% if icon %}{% icon icon, ("size-6" if size == "lg" else ("size-4" if size == "sm" else "size-5")) + " shrink-0 transition-transform motion-safe:group-hover/btn:translate-x-1" %}{% endif %}{%- endset -%}
 {%- if url -%}
 <a href="{{ url }}" class="{{ classes }}" {{ attrs | safe }}>{{ caller() if caller else label }}{{ iconHtml | safe }}</a>
 {%- else -%}

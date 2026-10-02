@@ -52,6 +52,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="/assets/css/main.css?v={{ env.buildId }}">
+  {#- Scroll reveal for [data-reveal] in any component (fade up, trust-icon draw-on). Deferred. #}
+  <script type="module" src="/assets/js/reveal.js?v={{ env.buildId }}"></script>
 
   <script type="application/ld+json">
 {{ site | localBusinessJsonLd | safe }}

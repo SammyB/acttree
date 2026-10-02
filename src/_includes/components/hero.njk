@@ -37,10 +37,10 @@
 {%- macro heroFeature(heading, text=null, primary=null, phone=null, callLabel=null, image=null) -%}
 <section class="relative isolate overflow-hidden bg-dark text-on-dark" aria-labelledby="page-title">
   {#- Photo: fairy-wren, 1467 × 762 desktop (a separate mobile crop is still to come from the designer).
-      Above the fold, so it loads eagerly with high priority. #}
+      Above the fold, so it loads eagerly with high priority. Parallax drift on md and up. #}
   <div class="absolute inset-0 -z-20 bg-placeholder-strong">
     {%- if image %}
-    <img src="{{ image.src }}" alt="{{ image.alt }}" sizes="100vw" eleventy:widths="768,1440,2172" loading="eager" fetchpriority="high" class="size-full object-cover">
+    <img src="{{ image.src }}" alt="{{ image.alt }}" sizes="100vw" eleventy:widths="768,1440,2172" loading="eager" fetchpriority="high" class="parallax size-full object-cover">
     {%- endif %}
   </div>
   {#- Figma overlay: black 55% up to 65% across, fading to clear at the right edge. #}
@@ -54,7 +54,7 @@
       {%- if primary or phone %}
       <div class="flex flex-col gap-4 sm:flex-row">
         {%- if primary %}{{ button(primary.label, url=primary.url, size="lg") }}{% endif %}
-        {%- if phone %}{{ phoneLink(phone, label=callLabel, showIcon=false, trailingIcon="circle-chevron-right", trailingIconClass="size-6", class="justify-center rounded-button border-2 border-primary bg-page px-6 py-4 text-lg leading-7 text-primary hover:bg-canvas") }}{% endif %}
+        {%- if phone %}{{ phoneLink(phone, label=callLabel, showIcon=false, trailingIcon="circle-chevron-right", trailingIconClass="size-6 transition-transform motion-safe:group-hover/btn:translate-x-1", class="group/btn justify-center rounded-button border-2 border-primary bg-page px-6 py-4 text-lg leading-7 text-primary hover:bg-canvas") }}{% endif %}
       </div>
       {%- endif %}
     </div>
