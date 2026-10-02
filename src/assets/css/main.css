@@ -19,6 +19,9 @@
   }
 }
 
+/* Form field flagged invalid by quote-form.js (aria-invalid="true"). */
+@custom-variant field-invalid (&[aria-invalid="true"]);
+
 @theme {
   /* Reset Tailwind's default palette so only project tokens exist. */
   --color-*: initial;
@@ -45,6 +48,9 @@
   --color-on-primary: #fffcf7;    /* fg/on-accent */
   --color-card: #ffffff;          /* white: review cards, logo tiles */
   --color-star: #e8a317;
+  /* Form errors. Not in the Figma yet (no error state designed): AA on white and cream. */
+  --color-danger: #b42318;
+  --color-danger-subtle: #fef3f2; /* invalid field background */
   --color-focus: #047dba;         /* blue-500, only used for the focus ring */
 
   --font-sans: "Alexandria", ui-sans-serif, system-ui, sans-serif;
